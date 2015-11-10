@@ -13,13 +13,13 @@
 typedef NS_ENUM(NSInteger, iToastPosition)
 {
     /// 居中
-    PositionCenter = 1,
+    iToastPositionCenter = 1,
     
     /// 偏顶
-    PositionTop = 2,
+    iToastPositionTop = 2,
     
     /// 偏底
-    PositionBottom = 3,
+    iToastPositionBottom = 3,
 };
 
 @interface iToast : UIView
