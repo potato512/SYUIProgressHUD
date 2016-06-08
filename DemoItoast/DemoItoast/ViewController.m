@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "iToast.h"
+#import "iToast+SYCategory.h"
 
 @interface ViewController ()
 
@@ -35,7 +35,21 @@
     NSArray *positons = @[[NSNumber numberWithInteger:iToastPositionBottom], [NSNumber numberWithInteger:iToastPositionCenter], [NSNumber numberWithInteger:iToastPositionTop]];
     NSString *message = messages[arc4random() % messages.count];
     NSNumber *position = positons[arc4random() % positons.count];
-    [[iToast shareIToast] showText:message postion:position.integerValue];
+    // 方法1
+//    [[iToast shareIToast] showText:message postion:position.integerValue];
+    // 方法2 扩展类方法
+    if (iToastPositionTop == position.integerValue)
+    {
+        [iToast alertWithTitle:message];
+    }
+    else if (iToastPositionCenter == position.integerValue)
+    {
+        [iToast alertWithTitleCenter:message];
+    }
+    else if (iToastPositionBottom == position.integerValue)
+    {
+        [iToast alertWithTitleBottom:message];
+    }
 }
 
 @end

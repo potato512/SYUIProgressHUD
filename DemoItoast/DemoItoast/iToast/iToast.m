@@ -1,6 +1,6 @@
 //
 //  iToast.m
-//  iToast
+//  zhangshaoyu
 //
 //  Created by zhangshaoyu on 15/7/30.
 //  Copyright (c) 2015年 zhangshaoyu. All rights reserved.
@@ -40,7 +40,7 @@ static CGFloat sizelabel = 8.0;
 /// 显示信息（默认位置为居中）
 - (void)showText:(NSString *)text
 {
-    [self showText:text postion:PositionCenter];
+    [self showText:text postion:iToastPositionCenter];
 }
 
 /// 隐藏
@@ -76,11 +76,11 @@ static CGFloat sizelabel = 8.0;
         CGFloat labelY = 20.0 + 44.0 + sizeSpace;
         CGFloat labelWidth = textSize.width + sizelabel;
         CGFloat labelHeight = textSize.height + sizelabel;
-        if (PositionCenter == position)
+        if (iToastPositionCenter == position)
         {
             labelY = (windowView.frame.size.height - labelHeight) / 2;
         }
-        else if (PositionBottom == position)
+        else if (iToastPositionBottom == position)
         {
             labelY = (windowView.frame.size.height - labelHeight - sizeSpace);
         }
@@ -89,7 +89,7 @@ static CGFloat sizelabel = 8.0;
         [windowView addSubview:self.button];
         self.button.frame = self.textlabel.frame;
         
-        [self performSelector:@selector(hidden) withObject:nil afterDelay:1.2];
+        [self performSelector:@selector(hidden) withObject:nil afterDelay:1.6];
     }
 }
 
