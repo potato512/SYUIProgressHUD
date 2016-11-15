@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "iToast+SYCategory.h"
+#import "SYToast+SYCategory.h"
 
 @interface ViewController ()
 
@@ -21,7 +21,7 @@
     
     self.title = @"iToast";
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"iToast" style:UIBarButtonItemStyleDone target:self action:@selector(buttonClick)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"SYToast" style:UIBarButtonItemStyleDone target:self action:@selector(buttonClick)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,15 +40,15 @@
     // 方法2 扩展类方法
     if (iToastPositionTop == position.integerValue)
     {
-        [iToast alertWithTitle:message];
+        [SYToast alertWithTitle:message];
     }
     else if (iToastPositionCenter == position.integerValue)
     {
-        [iToast alertWithTitleCenter:message];
+        [SYToast alertWithTitleCenter:message];
     }
     else if (iToastPositionBottom == position.integerValue)
     {
-        [iToast alertWithTitleBottom:message];
+        [SYToast alertWithTitleBottom:message];
     }
 }
 

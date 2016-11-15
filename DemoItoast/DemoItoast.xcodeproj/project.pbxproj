@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A77146081D07C7CC00BA7830 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = A77146071D07C7CC00BA7830 /* iToast.m */; };
-		A771460B1D07C88100BA7830 /* iToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A771460A1D07C88100BA7830 /* iToast+SYCategory.m */; };
+		A77146081D07C7CC00BA7830 /* SYToast.m in Sources */ = {isa = PBXBuildFile; fileRef = A77146071D07C7CC00BA7830 /* SYToast.m */; };
+		A771460B1D07C88100BA7830 /* SYToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A771460A1D07C88100BA7830 /* SYToast+SYCategory.m */; };
 		A7F415D61B69B8D200DD360A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F415D51B69B8D200DD360A /* main.m */; };
 		A7F415D91B69B8D200DD360A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F415D81B69B8D200DD360A /* AppDelegate.m */; };
 		A7F415DC1B69B8D200DD360A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F415DB1B69B8D200DD360A /* ViewController.m */; };
@@ -29,10 +29,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A77146061D07C7CC00BA7830 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
-		A77146071D07C7CC00BA7830 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
-		A77146091D07C88100BA7830 /* iToast+SYCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iToast+SYCategory.h"; sourceTree = "<group>"; };
-		A771460A1D07C88100BA7830 /* iToast+SYCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "iToast+SYCategory.m"; sourceTree = "<group>"; };
+		A77146061D07C7CC00BA7830 /* SYToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYToast.h; sourceTree = "<group>"; };
+		A77146071D07C7CC00BA7830 /* SYToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYToast.m; sourceTree = "<group>"; };
+		A77146091D07C88100BA7830 /* SYToast+SYCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SYToast+SYCategory.h"; sourceTree = "<group>"; };
+		A771460A1D07C88100BA7830 /* SYToast+SYCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SYToast+SYCategory.m"; sourceTree = "<group>"; };
 		A7F415D01B69B8D200DD360A /* DemoItoast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoItoast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F415D41B69B8D200DD360A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7F415D51B69B8D200DD360A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -69,10 +69,10 @@
 		A77146051D07C7CC00BA7830 /* iToast */ = {
 			isa = PBXGroup;
 			children = (
-				A77146061D07C7CC00BA7830 /* iToast.h */,
-				A77146071D07C7CC00BA7830 /* iToast.m */,
-				A77146091D07C88100BA7830 /* iToast+SYCategory.h */,
-				A771460A1D07C88100BA7830 /* iToast+SYCategory.m */,
+				A77146061D07C7CC00BA7830 /* SYToast.h */,
+				A77146071D07C7CC00BA7830 /* SYToast.m */,
+				A77146091D07C88100BA7830 /* SYToast+SYCategory.h */,
+				A771460A1D07C88100BA7830 /* SYToast+SYCategory.m */,
 			);
 			path = iToast;
 			sourceTree = "<group>";
@@ -239,9 +239,9 @@
 			files = (
 				A7F415DC1B69B8D200DD360A /* ViewController.m in Sources */,
 				A7F415D91B69B8D200DD360A /* AppDelegate.m in Sources */,
-				A771460B1D07C88100BA7830 /* iToast+SYCategory.m in Sources */,
+				A771460B1D07C88100BA7830 /* SYToast+SYCategory.m in Sources */,
 				A7F415D61B69B8D200DD360A /* main.m in Sources */,
-				A77146081D07C7CC00BA7830 /* iToast.m in Sources */,
+				A77146081D07C7CC00BA7830 /* SYToast.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

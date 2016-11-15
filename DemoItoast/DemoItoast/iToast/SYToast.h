@@ -1,5 +1,5 @@
 //
-//  iToast.h
+//  SYToast.h
 //  zhangshaoyu
 //
 //  Created by zhangshaoyu on 15/7/30.
@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, iToastPosition)
     iToastPositionBottom = 3,
 };
 
-@interface iToast : UIView
+@interface SYToast : UIView
 
 /// 单例
 + (id)shareIToast;

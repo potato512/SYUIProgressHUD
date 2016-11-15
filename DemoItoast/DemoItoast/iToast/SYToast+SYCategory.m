@@ -1,14 +1,14 @@
 //
-//  iToast+SYCategory.m
+//  SYToast+SYCategory.m
 //  zhangshaoyu
 //
 //  Created by zhangshaoyu on 15/7/30.
 //  Copyright (c) 2015年 zhangshaoyu. All rights reserved.
 //
 
-#import "iToast+SYCategory.h"
+#import "SYToast+SYCategory.h"
 
-@implementation iToast (SYCategory)
+@implementation SYToast (SYCategory)
 
 // 实例化iToast
 + (void)alertWithTitle:(NSString *)title
@@ -18,7 +18,7 @@
         return ;
     }
     
-    [[iToast shareIToast] showText:title postion:iToastPositionTop];
+    [[SYToast shareIToast] showText:title postion:iToastPositionTop];
 }
 
 + (void)alertWithTitleCenter:(NSString *)title
@@ -28,7 +28,7 @@
         return ;
     }
     
-    [[iToast shareIToast] showText:title postion:iToastPositionCenter];
+    [[SYToast shareIToast] showText:title postion:iToastPositionCenter];
 }
 
 + (void)alertWithTitleBottom:(NSString *)title
@@ -38,13 +38,13 @@
         return ;
     }
     
-    [[iToast shareIToast] showText:title postion:iToastPositionBottom];
+    [[SYToast shareIToast] showText:title postion:iToastPositionBottom];
 }
 
 // 隐藏iToast
 + (void)hiddenIToast
 {
-    [[iToast shareIToast] hidden];
+    [[SYToast shareIToast] hidden];
 }
 
 /// 字符非空判断（可以是空格字符串）
