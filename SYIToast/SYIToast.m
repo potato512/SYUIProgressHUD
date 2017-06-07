@@ -1,12 +1,12 @@
 //
-//  SYToast.m
+//  SYIToast.m
 //  zhangshaoyu
 //
 //  Created by zhangshaoyu on 15/7/30.
 //  Copyright (c) 2015年 zhangshaoyu. All rights reserved.
 //
 
-#import "SYToast.h"
+#import "SYIToast.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define FontSize ([UIFont systemFontOfSize:16.0])
@@ -14,7 +14,7 @@ static CGFloat sizeSpace = 40.0;
 static CGFloat sizelabel = 8.0;
 #define maxlabel (self.backView.frame.size.width - 20.0 * 2)
 
-@interface SYToast ()
+@interface SYIToast ()
 
 @property (nonatomic, strong) UIView *backView;
 @property (nonatomic, strong) UILabel *textlabel;
@@ -22,12 +22,12 @@ static CGFloat sizelabel = 8.0;
 
 @end
 
-@implementation SYToast
+@implementation SYIToast
 
 /// 单例
 + (id)shareIToast
 {
-    static SYToast *iToastManager;
+    static SYIToast *iToastManager;
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{

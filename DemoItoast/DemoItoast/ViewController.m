@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "SYToast+SYCategory.h"
+#import "SYIToast+SYCategory.h"
 
 @interface ViewController ()
 
@@ -40,15 +40,15 @@
     // 方法2 扩展类方法
     if (iToastPositionTop == position.integerValue)
     {
-        [SYToast alertWithTitle:message];
+        [SYIToast alertWithTitle:message];
     }
     else if (iToastPositionCenter == position.integerValue)
     {
-        [SYToast alertWithTitleCenter:message];
+        [SYIToast alertWithTitleCenter:message];
     }
     else if (iToastPositionBottom == position.integerValue)
     {
-        [SYToast alertWithTitleBottom:message];
+        [SYIToast alertWithTitleBottom:message];
     }
 }
 

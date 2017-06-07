@@ -1,14 +1,14 @@
 //
-//  SYToast+SYCategory.h
+//  SYIToast+SYCategory.h
 //  zhangshaoyu
 //
 //  Created by zhangshaoyu on 15/7/30.
 //  Copyright (c) 2015年 zhangshaoyu. All rights reserved.
 //
 
-#import "SYToast.h"
+#import "SYIToast.h"
 
-@interface SYToast (SYCategory)
+@interface SYIToast (SYCategory)
 
 /// 顶端显示提示iToast
 + (void)alertWithTitle:(NSString *)title;
