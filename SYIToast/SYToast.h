@@ -31,7 +31,7 @@ typedef NS_ENUM(NSInteger, iToastPosition)
 - (void)showText:(NSString *)text;
 
 /// 隐藏
-- (void)hidden;
+- (void)hiddenIToast;
 
 /// 显示信息，自定义显示位置
 - (void)showText:(NSString *)text postion:(iToastPosition)position;

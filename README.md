@@ -1,7 +1,7 @@
 # SYToast
 提示信息弹窗
 
-#使用示例
+# 使用示例
 ~~~ javascript
 #import "SYToast.h"
 // 或
@@ -28,7 +28,13 @@ else if (iToastPositionBottom == position.integerValue)
 }
 ~~~
 
-#效果图
+# 效果图
 * 随机位置显示：顶端提示效果，或中间提示效果，或底端提示效果
 
 ![SYToast](./images/SYToast.gif) 
+
+
+#### 修改说明
+* 20170607
+  * 方法名称修改，避免其他库文件方法同名。
+

@@ -44,7 +44,7 @@
 // 隐藏iToast
 + (void)hiddenIToast
 {
-    [[SYToast shareIToast] hidden];
+    [[SYToast shareIToast] hiddenIToast];
 }
 
 /// 字符非空判断（可以是空格字符串）

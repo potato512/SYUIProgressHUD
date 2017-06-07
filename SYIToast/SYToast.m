@@ -12,10 +12,11 @@
 #define FontSize ([UIFont systemFontOfSize:16.0])
 static CGFloat sizeSpace = 40.0;
 static CGFloat sizelabel = 8.0;
-#define maxlabel (windowView.frame.size.width - 20.0 * 2)
+#define maxlabel (self.backView.frame.size.width - 20.0 * 2)
 
 @interface SYToast ()
 
+@property (nonatomic, strong) UIView *backView;
 @property (nonatomic, strong) UILabel *textlabel;
 @property (nonatomic, strong) UIButton *button;
 
@@ -44,7 +45,7 @@ static CGFloat sizelabel = 8.0;
 }
 
 /// 隐藏
-- (void)hidden
+- (void)hiddenIToast
 {
     if (self.textlabel.superview)
     {
@@ -64,36 +65,46 @@ static CGFloat sizelabel = 8.0;
 {
     if (text && 0 < text.length)
     {
-        [self hidden];
-        
-        UIView *windowView = [UIApplication sharedApplication].delegate.window;
-        
-        [windowView addSubview:self.textlabel];
+        [self hiddenIToast];
+
+        [self.backView addSubview:self.textlabel];
         self.textlabel.text = text;
 
         CGSize textSize = [text sizeWithFont:FontSize constrainedToSize:CGSizeMake(maxlabel, maxlabel)];
-        CGFloat labelX = (windowView.frame.size.width - textSize.width) / 2;
+        CGFloat labelX = (self.backView.frame.size.width - textSize.width) / 2;
         CGFloat labelY = 20.0 + 44.0 + sizeSpace;
         CGFloat labelWidth = textSize.width + sizelabel;
         CGFloat labelHeight = textSize.height + sizelabel;
         if (iToastPositionCenter == position)
         {
-            labelY = (windowView.frame.size.height - labelHeight) / 2;
+            labelY = (self.backView.frame.size.height - labelHeight) / 2;
         }
         else if (iToastPositionBottom == position)
         {
-            labelY = (windowView.frame.size.height - labelHeight - sizeSpace);
+            labelY = (self.backView.frame.size.height - labelHeight - sizeSpace);
         }
         self.textlabel.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
         
-        [windowView addSubview:self.button];
+        [self.backView addSubview:self.button];
         self.button.frame = self.textlabel.frame;
         
-        [self performSelector:@selector(hidden) withObject:nil afterDelay:1.6];
+        if ([self respondsToSelector:@selector(hiddenIToast)])
+        {
+            [self performSelector:@selector(hiddenIToast) withObject:nil afterDelay:1.6];
+        }
     }
 }
 
-#pragma mark - setter
+#pragma mark - getter
+
+- (UIView *)backView
+{
+    if (_backView == nil)
+    {
+        _backView = [UIApplication sharedApplication].delegate.window;
+    }
+    return _backView;
+}
 
 - (UILabel *)textlabel
 {
@@ -130,7 +141,7 @@ static CGFloat sizelabel = 8.0;
 
 - (void)buttonClick
 {
-    [self hidden];
+    [self hiddenIToast];
 }
 
 @end
