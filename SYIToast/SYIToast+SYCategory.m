@@ -47,7 +47,7 @@
     [[SYIToast shareIToast] hiddenIToast];
 }
 
-/// 字符非空判断（可以是空格字符串）
+// 字符非空判断（可以是空格字符串）
 + (BOOL)isNullNSStringWithText:(NSString *)text
 {
     if (!text || [text isEqualToString:@""] || 0 == text.length)

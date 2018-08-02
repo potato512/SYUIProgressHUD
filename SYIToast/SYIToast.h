@@ -4,7 +4,7 @@
 //
 //  Created by zhangshaoyu on 15/7/30.
 //  Copyright (c) 2015年 zhangshaoyu. All rights reserved.
-//  提示语弹窗视图
+//  https://github.com/potato512/SYToast
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>

@@ -4,7 +4,7 @@
 //
 //  Created by zhangshaoyu on 15/7/30.
 //  Copyright (c) 2015年 zhangshaoyu. All rights reserved.
-//
+//  https://github.com/potato512/SYToast
 
 #import "SYIToast.h"
 
