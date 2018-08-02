@@ -3,7 +3,7 @@
 
 
 * 使用介绍 
-  * 自动导入：使用命令`pod 'SYToast'`导入到项目中
+  * 自动导入：使用命令`pod 'SYIToast'`导入到项目中
   * 手动导入：或下载源码后，将源码添加到项目中
   
 
@@ -11,9 +11,9 @@
 
 导入头文件
 ```
-#import "SYToast.h"
+#import "SYIToast"
 // 或
-#import "SYToast+SYCategory.h"
+#import "SYIToast+SYCategory.h"
 ```
 
 ```
@@ -25,22 +25,22 @@ NSNumber *position = positons[arc4random() % positons.count];
 
 方法1
 ```
-[[SYToast shareIToast] showText:message postion:position.integerValue];
+[[SYIToast shareIToast] showText:message postion:position.integerValue];
 ```
 
 方法2 扩展类方法
 ```
 if (iToastPositionTop == position.integerValue)
 {
-    [SYToast alertWithTitle:message];
+    [SYIToast alertWithTitle:message];
 }
 else if (iToastPositionCenter == position.integerValue)
 {
-    [SYToast alertWithTitleCenter:message];
+    [SYIToast alertWithTitleCenter:message];
 }
 else if (iToastPositionBottom == position.integerValue)
 {
-    [SYToast alertWithTitleBottom:message];
+    [SYIToast alertWithTitleBottom:message];
 }
 ```
 
