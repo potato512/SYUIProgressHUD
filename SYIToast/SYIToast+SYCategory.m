@@ -13,45 +13,41 @@
 // 实例化iToast
 + (void)alertWithTitle:(NSString *)title
 {
-    if ([self isNullNSStringWithText:title])
-    {
+    if ([self isNullNSStringWithText:title]) {
         return ;
     }
     
-    [[SYIToast shareIToast] showText:title postion:iToastPositionTop];
+    [[SYIToast shareIToast] showText:title postion:SYIToastPositionTop];
 }
 
 + (void)alertWithTitleCenter:(NSString *)title
 {
-    if ([self isNullNSStringWithText:title])
-    {
+    if ([self isNullNSStringWithText:title]) {
         return ;
     }
     
-    [[SYIToast shareIToast] showText:title postion:iToastPositionCenter];
+    [[SYIToast shareIToast] showText:title postion:SYIToastPositionCenter];
 }
 
 + (void)alertWithTitleBottom:(NSString *)title
 {
-    if ([self isNullNSStringWithText:title])
-    {
+    if ([self isNullNSStringWithText:title]) {
         return ;
     }
     
-    [[SYIToast shareIToast] showText:title postion:iToastPositionBottom];
+    [[SYIToast shareIToast] showText:title postion:SYIToastPositionBottom];
 }
 
 // 隐藏iToast
-+ (void)hiddenIToast
++ (void)hideIToast
 {
-    [[SYIToast shareIToast] hiddenIToast];
+    [[SYIToast shareIToast] hideIToast];
 }
 
 // 字符非空判断（可以是空格字符串）
 + (BOOL)isNullNSStringWithText:(NSString *)text
 {
-    if (!text || [text isEqualToString:@""] || 0 == text.length)
-    {
+    if (!text || [text isEqualToString:@""] || 0 == text.length) {
         return YES;
     }
     

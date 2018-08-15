@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SYIToast"
-  s.version      = "1.0.0"
+  s.version      = "1.1.0"
   s.summary      = "SYIToast used to show message which can be auto hide or while touch."
   s.homepage     = "https://github.com/potato512/SYToast"
   s.license      = { :type => "MIT", :file => "LICENSE" }
@@ -10,4 +10,5 @@ Pod::Spec.new do |s|
   s.source_files  = "SYIToast/*.{h,m}"
   s.frameworks   = "UIKit", "Foundation"
   s.requires_arc = true
+  s.dependency "MBProgressHUD"
 end

@@ -9,17 +9,20 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "SYToastView.h"
+#import "SYHUDProgress.h"
+
 /// 显示位置，居中，偏顶端，偏底端
-typedef NS_ENUM(NSInteger, iToastPosition)
+typedef NS_ENUM(NSInteger, SYIToastPosition)
 {
     /// 居中
-    iToastPositionCenter = 1,
+    SYIToastPositionCenter = 1,
     
     /// 偏顶
-    iToastPositionTop = 2,
+    SYIToastPositionTop = 2,
     
     /// 偏底
-    iToastPositionBottom = 3,
+    SYIToastPositionBottom = 3,
 };
 
 @interface SYIToast : UIView
@@ -27,13 +30,23 @@ typedef NS_ENUM(NSInteger, iToastPosition)
 /// 单例
 + (id)shareIToast;
 
+/// 延迟隐藏时间（默认1.6秒）
+@property (nonatomic, assign) NSTimeInterval hideTime;
+/// 背景颜色（默认黑色）
+@property (nonatomic, strong) UIColor *bgroundColor;
+/// 字体颜色（默认白色）
+@property (nonatomic, strong) UIColor *textColor;
+/// 字体大小（默认16）
+@property (nonatomic, strong) UIFont *textFont;
+
+
 /// 显示信息（默认位置为居中）
 - (void)showText:(NSString *)text;
 
-/// 隐藏
-- (void)hiddenIToast;
-
 /// 显示信息，自定义显示位置
-- (void)showText:(NSString *)text postion:(iToastPosition)position;
+- (void)showText:(NSString *)text postion:(SYIToastPosition)position;
+
+/// 隐藏
+- (void)hideIToast;
 
 @end

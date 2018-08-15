@@ -7,9 +7,11 @@
 //
 
 #import "ViewController.h"
-#import "SYIToast+SYCategory.h"
+#import "ToastVC.h"
+#import "NetworkVC.h"
+#import "HUDVC.h"
 
-@interface ViewController ()
+@interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @end
 
@@ -19,9 +21,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.title = @"iToast";
+    self.title = @"弹窗提示";
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"SYToast" style:UIBarButtonItemStyleDone target:self action:@selector(buttonClick)];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    [self.view addSubview:tableView];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    tableView.tableFooterView = [UIView new];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,27 +35,51 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)buttonClick
+- (void)loadView
 {
-    NSArray *messages = @[@"出错了，赶紧找问题吧！", @"正确！", @"因为你的不努力，现在发现了很多存在的隐患，你必须在规定的时间点完成所有的工作。否则后果很严重！"];
-    NSArray *positons = @[[NSNumber numberWithInteger:iToastPositionBottom], [NSNumber numberWithInteger:iToastPositionCenter], [NSNumber numberWithInteger:iToastPositionTop]];
-    NSString *message = messages[arc4random() % messages.count];
-    NSNumber *position = positons[arc4random() % positons.count];
-    // 方法1
-//    [[iToast shareIToast] showText:message postion:position.integerValue];
-    // 方法2 扩展类方法
-    if (iToastPositionTop == position.integerValue)
-    {
-        [SYIToast alertWithTitle:message];
+    [super loadView];
+    self.view.backgroundColor = [UIColor whiteColor];
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        [self setEdgesForExtendedLayout:UIRectEdgeNone];
     }
-    else if (iToastPositionCenter == position.integerValue)
-    {
-        [SYIToast alertWithTitleCenter:message];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
     }
-    else if (iToastPositionBottom == position.integerValue)
-    {
-        [SYIToast alertWithTitleBottom:message];
+    
+    if (indexPath.row == 0) {
+        cell.textLabel.text = @"SYIToast";
+    } else if (indexPath.row == 1) {
+        cell.textLabel.text = @"SYNetworkStatusView";
+    } else if (indexPath.row == 2) {
+        cell.textLabel.text = @"SYHUDManager";
     }
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    UIViewController *nextVC = nil;
+    if (indexPath.row == 0) {
+        nextVC = [ToastVC new];
+    } else if (indexPath.row == 1) {
+        nextVC = [NetworkVC new];
+    } else if (indexPath.row == 2) {
+        nextVC = [HUDVC new];
+    }
+    [self.navigationController pushViewController:nextVC animated:YES];
 }
 
 @end

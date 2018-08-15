@@ -16,6 +16,15 @@
 		A7F415E11B69B8D200DD360A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7F415E01B69B8D200DD360A /* Images.xcassets */; };
 		A7F415E41B69B8D200DD360A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7F415E21B69B8D200DD360A /* LaunchScreen.xib */; };
 		A7F415F01B69B8D200DD360A /* DemoItoastTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F415EF1B69B8D200DD360A /* DemoItoastTests.m */; };
+		A9E09AF24A6B6B5302CB05D8 /* libPods-DemoItoast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F79D2D2F5313F7271CE5C3A /* libPods-DemoItoast.a */; };
+		D9CFB2CE6A886B8A1FE4E552 /* libPods-DemoItoastTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B116BAE8C95FE7D0A0ADB493 /* libPods-DemoItoastTests.a */; };
+		DF7FE95F2124747A00042EFB /* SYToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7FE95E2124747A00042EFB /* SYToastView.m */; };
+		DF7FE961212478E000042EFB /* withoutNetwork.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7FE960212478E000042EFB /* withoutNetwork.png */; };
+		DF7FE9632124793800042EFB /* withNetwork.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7FE9622124793700042EFB /* withNetwork.png */; };
+		DF7FE96621247A1D00042EFB /* ToastVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7FE96521247A1D00042EFB /* ToastVC.m */; };
+		DF7FE96921247A2F00042EFB /* NetworkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7FE96821247A2F00042EFB /* NetworkVC.m */; };
+		DF7FE96C21247A4900042EFB /* HUDVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7FE96B21247A4900042EFB /* HUDVC.m */; };
+		DF7FE96F2124844200042EFB /* SYHUDProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7FE96E2124844200042EFB /* SYHUDProgress.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,10 +38,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2F79D2D2F5313F7271CE5C3A /* libPods-DemoItoast.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DemoItoast.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2EFA80F30E1353BABC029A5 /* Pods-DemoItoastTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoItoastTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoItoastTests/Pods-DemoItoastTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A79396F71EE7D85B0097E0B4 /* SYIToast+SYCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SYIToast+SYCategory.h"; sourceTree = "<group>"; };
 		A79396F81EE7D85B0097E0B4 /* SYIToast+SYCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SYIToast+SYCategory.m"; sourceTree = "<group>"; };
 		A79396F91EE7D85B0097E0B4 /* SYIToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYIToast.h; sourceTree = "<group>"; };
 		A79396FA1EE7D85B0097E0B4 /* SYIToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYIToast.m; sourceTree = "<group>"; };
+		A7CDA8E3977C5EA086CBDD67 /* Pods-DemoItoast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoItoast.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoItoast/Pods-DemoItoast.release.xcconfig"; sourceTree = "<group>"; };
 		A7F415D01B69B8D200DD360A /* DemoItoast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoItoast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F415D41B69B8D200DD360A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7F415D51B69B8D200DD360A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -46,6 +58,21 @@
 		A7F415E91B69B8D200DD360A /* DemoItoastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoItoastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F415EE1B69B8D200DD360A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7F415EF1B69B8D200DD360A /* DemoItoastTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoItoastTests.m; sourceTree = "<group>"; };
+		B116BAE8C95FE7D0A0ADB493 /* libPods-DemoItoastTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DemoItoastTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D83F554EFB39E9884D9E332F /* Pods-DemoItoastTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoItoastTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoItoastTests/Pods-DemoItoastTests.release.xcconfig"; sourceTree = "<group>"; };
+		DF7FE95D2124747A00042EFB /* SYToastView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYToastView.h; sourceTree = "<group>"; };
+		DF7FE95E2124747A00042EFB /* SYToastView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYToastView.m; sourceTree = "<group>"; };
+		DF7FE960212478E000042EFB /* withoutNetwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = withoutNetwork.png; sourceTree = "<group>"; };
+		DF7FE9622124793700042EFB /* withNetwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = withNetwork.png; sourceTree = "<group>"; };
+		DF7FE96421247A1D00042EFB /* ToastVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToastVC.h; sourceTree = "<group>"; };
+		DF7FE96521247A1D00042EFB /* ToastVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToastVC.m; sourceTree = "<group>"; };
+		DF7FE96721247A2F00042EFB /* NetworkVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkVC.h; sourceTree = "<group>"; };
+		DF7FE96821247A2F00042EFB /* NetworkVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetworkVC.m; sourceTree = "<group>"; };
+		DF7FE96A21247A4900042EFB /* HUDVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HUDVC.h; sourceTree = "<group>"; };
+		DF7FE96B21247A4900042EFB /* HUDVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HUDVC.m; sourceTree = "<group>"; };
+		DF7FE96D2124844200042EFB /* SYHUDProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYHUDProgress.h; sourceTree = "<group>"; };
+		DF7FE96E2124844200042EFB /* SYHUDProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYHUDProgress.m; sourceTree = "<group>"; };
+		F868EEE38BEAEA2E79FB5D6C /* Pods-DemoItoast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoItoast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoItoast/Pods-DemoItoast.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9E09AF24A6B6B5302CB05D8 /* libPods-DemoItoast.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +88,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9CFB2CE6A886B8A1FE4E552 /* libPods-DemoItoastTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		26AF06CAFAE1226BC844C1C6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2F79D2D2F5313F7271CE5C3A /* libPods-DemoItoast.a */,
+				B116BAE8C95FE7D0A0ADB493 /* libPods-DemoItoastTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A79396F61EE7D85B0097E0B4 /* SYIToast */ = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +111,10 @@
 				A79396F81EE7D85B0097E0B4 /* SYIToast+SYCategory.m */,
 				A79396F91EE7D85B0097E0B4 /* SYIToast.h */,
 				A79396FA1EE7D85B0097E0B4 /* SYIToast.m */,
+				DF7FE95D2124747A00042EFB /* SYToastView.h */,
+				DF7FE95E2124747A00042EFB /* SYToastView.m */,
+				DF7FE96D2124844200042EFB /* SYHUDProgress.h */,
+				DF7FE96E2124844200042EFB /* SYHUDProgress.m */,
 			);
 			name = SYIToast;
 			path = ../../SYIToast;
@@ -84,6 +126,8 @@
 				A7F415D21B69B8D200DD360A /* DemoItoast */,
 				A7F415EC1B69B8D200DD360A /* DemoItoastTests */,
 				A7F415D11B69B8D200DD360A /* Products */,
+				F4DB65A92F3587F4440F75D2 /* Pods */,
+				26AF06CAFAE1226BC844C1C6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +147,14 @@
 				A7F415D81B69B8D200DD360A /* AppDelegate.m */,
 				A7F415DA1B69B8D200DD360A /* ViewController.h */,
 				A7F415DB1B69B8D200DD360A /* ViewController.m */,
+				DF7FE96421247A1D00042EFB /* ToastVC.h */,
+				DF7FE96521247A1D00042EFB /* ToastVC.m */,
+				DF7FE96721247A2F00042EFB /* NetworkVC.h */,
+				DF7FE96821247A2F00042EFB /* NetworkVC.m */,
+				DF7FE96A21247A4900042EFB /* HUDVC.h */,
+				DF7FE96B21247A4900042EFB /* HUDVC.m */,
+				DF7FE9622124793700042EFB /* withNetwork.png */,
+				DF7FE960212478E000042EFB /* withoutNetwork.png */,
 				A79396F61EE7D85B0097E0B4 /* SYIToast */,
 				A7F415DD1B69B8D200DD360A /* Main.storyboard */,
 				A7F415E01B69B8D200DD360A /* Images.xcassets */,
@@ -138,6 +190,17 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F4DB65A92F3587F4440F75D2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F868EEE38BEAEA2E79FB5D6C /* Pods-DemoItoast.debug.xcconfig */,
+				A7CDA8E3977C5EA086CBDD67 /* Pods-DemoItoast.release.xcconfig */,
+				A2EFA80F30E1353BABC029A5 /* Pods-DemoItoastTests.debug.xcconfig */,
+				D83F554EFB39E9884D9E332F /* Pods-DemoItoastTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -145,6 +208,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A7F415F31B69B8D200DD360A /* Build configuration list for PBXNativeTarget "DemoItoast" */;
 			buildPhases = (
+				F1DDA209D7951082D0631DB0 /* [CP] Check Pods Manifest.lock */,
 				A7F415CC1B69B8D200DD360A /* Sources */,
 				A7F415CD1B69B8D200DD360A /* Frameworks */,
 				A7F415CE1B69B8D200DD360A /* Resources */,
@@ -162,6 +226,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A7F415F61B69B8D200DD360A /* Build configuration list for PBXNativeTarget "DemoItoastTests" */;
 			buildPhases = (
+				F83D12277FD1FE0D0D2D3CB0 /* [CP] Check Pods Manifest.lock */,
 				A7F415E51B69B8D200DD360A /* Sources */,
 				A7F415E61B69B8D200DD360A /* Frameworks */,
 				A7F415E71B69B8D200DD360A /* Resources */,
@@ -221,6 +286,8 @@
 				A7F415DF1B69B8D200DD360A /* Main.storyboard in Resources */,
 				A7F415E41B69B8D200DD360A /* LaunchScreen.xib in Resources */,
 				A7F415E11B69B8D200DD360A /* Images.xcassets in Resources */,
+				DF7FE9632124793800042EFB /* withNetwork.png in Resources */,
+				DF7FE961212478E000042EFB /* withoutNetwork.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,14 +300,58 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		F1DDA209D7951082D0631DB0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DemoItoast-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F83D12277FD1FE0D0D2D3CB0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DemoItoastTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A7F415CC1B69B8D200DD360A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF7FE96F2124844200042EFB /* SYHUDProgress.m in Sources */,
+				DF7FE96C21247A4900042EFB /* HUDVC.m in Sources */,
 				A7F415DC1B69B8D200DD360A /* ViewController.m in Sources */,
+				DF7FE96921247A2F00042EFB /* NetworkVC.m in Sources */,
+				DF7FE95F2124747A00042EFB /* SYToastView.m in Sources */,
 				A79396FC1EE7D85B0097E0B4 /* SYIToast.m in Sources */,
 				A7F415D91B69B8D200DD360A /* AppDelegate.m in Sources */,
+				DF7FE96621247A1D00042EFB /* ToastVC.m in Sources */,
 				A7F415D61B69B8D200DD360A /* main.m in Sources */,
 				A79396FB1EE7D85B0097E0B4 /* SYIToast+SYCategory.m in Sources */,
 			);
@@ -368,6 +479,7 @@
 		};
 		A7F415F41B69B8D200DD360A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F868EEE38BEAEA2E79FB5D6C /* Pods-DemoItoast.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = DemoItoast/Info.plist;
@@ -380,6 +492,7 @@
 		};
 		A7F415F51B69B8D200DD360A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A7CDA8E3977C5EA086CBDD67 /* Pods-DemoItoast.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = DemoItoast/Info.plist;
@@ -392,6 +505,7 @@
 		};
 		A7F415F71B69B8D200DD360A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2EFA80F30E1353BABC029A5 /* Pods-DemoItoastTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -411,6 +525,7 @@
 		};
 		A7F415F81B69B8D200DD360A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D83F554EFB39E9884D9E332F /* Pods-DemoItoastTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (

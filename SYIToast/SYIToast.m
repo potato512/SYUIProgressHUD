@@ -9,10 +9,9 @@
 #import "SYIToast.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define FontSize ([UIFont systemFontOfSize:16.0])
-static CGFloat sizeSpace = 40.0;
-static CGFloat sizelabel = 8.0;
-#define maxlabel (self.backView.frame.size.width - 20.0 * 2)
+static CGFloat const sizeSpace = 40.0f;
+static CGFloat const sizeLabel = 16.0f;
+#define maxWidthLabel (self.backView.frame.size.width - 20.0 * 2 - sizeLabel)
 
 @interface SYIToast ()
 
@@ -38,69 +37,85 @@ static CGFloat sizelabel = 8.0;
     return iToastManager;
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _hideTime = 1.6;
+        _bgroundColor = [UIColor blackColor];
+        _textColor = [UIColor whiteColor];
+        _textFont = [UIFont systemFontOfSize:16.0f];
+    }
+    return self;
+}
+
+#pragma mark - 显示
+
 /// 显示信息（默认位置为居中）
 - (void)showText:(NSString *)text
 {
-    [self showText:text postion:iToastPositionCenter];
-}
-
-/// 隐藏
-- (void)hiddenIToast
-{
-    if (self.textlabel.superview)
-    {
-        [self.textlabel removeFromSuperview];
-    }
-    
-    if (self.button.superview)
-    {
-        [self.button removeFromSuperview];
-    }
-    
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self showText:text postion:SYIToastPositionCenter];
 }
 
 /// 显示信息，自定义显示位置
-- (void)showText:(NSString *)text postion:(iToastPosition)position
+- (void)showText:(NSString *)text postion:(SYIToastPosition)position
 {
-    if (text && 0 < text.length)
-    {
-        [self hiddenIToast];
+    if (text && 0 < text.length) {
+        [self hideView];
 
+        self.alpha = 1.0;
         [self.backView addSubview:self.textlabel];
         self.textlabel.text = text;
 
-        CGSize textSize = [text sizeWithFont:FontSize constrainedToSize:CGSizeMake(maxlabel, maxlabel)];
+        CGSize textSize = [text sizeWithFont:_textFont constrainedToSize:CGSizeMake(maxWidthLabel, maxWidthLabel)];
         CGFloat labelX = (self.backView.frame.size.width - textSize.width) / 2;
         CGFloat labelY = 20.0 + 44.0 + sizeSpace;
-        CGFloat labelWidth = textSize.width + sizelabel;
-        CGFloat labelHeight = textSize.height + sizelabel;
-        if (iToastPositionCenter == position)
-        {
+        CGFloat labelWidth = textSize.width + sizeLabel;
+        CGFloat labelHeight = textSize.height + sizeLabel;
+        if (SYIToastPositionCenter == position) {
             labelY = (self.backView.frame.size.height - labelHeight) / 2;
-        }
-        else if (iToastPositionBottom == position)
-        {
+        } else if (SYIToastPositionBottom == position) {
             labelY = (self.backView.frame.size.height - labelHeight - sizeSpace);
         }
         self.textlabel.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
         
         [self.backView addSubview:self.button];
         self.button.frame = self.textlabel.frame;
-        
-        if ([self respondsToSelector:@selector(hiddenIToast)])
-        {
-            [self performSelector:@selector(hiddenIToast) withObject:nil afterDelay:1.6];
+        // 自动隐藏
+        if ([self respondsToSelector:@selector(hideIToast)]) {
+            [self performSelector:@selector(hideIToast) withObject:nil afterDelay:_hideTime];
         }
     }
+}
+
+#pragma mark - 隐藏
+
+/// 隐藏
+- (void)hideIToast
+{
+    [UIView animateWithDuration:0.6 animations:^{
+        self.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self hideView];
+    }];
+}
+
+- (void)hideView
+{
+    if (self.textlabel.superview) {
+        [self.textlabel removeFromSuperview];
+    }
+    if (self.button.superview) {
+        [self.button removeFromSuperview];
+    }
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
 #pragma mark - getter
 
 - (UIView *)backView
 {
-    if (_backView == nil)
-    {
+    if (_backView == nil) {
         _backView = [UIApplication sharedApplication].delegate.window;
     }
     return _backView;
@@ -108,18 +123,17 @@ static CGFloat sizelabel = 8.0;
 
 - (UILabel *)textlabel
 {
-    if (!_textlabel)
-    {
+    if (_textlabel == nil) {
         _textlabel = [[UILabel alloc] init];
-        _textlabel.font = FontSize;
-        _textlabel.textColor = [UIColor whiteColor];
+        _textlabel.font = _textFont;
+        _textlabel.textColor = _textColor;
         _textlabel.textAlignment = NSTextAlignmentCenter;
-        _textlabel.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.8];
+        _textlabel.backgroundColor = _bgroundColor;
         _textlabel.layer.cornerRadius = 5.0;
         _textlabel.layer.masksToBounds = YES;
         _textlabel.numberOfLines = 0;
-        _textlabel.shadowColor = [UIColor darkGrayColor];
-        _textlabel.shadowOffset = CGSizeMake(1.0, 1.0);
+//        _textlabel.shadowColor = _textColor;
+//        _textlabel.shadowOffset = CGSizeMake(1.0, 1.0);
         _textlabel.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     }
     return _textlabel;
@@ -127,21 +141,39 @@ static CGFloat sizelabel = 8.0;
 
 - (UIButton *)button
 {
-    if (!_button)
-    {
+    if (_button == nil) {
         _button = [UIButton buttonWithType:UIButtonTypeCustom];
         _button.backgroundColor = [UIColor clearColor];
         [_button addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
-        
     }
     return _button;
+}
+
+#pragma mark - setter
+
+- (void)setBgroundColor:(UIColor *)bgroundColor
+{
+    _bgroundColor = bgroundColor;
+    self.textlabel.backgroundColor = _bgroundColor;
+}
+
+- (void)setTextFont:(UIFont *)textFont
+{
+    _textFont = textFont;
+    self.textlabel.font = _textFont;
+}
+
+- (void)setTextColor:(UIColor *)textColor
+{
+    _textColor = textColor;
+    self.textlabel.textColor = _textColor;
 }
 
 #pragma mark - 响应事件
 
 - (void)buttonClick
 {
-    [self hiddenIToast];
+    [self hideIToast];
 }
 
 @end
