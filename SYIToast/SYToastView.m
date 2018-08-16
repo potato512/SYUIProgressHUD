@@ -138,7 +138,7 @@ static CGFloat const originYStatus = 64.0;
     self.messagelabel.text = message;
     self.messagelabel.textAlignment = NSTextAlignmentLeft;
     
-    CGSize sizeMessage = [self.messagelabel.text sizeWithFont:self.messagelabel.font forWidth:widthMainScreen lineBreakMode:self.messagelabel.lineBreakMode];
+    CGSize sizeMessage = [self.messagelabel.text boundingRectWithSize:CGSizeMake(widthMainScreen, widthMainScreen) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.messagelabel.font} context:nil].size;
     CGFloat widthMessage = sizeMessage.width;
     CGFloat widthMax = (CGRectGetWidth(self.bounds) - originXY * 3 - self.imageView.frame.size.width);
     
@@ -167,11 +167,11 @@ static CGFloat const originYStatus = 64.0;
         [UIView animateWithDuration:dutationTime animations:^{
             self.alpha = 1.0;
         } completion:^(BOOL finished) {
-            [self performSelector:@selector(hide) withObject:nil afterDelay:_hideTime];
+            [self performSelector:@selector(hide) withObject:nil afterDelay:self.hideTime];
         }];
     } else {
         self.hidden = NO;
-        [self performSelector:@selector(hide) withObject:nil afterDelay:_hideTime];
+        [self performSelector:@selector(hide) withObject:nil afterDelay:self.hideTime];
     }
 }
 

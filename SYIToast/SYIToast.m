@@ -67,7 +67,7 @@ static CGFloat const sizeLabel = 16.0f;
         [self.backView addSubview:self.textlabel];
         self.textlabel.text = text;
 
-        CGSize textSize = [text sizeWithFont:_textFont constrainedToSize:CGSizeMake(maxWidthLabel, maxWidthLabel)];
+        CGSize textSize = [text boundingRectWithSize:CGSizeMake(maxWidthLabel, maxWidthLabel) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.textFont} context:nil].size;
         CGFloat labelX = (self.backView.frame.size.width - textSize.width) / 2;
         CGFloat labelY = 20.0 + 44.0 + sizeSpace;
         CGFloat labelWidth = textSize.width + sizeLabel;
