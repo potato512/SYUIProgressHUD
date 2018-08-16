@@ -7,7 +7,6 @@
 //
 
 #import "SYHUDProgress.h"
-#import "AppDelegate.h"
 
 static NSTimeInterval const timeDelay = 3.0f;
 
@@ -37,8 +36,7 @@ static NSTimeInterval const timeDelay = 3.0f;
 /// 显示（转圈圈提示信息，需手动停止）
 - (void)showIndeterminateMessage:(NSString *)message
 {
-    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    UIView *view = delegate.window;
+    UIView *view = [[UIApplication sharedApplication].delegate window];
     [self showInView:view mode:MBProgressHUDModeIndeterminate customView:nil hide:NO afterDelay:timeDelay enabled:YES message:message animation:MBProgressHUDAnimationZoom];
 }
 
@@ -51,8 +49,7 @@ static NSTimeInterval const timeDelay = 3.0f;
 /// 显示（自定义视图；提示信息）
 - (void)showCustomView:(UIView *)customView message:(NSString *)message
 {
-    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    UIView *view = delegate.window;
+    UIView *view = [[UIApplication sharedApplication].delegate window];
     [self showInView:view mode:MBProgressHUDModeCustomView customView:customView hide:YES afterDelay:timeDelay enabled:YES message:message animation:MBProgressHUDAnimationZoom];
 }
 
@@ -65,8 +62,7 @@ static NSTimeInterval const timeDelay = 3.0f;
 /// 显示（提示信息）
 - (void)showMessage:(NSString *)message
 {
-    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    UIView *view = delegate.window;
+    UIView *view = [[UIApplication sharedApplication].delegate window];
     [self showInView:view mode:MBProgressHUDModeText customView:nil hide:YES afterDelay:3.0 enabled:YES message:message animation:MBProgressHUDAnimationZoom];
 }
 
