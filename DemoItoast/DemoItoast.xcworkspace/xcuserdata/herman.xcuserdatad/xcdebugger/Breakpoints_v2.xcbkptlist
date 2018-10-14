@@ -15,8 +15,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "162"
             endingLineNumber = "162"
-            landmarkName = "-showInView:mode:customView:hide:afterDelay:enabled:message:animation:"
-            landmarkType = "7">
+            landmarkName = "SYHUDProgress"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
