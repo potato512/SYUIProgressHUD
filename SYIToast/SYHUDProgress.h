@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 // 导入头文件
-#import "MBProgressHUD.h"
+//#import "MBProgressHUD.h"
+#import <MBProgressHUD.h>
 
 #define HudManager [SYHUDProgress shareHUDPregress]
 
