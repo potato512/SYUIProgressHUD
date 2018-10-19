@@ -10,13 +10,25 @@
 
 @interface SYIToast (SYCategory)
 
-/// 顶端显示提示iToast
+/**
+ 顶端显示提示iToast
+
+ @param title 提示信息
+ */
 + (void)alertWithTitle:(NSString *)title;
 
-/// 居中显示提示iToast
+/**
+ 居中显示提示iToast
+
+ @param title 提示信息
+ */
 + (void)alertWithTitleCenter:(NSString *)title;
 
-/// 底端显示提示iToast
+/**
+ 底端显示提示iToast
+
+ @param title 提示信息
+ */
 + (void)alertWithTitleBottom:(NSString *)title;
 
 /// 隐藏iToast

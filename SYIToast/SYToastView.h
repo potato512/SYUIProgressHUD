@@ -40,8 +40,15 @@ typedef NS_ENUM(NSInteger, PositionMode)
 /// 字体大小（默认16）
 @property (nonatomic, strong) UIFont *textFont;
 
+/**
+ 显示无网络状态提示
 
-/// 显示无网络状态提示
+ @param view 父视图
+ @param posttion 显示位置
+ @param message 提示信息
+ @param image 提示图标
+ @param animation 是否动画
+ */
 - (void)showInView:(UIView *)view position:(PositionMode)posttion message:(NSString *)message image:(UIImage *)image animation:(BOOL)animation;
 
 /// 隐藏

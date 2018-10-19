@@ -39,10 +39,19 @@ typedef NS_ENUM(NSInteger, SYIToastPosition)
 @property (nonatomic, strong) UIFont *textFont;
 
 
-/// 显示信息（默认位置为居中）
+/**
+ 显示信息（默认位置为居中）
+
+ @param text 提示信息
+ */
 - (void)showText:(NSString *)text;
 
-/// 显示信息，自定义显示位置
+/**
+ 显示信息，自定义显示位置
+
+ @param text 提示信息
+ @param position 显示位置
+ */
 - (void)showText:(NSString *)text postion:(SYIToastPosition)position;
 
 /// 隐藏
