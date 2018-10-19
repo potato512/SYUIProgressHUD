@@ -10,7 +10,6 @@
 #import <UIKit/UIKit.h>
 
 #import "SYToastView.h"
-#import "SYHUDProgress.h"
 
 /// 显示位置，居中，偏顶端，偏底端
 typedef NS_ENUM(NSInteger, SYIToastPosition)

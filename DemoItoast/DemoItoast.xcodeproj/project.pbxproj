@@ -23,8 +23,6 @@
 		DF7FE9632124793800042EFB /* withNetwork.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7FE9622124793700042EFB /* withNetwork.png */; };
 		DF7FE96621247A1D00042EFB /* ToastVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7FE96521247A1D00042EFB /* ToastVC.m */; };
 		DF7FE96921247A2F00042EFB /* NetworkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7FE96821247A2F00042EFB /* NetworkVC.m */; };
-		DF7FE96C21247A4900042EFB /* HUDVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7FE96B21247A4900042EFB /* HUDVC.m */; };
-		DF7FE96F2124844200042EFB /* SYHUDProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7FE96E2124844200042EFB /* SYHUDProgress.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,10 +66,6 @@
 		DF7FE96521247A1D00042EFB /* ToastVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToastVC.m; sourceTree = "<group>"; };
 		DF7FE96721247A2F00042EFB /* NetworkVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkVC.h; sourceTree = "<group>"; };
 		DF7FE96821247A2F00042EFB /* NetworkVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetworkVC.m; sourceTree = "<group>"; };
-		DF7FE96A21247A4900042EFB /* HUDVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HUDVC.h; sourceTree = "<group>"; };
-		DF7FE96B21247A4900042EFB /* HUDVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HUDVC.m; sourceTree = "<group>"; };
-		DF7FE96D2124844200042EFB /* SYHUDProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYHUDProgress.h; sourceTree = "<group>"; };
-		DF7FE96E2124844200042EFB /* SYHUDProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYHUDProgress.m; sourceTree = "<group>"; };
 		F868EEE38BEAEA2E79FB5D6C /* Pods-DemoItoast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoItoast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoItoast/Pods-DemoItoast.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,8 +107,6 @@
 				A79396FA1EE7D85B0097E0B4 /* SYIToast.m */,
 				DF7FE95D2124747A00042EFB /* SYToastView.h */,
 				DF7FE95E2124747A00042EFB /* SYToastView.m */,
-				DF7FE96D2124844200042EFB /* SYHUDProgress.h */,
-				DF7FE96E2124844200042EFB /* SYHUDProgress.m */,
 			);
 			name = SYIToast;
 			path = ../../SYIToast;
@@ -151,8 +143,6 @@
 				DF7FE96521247A1D00042EFB /* ToastVC.m */,
 				DF7FE96721247A2F00042EFB /* NetworkVC.h */,
 				DF7FE96821247A2F00042EFB /* NetworkVC.m */,
-				DF7FE96A21247A4900042EFB /* HUDVC.h */,
-				DF7FE96B21247A4900042EFB /* HUDVC.m */,
 				DF7FE9622124793700042EFB /* withNetwork.png */,
 				DF7FE960212478E000042EFB /* withoutNetwork.png */,
 				A79396F61EE7D85B0097E0B4 /* SYIToast */,
@@ -344,8 +334,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF7FE96F2124844200042EFB /* SYHUDProgress.m in Sources */,
-				DF7FE96C21247A4900042EFB /* HUDVC.m in Sources */,
 				A7F415DC1B69B8D200DD360A /* ViewController.m in Sources */,
 				DF7FE96921247A2F00042EFB /* NetworkVC.m in Sources */,
 				DF7FE95F2124747A00042EFB /* SYToastView.m in Sources */,

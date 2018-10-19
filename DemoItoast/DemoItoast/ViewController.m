@@ -9,7 +9,6 @@
 #import "ViewController.h"
 #import "ToastVC.h"
 #import "NetworkVC.h"
-#import "HUDVC.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -46,7 +45,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -60,8 +59,6 @@
         cell.textLabel.text = @"SYIToast";
     } else if (indexPath.row == 1) {
         cell.textLabel.text = @"SYNetworkStatusView";
-    } else if (indexPath.row == 2) {
-        cell.textLabel.text = @"SYHUDManager";
     }
     
     return cell;
@@ -76,8 +73,6 @@
         nextVC = [ToastVC new];
     } else if (indexPath.row == 1) {
         nextVC = [NetworkVC new];
-    } else if (indexPath.row == 2) {
-        nextVC = [HUDVC new];
     }
     [self.navigationController pushViewController:nextVC animated:YES];
 }

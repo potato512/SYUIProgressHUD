@@ -78,19 +78,6 @@ ToastView.textColor = [UIColor redColor];
 [ToastView showInView:view position:PositionTop message:@"没有网络..没有网络..没有网络..没有网络..没有网络..没有网络" image:[UIImage imageNamed:@"withoutNetwork"] animation:YES];
 ```
 
-* SYHUDProgress的使用示例
-
-导入头文件
-```
-#import "SYHUDProgress.h"
-```
-
-提示内容
-```
-[HudManager showMessage:@"有网了..."];
-```
-
-
 效果图
 
 * 随机位置显示：顶端提示效果，或中间提示效果，或底端提示效果
@@ -99,6 +86,10 @@ ToastView.textColor = [UIColor redColor];
 
 
 #### 修改说明
+* 20181019
+  * 版本号：1.1.4
+  * 删除HUD
+  
 * 20180816
   * 版本号：1.1.2
   
