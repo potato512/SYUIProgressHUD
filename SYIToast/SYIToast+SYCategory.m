@@ -17,7 +17,8 @@
         return ;
     }
     
-    [[SYIToast shareIToast] showText:title postion:SYIToastPositionTop];
+    UIView *view = [UIApplication sharedApplication].delegate.window;
+    [[SYIToast shareIToast] showToastInView:view text:title type:SYIToastTypeDefault position:SYIToastPositionTop hide:YES enable:YES];
 }
 
 + (void)alertWithTitleCenter:(NSString *)title
@@ -26,7 +27,8 @@
         return ;
     }
     
-    [[SYIToast shareIToast] showText:title postion:SYIToastPositionCenter];
+    UIView *view = [UIApplication sharedApplication].delegate.window;
+    [[SYIToast shareIToast] showToastInView:view text:title type:SYIToastTypeDefault position:SYIToastPositionCenter hide:YES enable:YES];
 }
 
 + (void)alertWithTitleBottom:(NSString *)title
@@ -35,13 +37,14 @@
         return ;
     }
     
-    [[SYIToast shareIToast] showText:title postion:SYIToastPositionBottom];
+    UIView *view = [UIApplication sharedApplication].delegate.window;
+    [[SYIToast shareIToast] showToastInView:view text:title type:SYIToastTypeDefault position:SYIToastPositionBottom hide:YES enable:YES];
 }
 
 // 隐藏iToast
-+ (void)hideIToast
++ (void)hideToast
 {
-    [[SYIToast shareIToast] hideIToast];
+    [[SYIToast shareIToast] hideToast];
 }
 
 // 字符非空判断（可以是空格字符串）

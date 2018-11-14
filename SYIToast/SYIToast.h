@@ -24,6 +24,19 @@ typedef NS_ENUM(NSInteger, SYIToastPosition)
     SYIToastPositionBottom = 3,
 };
 
+/// 提示类型（默认文本；菊花转、自定义图片）
+typedef NS_ENUM(NSInteger, SYIToastType)
+{
+    /// 提示类型默认文本
+    SYIToastTypeDefault = 0,
+    
+    /// 提示类型 菊花转
+    SYIToastTypeIndicato = 1,
+    
+    /// 提示类型 自定义图片
+    SYIToastTypeCustom = 2
+};
+
 @interface SYIToast : UIView
 
 /// 单例
@@ -37,24 +50,24 @@ typedef NS_ENUM(NSInteger, SYIToastPosition)
 @property (nonatomic, strong) UIColor *textColor;
 /// 字体大小（默认16）
 @property (nonatomic, strong) UIFont *textFont;
-
-
-/**
- 显示信息（默认位置为居中）
-
- @param text 提示信息
- */
-- (void)showText:(NSString *)text;
+/// 菊花转颜色（默认灰色）
+@property (nonatomic, strong) UIColor *indicatoColor;
+/// 自定义视图（默认无，类型为SYIToastTypeCustom时有效）
+@property (nonatomic, strong) UIView *customView;
 
 /**
- 显示信息，自定义显示位置
-
- @param text 提示信息
- @param position 显示位置
+ 弹窗提示
+ 
+ @param view 父视图
+ @param text 提示语
+ @param type 提示类型
+ @param position 提示位置
+ @param autoHide 是否自动隐藏
+ @param isEnabel 父视图是否可交互
  */
-- (void)showText:(NSString *)text postion:(SYIToastPosition)position;
+- (void)showToastInView:(UIView *)view text:(NSString *)text type:(SYIToastType)type position:(SYIToastPosition)position hide:(BOOL)autoHide enable:(BOOL)isEnabel;
 
 /// 隐藏
-- (void)hideIToast;
+- (void)hideToast;
 
 @end
