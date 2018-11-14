@@ -114,6 +114,17 @@ static CGFloat const sizeIcon = 30;
             rectView.origin = CGPointMake((self.frame.size.width - sizeIcon) / 2, sizeSpace / 2);
             rectView.size = CGSizeMake(sizeIcon, sizeIcon);
             self.customViewTmp.frame = rectView;
+            //
+            [self.customViewTmp.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj isKindOfClass:[UIView class]]) {
+                    UIView *view = (UIView *)obj;
+                    [view removeFromSuperview];
+                }
+            }];
+            if (self.customView) {
+                self.customView.center = CGPointMake(self.customViewTmp.frame.size.width / 2, self.customViewTmp.frame.size.height / 2);
+                [self.customViewTmp addSubview:self.customView];
+            }
             
             CGRect rectLabel = self.textlabel.frame;
             rectLabel.origin.y = self.customViewTmp.frame.origin.y + self.customViewTmp.frame.size.height + sizeSpace / 4;
@@ -137,6 +148,8 @@ static CGFloat const sizeIcon = 30;
         if (autoHide && [self respondsToSelector:@selector(hideToast)]) {
             [self performSelector:@selector(hideToast) withObject:nil afterDelay:_hideTime];
         }
+        
+        self.customViewTmp.backgroundColor = [UIColor redColor];
     }
 }
 
@@ -235,12 +248,6 @@ static CGFloat const sizeIcon = 30;
 {
     _indicatoColor = indicatoColor;
     self.indicatorView.color = _indicatoColor;
-}
-
-- (void)setCustomView:(UIView *)customView
-{
-    _customView = customView;
-    [self.customViewTmp addSubview:_customView];
 }
 
 #pragma mark - 响应事件
