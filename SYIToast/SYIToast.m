@@ -134,8 +134,8 @@ static CGFloat const sizeIcon = 30;
         // 是否可操作父视图
         self.backView.userInteractionEnabled = isEnabel;
         // 自动隐藏
-        if (autoHide && [self respondsToSelector:@selector(hideIToast)]) {
-            [self performSelector:@selector(hideIToast) withObject:nil afterDelay:_hideTime];
+        if (autoHide && [self respondsToSelector:@selector(hideToast)]) {
+            [self performSelector:@selector(hideToast) withObject:nil afterDelay:_hideTime];
         }
     }
 }
