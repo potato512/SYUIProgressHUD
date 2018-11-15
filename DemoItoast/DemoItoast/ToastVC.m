@@ -25,8 +25,9 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"SYToast" style:UIBarButtonItemStyleDone target:self action:@selector(buttonClick)];
     
     [[SYIToast shareIToast] setTextColor:[UIColor purpleColor]];
-    [[SYIToast shareIToast] setBgroundColor:[UIColor greenColor]];
+//    [[SYIToast shareIToast] setBgroundColor:[UIColor greenColor]];
     [[SYIToast shareIToast] setTextFont:[UIFont systemFontOfSize:20.0]];
+    [[SYIToast shareIToast] setIndicatoColor:[UIColor redColor]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,13 +44,21 @@
     // 方法1
 //    [[iToast shareIToast] showText:message postion:position.integerValue];
     // 方法2 扩展类方法
-    if (SYIToastPositionTop == position.integerValue) {
-        [SYIToast alertWithTitle:message];
-    } else if (SYIToastPositionCenter == position.integerValue) {
-        [SYIToast alertWithTitleCenter:message];
-    } else if (SYIToastPositionBottom == position.integerValue) {
-        [SYIToast alertWithTitleBottom:message];
-    }
+//    if (SYIToastPositionTop == position.integerValue) {
+//        [SYIToast alertWithTitle:message];
+//    } else if (SYIToastPositionCenter == position.integerValue) {
+//        [SYIToast alertWithTitleCenter:message];
+//    } else if (SYIToastPositionBottom == position.integerValue) {
+//        [SYIToast alertWithTitleBottom:message];
+//    }
+    
+    // 方法3
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"withNetwork"]];
+    imageView.frame = CGRectMake(0.0, 0.0, 50, 50.0);
+    [[SYIToast shareIToast] setCustomView:imageView];
+    //
+    NSInteger type = arc4random() % 3;
+    [[SYIToast shareIToast] showToastInView:self.view text:message type:type position:position.integerValue hide:NO enable:YES];
 }
 
 @end

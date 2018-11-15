@@ -32,6 +32,6 @@
 + (void)alertWithTitleBottom:(NSString *)title;
 
 /// 隐藏iToast
-+ (void)hideIToast;
++ (void)hideToast;
 
 @end

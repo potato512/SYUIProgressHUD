@@ -35,11 +35,24 @@ NSNumber *position = positons[arc4random() % positons.count];
 
 // 字体大小
 [[SYIToast shareIToast] setTextFont:[UIFont systemFontOfSize:20.0]];
+
+// 菊花转颜色
+[[SYIToast shareIToast] setIndicatoColor:[UIColor redColor]];
 ```
 
 方法1
 ```
-[[SYIToast shareIToast] showText:message postion:position.integerValue];
+// 文本提示
+[[SYIToast shareIToast] showToastInView:self.view text:message type:SYIToastTypeDefault position:position.integerValue hide:NO enable:YES];
+
+// 菊花转提示
+[[SYIToast shareIToast] showToastInView:self.view text:message type:SYIToastTypeIndicato position:position.integerValue hide:NO enable:YES];
+
+// 自定义视图提示
+UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"withNetwork"]];
+imageView.frame = CGRectMake(0.0, 0.0, 50, 50.0);
+[[SYIToast shareIToast] setCustomView:imageView];
+[[SYIToast shareIToast] showToastInView:self.view text:message type:SYIToastTypeCustom position:position.integerValue hide:NO enable:YES];
 ```
 
 方法2 扩展类方法
@@ -86,6 +99,16 @@ ToastView.textColor = [UIColor redColor];
 
 
 #### 修改说明
+* 20181115
+  * 版本号：1.1.7
+  * 修改显示重影的异常
+  
+* 20181114
+  * 版本号：1.1.6
+  * 修改完善
+    * 自定义父视图
+    * 自定义显示类型：文本、菊花转、自定义视图
+
 * 20181019
   * 版本号：1.1.4
   * 删除HUD
