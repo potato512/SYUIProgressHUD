@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "SYUIProgressHUD"
-  spec.version      = "1.2.3"
+  spec.version      = "1.2.4"
   spec.summary      = "SYUIProgressHUD used to show message which can be auto hide."
 
   # This description is used to generate tags and improve search results.
