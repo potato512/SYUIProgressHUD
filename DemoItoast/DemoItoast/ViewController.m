@@ -7,8 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "ToastVC.h"
-#import "NetworkVC.h"
+#import "SYProgressHUDVC.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -45,7 +44,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -56,9 +55,7 @@
     }
     
     if (indexPath.row == 0) {
-        cell.textLabel.text = @"SYIToast";
-    } else if (indexPath.row == 1) {
-        cell.textLabel.text = @"SYNetworkStatusView";
+        cell.textLabel.text = @"SYProgressHUD";
     }
     
     return cell;
@@ -70,9 +67,7 @@
     
     UIViewController *nextVC = nil;
     if (indexPath.row == 0) {
-        nextVC = [ToastVC new];
-    } else if (indexPath.row == 1) {
-        nextVC = [NetworkVC new];
+        nextVC = [SYProgressHUDVC new];
     }
     [self.navigationController pushViewController:nextVC animated:YES];
 }

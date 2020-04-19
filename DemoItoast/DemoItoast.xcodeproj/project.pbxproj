@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A79396FB1EE7D85B0097E0B4 /* SYIToast+SYCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A79396F81EE7D85B0097E0B4 /* SYIToast+SYCategory.m */; };
-		A79396FC1EE7D85B0097E0B4 /* SYIToast.m in Sources */ = {isa = PBXBuildFile; fileRef = A79396FA1EE7D85B0097E0B4 /* SYIToast.m */; };
 		A7F415D61B69B8D200DD360A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F415D51B69B8D200DD360A /* main.m */; };
 		A7F415D91B69B8D200DD360A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F415D81B69B8D200DD360A /* AppDelegate.m */; };
 		A7F415DC1B69B8D200DD360A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F415DB1B69B8D200DD360A /* ViewController.m */; };
@@ -18,11 +16,12 @@
 		A7F415F01B69B8D200DD360A /* DemoItoastTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F415EF1B69B8D200DD360A /* DemoItoastTests.m */; };
 		A9E09AF24A6B6B5302CB05D8 /* libPods-DemoItoast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F79D2D2F5313F7271CE5C3A /* libPods-DemoItoast.a */; };
 		D9CFB2CE6A886B8A1FE4E552 /* libPods-DemoItoastTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B116BAE8C95FE7D0A0ADB493 /* libPods-DemoItoastTests.a */; };
-		DF7FE95F2124747A00042EFB /* SYToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7FE95E2124747A00042EFB /* SYToastView.m */; };
+		DF7AB4DE244BEE7200DF3789 /* SYProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7AB4D7244BEE7200DF3789 /* SYProgressHUD.m */; };
+		DF7AB4E2244C265F00DF3789 /* error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7AB4E0244C265F00DF3789 /* error@2x.png */; };
+		DF7AB4E3244C265F00DF3789 /* success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7AB4E1244C265F00DF3789 /* success@2x.png */; };
+		DF7AB4E6244C27BF00DF3789 /* SYProgressHUDVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7AB4E5244C27BF00DF3789 /* SYProgressHUDVC.m */; };
 		DF7FE961212478E000042EFB /* withoutNetwork.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7FE960212478E000042EFB /* withoutNetwork.png */; };
 		DF7FE9632124793800042EFB /* withNetwork.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7FE9622124793700042EFB /* withNetwork.png */; };
-		DF7FE96621247A1D00042EFB /* ToastVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7FE96521247A1D00042EFB /* ToastVC.m */; };
-		DF7FE96921247A2F00042EFB /* NetworkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7FE96821247A2F00042EFB /* NetworkVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,10 +37,6 @@
 /* Begin PBXFileReference section */
 		2F79D2D2F5313F7271CE5C3A /* libPods-DemoItoast.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DemoItoast.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2EFA80F30E1353BABC029A5 /* Pods-DemoItoastTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoItoastTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoItoastTests/Pods-DemoItoastTests.debug.xcconfig"; sourceTree = "<group>"; };
-		A79396F71EE7D85B0097E0B4 /* SYIToast+SYCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SYIToast+SYCategory.h"; sourceTree = "<group>"; };
-		A79396F81EE7D85B0097E0B4 /* SYIToast+SYCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SYIToast+SYCategory.m"; sourceTree = "<group>"; };
-		A79396F91EE7D85B0097E0B4 /* SYIToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYIToast.h; sourceTree = "<group>"; };
-		A79396FA1EE7D85B0097E0B4 /* SYIToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYIToast.m; sourceTree = "<group>"; };
 		A7CDA8E3977C5EA086CBDD67 /* Pods-DemoItoast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoItoast.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoItoast/Pods-DemoItoast.release.xcconfig"; sourceTree = "<group>"; };
 		A7F415D01B69B8D200DD360A /* DemoItoast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoItoast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7F415D41B69B8D200DD360A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -58,14 +53,14 @@
 		A7F415EF1B69B8D200DD360A /* DemoItoastTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoItoastTests.m; sourceTree = "<group>"; };
 		B116BAE8C95FE7D0A0ADB493 /* libPods-DemoItoastTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DemoItoastTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83F554EFB39E9884D9E332F /* Pods-DemoItoastTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoItoastTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoItoastTests/Pods-DemoItoastTests.release.xcconfig"; sourceTree = "<group>"; };
-		DF7FE95D2124747A00042EFB /* SYToastView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYToastView.h; sourceTree = "<group>"; };
-		DF7FE95E2124747A00042EFB /* SYToastView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYToastView.m; sourceTree = "<group>"; };
+		DF7AB4D7244BEE7200DF3789 /* SYProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYProgressHUD.m; sourceTree = "<group>"; };
+		DF7AB4DB244BEE7200DF3789 /* SYProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYProgressHUD.h; sourceTree = "<group>"; };
+		DF7AB4E0244C265F00DF3789 /* error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error@2x.png"; sourceTree = "<group>"; };
+		DF7AB4E1244C265F00DF3789 /* success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "success@2x.png"; sourceTree = "<group>"; };
+		DF7AB4E4244C27BF00DF3789 /* SYProgressHUDVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYProgressHUDVC.h; sourceTree = "<group>"; };
+		DF7AB4E5244C27BF00DF3789 /* SYProgressHUDVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYProgressHUDVC.m; sourceTree = "<group>"; };
 		DF7FE960212478E000042EFB /* withoutNetwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = withoutNetwork.png; sourceTree = "<group>"; };
 		DF7FE9622124793700042EFB /* withNetwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = withNetwork.png; sourceTree = "<group>"; };
-		DF7FE96421247A1D00042EFB /* ToastVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToastVC.h; sourceTree = "<group>"; };
-		DF7FE96521247A1D00042EFB /* ToastVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToastVC.m; sourceTree = "<group>"; };
-		DF7FE96721247A2F00042EFB /* NetworkVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkVC.h; sourceTree = "<group>"; };
-		DF7FE96821247A2F00042EFB /* NetworkVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetworkVC.m; sourceTree = "<group>"; };
 		F868EEE38BEAEA2E79FB5D6C /* Pods-DemoItoast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoItoast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoItoast/Pods-DemoItoast.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,20 +93,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		A79396F61EE7D85B0097E0B4 /* SYIToast */ = {
-			isa = PBXGroup;
-			children = (
-				A79396F71EE7D85B0097E0B4 /* SYIToast+SYCategory.h */,
-				A79396F81EE7D85B0097E0B4 /* SYIToast+SYCategory.m */,
-				A79396F91EE7D85B0097E0B4 /* SYIToast.h */,
-				A79396FA1EE7D85B0097E0B4 /* SYIToast.m */,
-				DF7FE95D2124747A00042EFB /* SYToastView.h */,
-				DF7FE95E2124747A00042EFB /* SYToastView.m */,
-			);
-			name = SYIToast;
-			path = ../../SYIToast;
-			sourceTree = "<group>";
-		};
 		A7F415C71B69B8D200DD360A = {
 			isa = PBXGroup;
 			children = (
@@ -139,13 +120,13 @@
 				A7F415D81B69B8D200DD360A /* AppDelegate.m */,
 				A7F415DA1B69B8D200DD360A /* ViewController.h */,
 				A7F415DB1B69B8D200DD360A /* ViewController.m */,
-				DF7FE96421247A1D00042EFB /* ToastVC.h */,
-				DF7FE96521247A1D00042EFB /* ToastVC.m */,
-				DF7FE96721247A2F00042EFB /* NetworkVC.h */,
-				DF7FE96821247A2F00042EFB /* NetworkVC.m */,
+				DF7AB4E4244C27BF00DF3789 /* SYProgressHUDVC.h */,
+				DF7AB4E5244C27BF00DF3789 /* SYProgressHUDVC.m */,
+				DF7AB4D3244BEE7200DF3789 /* SYProgressHUD */,
 				DF7FE9622124793700042EFB /* withNetwork.png */,
 				DF7FE960212478E000042EFB /* withoutNetwork.png */,
-				A79396F61EE7D85B0097E0B4 /* SYIToast */,
+				DF7AB4E0244C265F00DF3789 /* error@2x.png */,
+				DF7AB4E1244C265F00DF3789 /* success@2x.png */,
 				A7F415DD1B69B8D200DD360A /* Main.storyboard */,
 				A7F415E01B69B8D200DD360A /* Images.xcassets */,
 				A7F415E21B69B8D200DD360A /* LaunchScreen.xib */,
@@ -180,6 +161,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		DF7AB4D3244BEE7200DF3789 /* SYProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				DF7AB4D7244BEE7200DF3789 /* SYProgressHUD.m */,
+				DF7AB4DB244BEE7200DF3789 /* SYProgressHUD.h */,
+			);
+			name = SYProgressHUD;
+			path = ../../SYProgressHUD;
+			sourceTree = "<group>";
+		};
 		F4DB65A92F3587F4440F75D2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +193,7 @@
 				A7F415CC1B69B8D200DD360A /* Sources */,
 				A7F415CD1B69B8D200DD360A /* Frameworks */,
 				A7F415CE1B69B8D200DD360A /* Resources */,
+				A7C134E2F0E1DEF414F8E3EC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -242,6 +234,8 @@
 				TargetAttributes = {
 					A7F415CF1B69B8D200DD360A = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 9YWJ3PZHZG;
+						ProvisioningStyle = Manual;
 					};
 					A7F415E81B69B8D200DD360A = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -254,6 +248,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -275,7 +270,9 @@
 			files = (
 				A7F415DF1B69B8D200DD360A /* Main.storyboard in Resources */,
 				A7F415E41B69B8D200DD360A /* LaunchScreen.xib in Resources */,
+				DF7AB4E2244C265F00DF3789 /* error@2x.png in Resources */,
 				A7F415E11B69B8D200DD360A /* Images.xcassets in Resources */,
+				DF7AB4E3244C265F00DF3789 /* success@2x.png in Resources */,
 				DF7FE9632124793800042EFB /* withNetwork.png in Resources */,
 				DF7FE961212478E000042EFB /* withoutNetwork.png in Resources */,
 			);
@@ -291,6 +288,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		A7C134E2F0E1DEF414F8E3EC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DemoItoast/Pods-DemoItoast-resources.sh",
+				"${PODS_ROOT}/ProgressHUD/ProgressHUD/ProgressHUD/ProgressHUD.bundle",
+				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DemoItoast/Pods-DemoItoast-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F1DDA209D7951082D0631DB0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -335,13 +352,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7F415DC1B69B8D200DD360A /* ViewController.m in Sources */,
-				DF7FE96921247A2F00042EFB /* NetworkVC.m in Sources */,
-				DF7FE95F2124747A00042EFB /* SYToastView.m in Sources */,
-				A79396FC1EE7D85B0097E0B4 /* SYIToast.m in Sources */,
+				DF7AB4DE244BEE7200DF3789 /* SYProgressHUD.m in Sources */,
 				A7F415D91B69B8D200DD360A /* AppDelegate.m in Sources */,
-				DF7FE96621247A1D00042EFB /* ToastVC.m in Sources */,
+				DF7AB4E6244C27BF00DF3789 /* SYProgressHUDVC.m in Sources */,
 				A7F415D61B69B8D200DD360A /* main.m in Sources */,
-				A79396FB1EE7D85B0097E0B4 /* SYIToast+SYCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,10 +484,14 @@
 			baseConfigurationReference = F868EEE38BEAEA2E79FB5D6C /* Pods-DemoItoast.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 9YWJ3PZHZG;
 				INFOPLIST_FILE = DemoItoast/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.byd.DemoItoast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = DevelopmentProfileWildcard;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -483,10 +501,14 @@
 			baseConfigurationReference = A7CDA8E3977C5EA086CBDD67 /* Pods-DemoItoast.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 9YWJ3PZHZG;
 				INFOPLIST_FILE = DemoItoast/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.byd.DemoItoast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = DevelopmentProfileWildcard;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
