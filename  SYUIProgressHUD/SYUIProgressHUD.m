@@ -1,18 +1,18 @@
 //
-//  SYProgressHUD.m
-//  DemoItoast
+//  SYUIProgressHUD.m
+//  zhangshaoyu
 //
 //  Created by Herman on 2020/4/19.
 //  Copyright © 2020 zhangshaoyu. All rights reserved.
 //
 
-#import "SYProgressHUD.h"
+#import "SYUIProgressHUD.h"
 
 static CGFloat const originX = 40;
 static CGFloat const originXYInset = 10;
 static CGFloat const heightLabel = 30;
 
-@interface SYProgressHUD ()
+@interface SYUIProgressHUD ()
 
 + (instancetype)share;
 
@@ -42,11 +42,11 @@ static CGFloat const heightLabel = 30;
 
 @end
 
-@implementation SYProgressHUD
+@implementation SYUIProgressHUD
 
 + (instancetype)share
 {
-    static SYProgressHUD *shareHUD;
+    static SYUIProgressHUD *shareHUD;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         shareHUD = [[self alloc] init];
@@ -497,72 +497,72 @@ static CGFloat const heightLabel = 30;
 /// 显示父视图
 + (void)setContainerView:(UIView *)view
 {
-    SYProgressHUD.share.selfSupperView = view;
+    SYUIProgressHUD.share.selfSupperView = view;
 }
 
 /// 背景颜色
 + (void)setHUDBackgroundColor:(UIColor *)backgroundColor
 {
-    SYProgressHUD.share.hudColor = backgroundColor;
+    SYUIProgressHUD.share.hudColor = backgroundColor;
 }
 /// 圆角
 + (void)setHUDCorner:(CGFloat)corner
 {
-    SYProgressHUD.share.hudCorner = corner;
+    SYUIProgressHUD.share.hudCorner = corner;
 }
 /// 大小
 + (void)setHUDSize:(CGSize)size
 {
-    CGFloat minSize = (originXYInset + SYProgressHUD.share.activityView.frame.size.width + originXYInset + heightLabel + originXYInset);
+    CGFloat minSize = (originXYInset + SYUIProgressHUD.share.activityView.frame.size.width + originXYInset + heightLabel + originXYInset);
     if (MIN(size.width, size.height) < minSize) {
         size.width = minSize;
         size.height = minSize;
     }
-    CGFloat maxSize = (SYProgressHUD.share.selfSupperView.frame.size.width - originX * 2);
+    CGFloat maxSize = (SYUIProgressHUD.share.selfSupperView.frame.size.width - originX * 2);
     if (MAX(size.width, size.height) > maxSize) {
         size.width = maxSize;
         size.height = maxSize;
     }
-    SYProgressHUD.share.hudSize = size;
+    SYUIProgressHUD.share.hudSize = size;
 }
 /// 顶端对齐，默认居中
 + (void)setHUDPosition:(CGFloat)top
 {
-    SYProgressHUD.share.topPosition = top;
+    SYUIProgressHUD.share.topPosition = top;
 }
 
 /// 字体大小
 + (void)setTextFont:(UIFont *)font
 {
-    SYProgressHUD.share.textFont = font;
+    SYUIProgressHUD.share.textFont = font;
 }
 /// 字体颜色
 + (void)setTextColor:(UIColor *)color
 {
-    SYProgressHUD.share.textColor = color;
+    SYUIProgressHUD.share.textColor = color;
 }
 /// 字体对齐
 + (void)setTextAlignment:(NSTextAlignment)alignment
 {
-    SYProgressHUD.share.label.textAlignment = alignment;
+    SYUIProgressHUD.share.label.textAlignment = alignment;
 }
 
 /// 活动指示器颜色
 + (void)setActivityColor:(UIColor *)color
 {
-    SYProgressHUD.share.activityColor = color;
+    SYUIProgressHUD.share.activityColor = color;
 }
 
 /// 自动隐藏时间，默认3秒
 + (void)setDurationAutoHide:(NSTimeInterval)duratoion
 {
-    SYProgressHUD.share.durationTime = duratoion;
+    SYUIProgressHUD.share.durationTime = duratoion;
 }
 
 /// 是否跟随键盘改变位置，默认 YES
 + (void)setPositionFollowKeyboard:(BOOL)isFollow
 {
-    SYProgressHUD.share.isFollowKeyboard = isFollow;
+    SYUIProgressHUD.share.isFollowKeyboard = isFollow;
 }
 
 #pragma mark 显示或隐藏
@@ -571,77 +571,77 @@ static CGFloat const heightLabel = 30;
 /// 显示
 + (void)showMessage:(NSString *)message activitty:(BOOL)showActivity images:(NSArray <UIImage *> *)images view:(UIView *)view autoHide:(BOOL)isAuto duration:(NSTimeInterval)duration enable:(BOOL)isEnable
 {
-    [SYProgressHUD.share showMessage:message activity:showActivity icon:images view:view autoHide:isAuto duration:duration enable:isEnable];
+    [SYUIProgressHUD.share showMessage:message activity:showActivity icon:images view:view autoHide:isAuto duration:duration enable:isEnable];
 }
 
 /// 显示活动指示器
 + (void)showActivity
 {
-    UIView *view = SYProgressHUD.share.selfSupperView;
-    [SYProgressHUD showMessage:@"" activitty:YES images:nil view:view autoHide:NO duration:0 enable:YES];
+    UIView *view = SYUIProgressHUD.share.selfSupperView;
+    [SYUIProgressHUD showMessage:@"" activitty:YES images:nil view:view autoHide:NO duration:0 enable:YES];
 }
 /// 显示活动指示器，自动隐藏
 + (void)showActivityAutoHide
 {
-    UIView *view = SYProgressHUD.share.selfSupperView;
-    NSTimeInterval duration = SYProgressHUD.share.durationTime;
-    [SYProgressHUD showMessage:@"" activitty:YES images:nil view:view autoHide:YES duration:duration enable:YES];
+    UIView *view = SYUIProgressHUD.share.selfSupperView;
+    NSTimeInterval duration = SYUIProgressHUD.share.durationTime;
+    [SYUIProgressHUD showMessage:@"" activitty:YES images:nil view:view autoHide:YES duration:duration enable:YES];
 }
 
 /// 显示活动指示器和信息
 + (void)showMessageWithActivity:(NSString *)message
 {
-    UIView *view = SYProgressHUD.share.selfSupperView;
-    [SYProgressHUD showMessage:message activitty:YES images:nil view:view autoHide:NO duration:0 enable:YES];
+    UIView *view = SYUIProgressHUD.share.selfSupperView;
+    [SYUIProgressHUD showMessage:message activitty:YES images:nil view:view autoHide:NO duration:0 enable:YES];
 }
 /// 显示活动指示器和信息，自动隐藏
 + (void)showMessageWithActivityAutoHide:(NSString *)message
 {
-    UIView *view = SYProgressHUD.share.selfSupperView;
-    NSTimeInterval duration = SYProgressHUD.share.durationTime;
-    [SYProgressHUD showMessage:message activitty:YES images:nil view:view autoHide:YES duration:duration enable:YES];
+    UIView *view = SYUIProgressHUD.share.selfSupperView;
+    NSTimeInterval duration = SYUIProgressHUD.share.durationTime;
+    [SYUIProgressHUD showMessage:message activitty:YES images:nil view:view autoHide:YES duration:duration enable:YES];
 }
 
 /// 显示图标
 + (void)showIcon:(NSArray <UIImage *> *)images
 {
-    UIView *view = SYProgressHUD.share.selfSupperView;
-    [SYProgressHUD showMessage:@"" activitty:NO images:images view:view autoHide:NO duration:0 enable:YES];
+    UIView *view = SYUIProgressHUD.share.selfSupperView;
+    [SYUIProgressHUD showMessage:@"" activitty:NO images:images view:view autoHide:NO duration:0 enable:YES];
 }
 /// 显示图标，自动隐藏
 + (void)showIconAutoHide:(NSArray <UIImage *> *)images
 {
-    UIView *view = SYProgressHUD.share.selfSupperView;
-    NSTimeInterval duration = SYProgressHUD.share.durationTime;
-    [SYProgressHUD showMessage:@"" activitty:NO images:images view:view autoHide:YES duration:duration enable:YES];
+    UIView *view = SYUIProgressHUD.share.selfSupperView;
+    NSTimeInterval duration = SYUIProgressHUD.share.durationTime;
+    [SYUIProgressHUD showMessage:@"" activitty:NO images:images view:view autoHide:YES duration:duration enable:YES];
 }
 
 /// 显示图标和信息
 + (void)showMessageWithIcon:(NSString *)message icon:(NSArray <UIImage *> *)images
 {
-    UIView *view = SYProgressHUD.share.selfSupperView;
-    [SYProgressHUD showMessage:message activitty:NO images:images view:view autoHide:NO duration:0 enable:YES];
+    UIView *view = SYUIProgressHUD.share.selfSupperView;
+    [SYUIProgressHUD showMessage:message activitty:NO images:images view:view autoHide:NO duration:0 enable:YES];
 }
 /// 显示图标和信息，自动隐藏
 + (void)showMessageWithIconAutoHide:(NSString *)message icon:(NSArray <UIImage *> *)images
 {
-    UIView *view = SYProgressHUD.share.selfSupperView;
-    NSTimeInterval duration = SYProgressHUD.share.durationTime;
-    [SYProgressHUD showMessage:message activitty:NO images:images view:view autoHide:YES duration:duration enable:YES];
+    UIView *view = SYUIProgressHUD.share.selfSupperView;
+    NSTimeInterval duration = SYUIProgressHUD.share.durationTime;
+    [SYUIProgressHUD showMessage:message activitty:NO images:images view:view autoHide:YES duration:duration enable:YES];
 }
 
 /// 显示信息
 + (void)showMessage:(NSString *)message
 {
-    UIView *view = SYProgressHUD.share.selfSupperView;
-    [SYProgressHUD showMessage:message activitty:NO images:nil view:view autoHide:NO duration:0 enable:YES];
+    UIView *view = SYUIProgressHUD.share.selfSupperView;
+    [SYUIProgressHUD showMessage:message activitty:NO images:nil view:view autoHide:NO duration:0 enable:YES];
 }
 /// 显示信息，自动隐藏
 + (void)showMessageAutoHide:(NSString *)message
 {
-    UIView *view = SYProgressHUD.share.selfSupperView;
-    NSTimeInterval duration = SYProgressHUD.share.durationTime;
-    [SYProgressHUD showMessage:message activitty:NO images:nil view:view autoHide:YES duration:duration enable:YES];
+    UIView *view = SYUIProgressHUD.share.selfSupperView;
+    NSTimeInterval duration = SYUIProgressHUD.share.durationTime;
+    [SYUIProgressHUD showMessage:message activitty:NO images:nil view:view autoHide:YES duration:duration enable:YES];
 }
 
 #pragma mark 隐藏
@@ -649,19 +649,19 @@ static CGFloat const heightLabel = 30;
 /// 隐藏
 + (void)hide
 {
-    [SYProgressHUD.share hideDelay:0 complete:NULL];
+    [SYUIProgressHUD.share hideDelay:0 complete:NULL];
 }
 
 /// 带回调的隐藏
 + (void)hideComplete:(void (^)(void))complete
 {
-    [SYProgressHUD.share hideDelay:0 complete:complete];
+    [SYUIProgressHUD.share hideDelay:0 complete:complete];
 }
 
 ///  带回调的延迟隐藏
 + (void)hideDelay:(NSTimeInterval)delay complete:(void (^)(void))complete
 {
-    [SYProgressHUD.share hideDelay:delay complete:complete];
+    [SYUIProgressHUD.share hideDelay:delay complete:complete];
 }
 
 

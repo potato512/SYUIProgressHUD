@@ -1,36 +1,36 @@
-# SYProgressHUD
+# SYUIProgressHUD
 提示信息弹窗
 
 
 使用介绍 
-  * 自动导入：使用命令`pod 'SYProgressHUD'`导入到项目中
+  * 自动导入：使用命令`pod 'SYUIProgressHUD'`导入到项目中
   * 手动导入：或下载源码后，将源码添加到项目中
   
 
 使用示例
 
-* SYProgressHUD 的使用示例
+* SYUIProgressHUD 的使用示例
 
 导入头文件
 ```
-#import "SYProgressHUD.h"
+#import "SYUIProgressHUD.h"
 ```
 
 ```
 // 初始化
 //    UIView *view = UIApplication.sharedApplication.delegate.window;
 UIView *view = self.view;
-[SYProgressHUD setContainerView:view];
-[SYProgressHUD setActivityColor:UIColor.redColor];
-[SYProgressHUD setHUDBackgroundColor:UIColor.greenColor];
-[SYProgressHUD setHUDCorner:15];
-[SYProgressHUD setHUDSize:CGSizeMake(300, 50)];
-[SYProgressHUD setHUDPosition:80];
+[SYUIProgressHUD setContainerView:view];
+[SYUIProgressHUD setActivityColor:UIColor.redColor];
+[SYUIProgressHUD setHUDBackgroundColor:UIColor.greenColor];
+[SYUIProgressHUD setHUDCorner:15];
+[SYUIProgressHUD setHUDSize:CGSizeMake(300, 50)];
+[SYUIProgressHUD setHUDPosition:80];
 ```
 
 ```
 // 隐藏
-[SYProgressHUD hide];
+[SYUIProgressHUD hide];
 ```
 
 ```
@@ -38,43 +38,43 @@ self.textArray = @[@"出错了，赶紧找问题吧！", @"正确！", @"因为�
 ```
 
 ```
-[SYProgressHUD showMessage:self.textArray[arc4random() % self.textArray.count]];
+[SYUIProgressHUD showMessage:self.textArray[arc4random() % self.textArray.count]];
 ```
 
 ```
-[SYProgressHUD showMessageAutoHide:self.textArray[arc4random() % self.textArray.count]];
+[SYUIProgressHUD showMessageAutoHide:self.textArray[arc4random() % self.textArray.count]];
 ```
 
 ```
-[SYProgressHUD showActivity];
+[SYUIProgressHUD showActivity];
 ```
 
 ```
-[SYProgressHUD showActivityAutoHide];
+[SYUIProgressHUD showActivityAutoHide];
 ```
 
 ```
-[SYProgressHUD showIcon:@[[UIImage imageNamed:@"withNetwork"]]];
+[SYUIProgressHUD showIcon:@[[UIImage imageNamed:@"withNetwork"]]];
  ```
 
 ```
-[SYProgressHUD showIconAutoHide:@[[UIImage imageNamed:@"withoutNetwork"]]];
+[SYUIProgressHUD showIconAutoHide:@[[UIImage imageNamed:@"withoutNetwork"]]];
 ```
 
 ```
-[SYProgressHUD showMessageWithActivity:self.textArray[arc4random() % self.textArray.count]];
+[SYUIProgressHUD showMessageWithActivity:self.textArray[arc4random() % self.textArray.count]];
  ```
 
 ```
-[SYProgressHUD showMessageWithActivityAutoHide:self.textArray[arc4random() % self.textArray.count]];
+[SYUIProgressHUD showMessageWithActivityAutoHide:self.textArray[arc4random() % self.textArray.count]];
 ```
 
 ```
-[SYProgressHUD showMessageWithIcon:self.textArray[arc4random() % self.textArray.count] icon:@[[UIImage imageNamed:@"error"]]];
+[SYUIProgressHUD showMessageWithIcon:self.textArray[arc4random() % self.textArray.count] icon:@[[UIImage imageNamed:@"error"]]];
 ```
 
 ```
-[SYProgressHUD showMessageWithIcon:self.textArray[arc4random() % self.textArray.count] icon:@[[UIImage imageNamed:@"success"]]];
+[SYUIProgressHUD showMessageWithIcon:self.textArray[arc4random() % self.textArray.count] icon:@[[UIImage imageNamed:@"success"]]];
 ```
 
 效果图
@@ -85,7 +85,7 @@ self.textArray = @[@"出错了，赶紧找问题吧！", @"正确！", @"因为�
 #### 修改说明
 * 20200419
   * 版本号：1.2.0 1.2.1
-  * 修改成 SYProgressHUD
+  * 修改成 SYUIProgressHUD
     * 使用类方法定义属性
     * 使用类方法调用
     * 自动识别类型

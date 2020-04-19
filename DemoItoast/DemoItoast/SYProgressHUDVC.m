@@ -7,7 +7,7 @@
 //
 
 #import "SYProgressHUDVC.h"
-#import "SYProgressHUD.h"
+#import "SYUIProgressHUD.h"
 
 @interface SYProgressHUDVC () <UITableViewDelegate, UITableViewDataSource>
 
@@ -46,12 +46,12 @@
     // 初始化
 //    UIView *view = UIApplication.sharedApplication.delegate.window;
     UIView *view = self.view;
-    [SYProgressHUD setContainerView:view];
-    [SYProgressHUD setActivityColor:UIColor.redColor];
-    [SYProgressHUD setHUDBackgroundColor:UIColor.greenColor];
-    [SYProgressHUD setHUDCorner:15];
-    [SYProgressHUD setHUDSize:CGSizeMake(300, 50)];
-//    [SYProgressHUD setHUDPosition:80];
+    [SYUIProgressHUD setContainerView:view];
+    [SYUIProgressHUD setActivityColor:UIColor.redColor];
+    [SYUIProgressHUD setHUDBackgroundColor:UIColor.greenColor];
+    [SYUIProgressHUD setHUDCorner:15];
+    [SYUIProgressHUD setHUDSize:CGSizeMake(300, 50)];
+//    [SYUIProgressHUD setHUDPosition:80];
     
 }
 
@@ -66,7 +66,7 @@
 
 - (void)dealloc
 {
-    [SYProgressHUD hide];
+    [SYUIProgressHUD hide];
 }
 
 - (void)hideKeyboardClick
@@ -98,27 +98,27 @@
     
     NSString *text = self.array[indexPath.row];
     if ([text isEqualToString:@"隐藏HUD"]) {
-        [SYProgressHUD hide];
+        [SYUIProgressHUD hide];
     } else if ([text isEqualToString:@"显示HUD不隐藏 仅信息"]) {
-        [SYProgressHUD showMessage:self.textArray[arc4random() % self.textArray.count]];
+        [SYUIProgressHUD showMessage:self.textArray[arc4random() % self.textArray.count]];
     } else if ([text isEqualToString:@"显示HUD自动隐藏 仅信息"]) {
-        [SYProgressHUD showMessageAutoHide:self.textArray[arc4random() % self.textArray.count]];
+        [SYUIProgressHUD showMessageAutoHide:self.textArray[arc4random() % self.textArray.count]];
     } else if ([text isEqualToString:@"显示HUD不隐藏 仅符号指示器"]) {
-        [SYProgressHUD showActivity];
+        [SYUIProgressHUD showActivity];
     } else if ([text isEqualToString:@"显示HUD自动隐藏 仅符号指示器"]) {
-        [SYProgressHUD showActivityAutoHide];
+        [SYUIProgressHUD showActivityAutoHide];
     } else if ([text isEqualToString:@"显示HUD不隐藏隐藏 仅图标"]) {
-        [SYProgressHUD showIcon:@[[UIImage imageNamed:@"withNetwork"]]];
+        [SYUIProgressHUD showIcon:@[[UIImage imageNamed:@"withNetwork"]]];
     } else if ([text isEqualToString:@"显示HUD自动隐藏 仅图标"]) {
-        [SYProgressHUD showIconAutoHide:@[[UIImage imageNamed:@"withoutNetwork"]]];
+        [SYUIProgressHUD showIconAutoHide:@[[UIImage imageNamed:@"withoutNetwork"]]];
     } else if ([text isEqualToString:@"显示HUD不隐藏 信息和符号指示器"]) {
-        [SYProgressHUD showMessageWithActivity:self.textArray[arc4random() % self.textArray.count]];
+        [SYUIProgressHUD showMessageWithActivity:self.textArray[arc4random() % self.textArray.count]];
     } else if ([text isEqualToString:@"显示HUD自动隐藏 信息和符号指示器"]) {
-        [SYProgressHUD showMessageWithActivityAutoHide:self.textArray[arc4random() % self.textArray.count]];
+        [SYUIProgressHUD showMessageWithActivityAutoHide:self.textArray[arc4random() % self.textArray.count]];
     } else if ([text isEqualToString:@"显示HUD不隐藏 信息和图标"]) {
-        [SYProgressHUD showMessageWithIcon:self.textArray[arc4random() % self.textArray.count] icon:@[[UIImage imageNamed:@"error"]]];
+        [SYUIProgressHUD showMessageWithIcon:self.textArray[arc4random() % self.textArray.count] icon:@[[UIImage imageNamed:@"error"]]];
     } else if ([text isEqualToString:@"显示HUD自动隐藏 信息和图标"]) {
-        [SYProgressHUD showMessageWithIcon:self.textArray[arc4random() % self.textArray.count] icon:@[[UIImage imageNamed:@"success"]]];
+        [SYUIProgressHUD showMessageWithIcon:self.textArray[arc4random() % self.textArray.count] icon:@[[UIImage imageNamed:@"success"]]];
     }
 }
 

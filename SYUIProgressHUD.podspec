@@ -1,5 +1,5 @@
 #
-#  Be sure to run `pod spec lint SYProgressHUD.podspec' to ensure this is a
+#  Be sure to run `pod spec lint SYUIProgressHUD.podspec' to ensure this is a
 #  valid spec and to remove all comments including this before submitting the spec.
 #
 #  To learn more about Podspec attributes see https://guides.cocoapods.org/syntax/podspec.html
@@ -15,9 +15,9 @@ Pod::Spec.new do |spec|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  spec.name         = "SYProgressHUD"
-  spec.version      = "1.2.1"
-  spec.summary      = "SYProgressHUD used to show message which can be auto hide."
+  spec.name         = "SYUIProgressHUD"
+  spec.version      = "1.2.2"
+  spec.summary      = "SYUIProgressHUD used to show message which can be auto hide."
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -25,7 +25,7 @@ Pod::Spec.new do |spec|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
 
-  spec.homepage     = "https://github.com/potato512/SYProgressHUD"
+  spec.homepage     = "https://github.com/potato512/SYUIProgressHUD"
   # spec.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -76,7 +76,7 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://github.com/potato512/SYProgressHUD.git", :tag => "#{spec.version}" }
+  spec.source       = { :git => "https://github.com/potato512/SYUIProgressHUD.git", :tag => "#{spec.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -87,7 +87,7 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "SYProgressHUD/*.{h,m}"
+  spec.source_files  = "SYUIProgressHUD/*.{h,m}"
 
   # spec.public_header_files = "Classes/**/*.h"
 

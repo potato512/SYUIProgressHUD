@@ -1,6 +1,6 @@
 //
-//  SYProgressHUD.h
-//  DemoItoast
+//  SYUIProgressHUD.h
+//  zhangshaoyu
 //
 //  Created by Herman on 2020/4/19.
 //  Copyright © 2020 zhangshaoyu. All rights reserved.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SYProgressHUD : UIView
+@interface SYUIProgressHUD : UIView
 
 /// 显示父视图，默认无
 + (void)setContainerView:(UIView *)view;

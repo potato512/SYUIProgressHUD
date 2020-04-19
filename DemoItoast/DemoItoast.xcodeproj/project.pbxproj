@@ -16,10 +16,10 @@
 		A7F415F01B69B8D200DD360A /* DemoItoastTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F415EF1B69B8D200DD360A /* DemoItoastTests.m */; };
 		A9E09AF24A6B6B5302CB05D8 /* libPods-DemoItoast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F79D2D2F5313F7271CE5C3A /* libPods-DemoItoast.a */; };
 		D9CFB2CE6A886B8A1FE4E552 /* libPods-DemoItoastTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B116BAE8C95FE7D0A0ADB493 /* libPods-DemoItoastTests.a */; };
-		DF7AB4DE244BEE7200DF3789 /* SYProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7AB4D7244BEE7200DF3789 /* SYProgressHUD.m */; };
 		DF7AB4E2244C265F00DF3789 /* error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7AB4E0244C265F00DF3789 /* error@2x.png */; };
 		DF7AB4E3244C265F00DF3789 /* success@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7AB4E1244C265F00DF3789 /* success@2x.png */; };
 		DF7AB4E6244C27BF00DF3789 /* SYProgressHUDVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7AB4E5244C27BF00DF3789 /* SYProgressHUDVC.m */; };
+		DF7AB4E9244C73D500DF3789 /* SYUIProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7AB4E8244C73D500DF3789 /* SYUIProgressHUD.m */; };
 		DF7FE961212478E000042EFB /* withoutNetwork.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7FE960212478E000042EFB /* withoutNetwork.png */; };
 		DF7FE9632124793800042EFB /* withNetwork.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7FE9622124793700042EFB /* withNetwork.png */; };
 /* End PBXBuildFile section */
@@ -53,12 +53,12 @@
 		A7F415EF1B69B8D200DD360A /* DemoItoastTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoItoastTests.m; sourceTree = "<group>"; };
 		B116BAE8C95FE7D0A0ADB493 /* libPods-DemoItoastTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DemoItoastTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83F554EFB39E9884D9E332F /* Pods-DemoItoastTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoItoastTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoItoastTests/Pods-DemoItoastTests.release.xcconfig"; sourceTree = "<group>"; };
-		DF7AB4D7244BEE7200DF3789 /* SYProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYProgressHUD.m; sourceTree = "<group>"; };
-		DF7AB4DB244BEE7200DF3789 /* SYProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYProgressHUD.h; sourceTree = "<group>"; };
 		DF7AB4E0244C265F00DF3789 /* error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error@2x.png"; sourceTree = "<group>"; };
 		DF7AB4E1244C265F00DF3789 /* success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "success@2x.png"; sourceTree = "<group>"; };
 		DF7AB4E4244C27BF00DF3789 /* SYProgressHUDVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYProgressHUDVC.h; sourceTree = "<group>"; };
 		DF7AB4E5244C27BF00DF3789 /* SYProgressHUDVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYProgressHUDVC.m; sourceTree = "<group>"; };
+		DF7AB4E7244C73D500DF3789 /* SYUIProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYUIProgressHUD.h; sourceTree = "<group>"; };
+		DF7AB4E8244C73D500DF3789 /* SYUIProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYUIProgressHUD.m; sourceTree = "<group>"; };
 		DF7FE960212478E000042EFB /* withoutNetwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = withoutNetwork.png; sourceTree = "<group>"; };
 		DF7FE9622124793700042EFB /* withNetwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = withNetwork.png; sourceTree = "<group>"; };
 		F868EEE38BEAEA2E79FB5D6C /* Pods-DemoItoast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoItoast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoItoast/Pods-DemoItoast.debug.xcconfig"; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 				A7F415DB1B69B8D200DD360A /* ViewController.m */,
 				DF7AB4E4244C27BF00DF3789 /* SYProgressHUDVC.h */,
 				DF7AB4E5244C27BF00DF3789 /* SYProgressHUDVC.m */,
-				DF7AB4D3244BEE7200DF3789 /* SYProgressHUD */,
+				DF7AB4D3244BEE7200DF3789 /*  SYUIProgressHUD */,
 				DF7FE9622124793700042EFB /* withNetwork.png */,
 				DF7FE960212478E000042EFB /* withoutNetwork.png */,
 				DF7AB4E0244C265F00DF3789 /* error@2x.png */,
@@ -161,14 +161,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		DF7AB4D3244BEE7200DF3789 /* SYProgressHUD */ = {
+		DF7AB4D3244BEE7200DF3789 /*  SYUIProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
-				DF7AB4D7244BEE7200DF3789 /* SYProgressHUD.m */,
-				DF7AB4DB244BEE7200DF3789 /* SYProgressHUD.h */,
+				DF7AB4E7244C73D500DF3789 /* SYUIProgressHUD.h */,
+				DF7AB4E8244C73D500DF3789 /* SYUIProgressHUD.m */,
 			);
-			name = SYProgressHUD;
-			path = ../../SYProgressHUD;
+			name = " SYUIProgressHUD";
+			path = "../../ SYUIProgressHUD";
 			sourceTree = "<group>";
 		};
 		F4DB65A92F3587F4440F75D2 /* Pods */ = {
@@ -352,9 +352,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7F415DC1B69B8D200DD360A /* ViewController.m in Sources */,
-				DF7AB4DE244BEE7200DF3789 /* SYProgressHUD.m in Sources */,
 				A7F415D91B69B8D200DD360A /* AppDelegate.m in Sources */,
 				DF7AB4E6244C27BF00DF3789 /* SYProgressHUDVC.m in Sources */,
+				DF7AB4E9244C73D500DF3789 /* SYUIProgressHUD.m in Sources */,
 				A7F415D61B69B8D200DD360A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
