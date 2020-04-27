@@ -16,28 +16,16 @@ static CGFloat const heightLabel = 30;
 
 + (instancetype)share;
 
-@property (nonatomic, strong) UIView *selfSupperView;
-@property (nonatomic, assign) CGFloat keyboardHeight;
-@property (nonatomic, assign) CGFloat topPosition;
-//
-@property (nonatomic, strong) UIView *ringView;
+@property (nonatomic, strong) UIView *hudView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
-@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIView *customView;
 @property (nonatomic, strong) UILabel *label;
 //
-@property (nonatomic, strong) UIColor *hudColor;
-@property (nonatomic, assign) CGFloat hudCorner;
-@property (nonatomic, assign) CGSize hudSize;
+@property (nonatomic, assign) CGFloat keyboardHeight;
 //
-@property (nonatomic, strong) UIColor *textColor;
-@property (nonatomic, strong) UIFont *textFont;
-//
-@property (nonatomic, strong) UIColor *activityColor;
-//
+@property (nonatomic, assign) HUDMode hudMode;
 @property (nonatomic, assign) NSTimeInterval durationTime;
 //
-@property (nonatomic, assign) BOOL isFollowKeyboard;
-
 @property (nonatomic, copy) void (^hideComplete)(void);
 
 @end
@@ -61,18 +49,20 @@ static CGFloat const heightLabel = 30;
         _hudColor = [UIColor.blackColor colorWithAlphaComponent:0.3];
         _hudCorner = 10;
         _hudSize = CGSizeMake(120, 120);
+        _isAutoSize = YES;
         _textColor = UIColor.blackColor;
         _textFont = [UIFont systemFontOfSize:15];
         _activityColor = [UIColor.whiteColor colorWithAlphaComponent:1];
         _durationTime = 3;
         _isFollowKeyboard = YES;
         //
-        self.frame = CGRectMake(0, 0, self.hudSize.width, self.hudSize.height);
-        self.backgroundColor = _hudColor;
-        self.layer.cornerRadius = _hudCorner;
-        self.layer.masksToBounds = YES;
+        self.hudView.frame = CGRectMake(0, 0, self.hudSize.width, self.hudSize.height);
+        self.hudView.backgroundColor = _hudColor;
+        self.hudView.layer.cornerRadius = _hudCorner;
+        self.hudView.alpha = 0.0;
+        //
         self.alpha = 0.0;
-        self.userInteractionEnabled = YES;
+        self.backgroundColor = UIColor.clearColor;
     }
     return self;
 }
@@ -81,153 +71,254 @@ static CGFloat const heightLabel = 30;
 
 - (void)reloadUI
 {
-    if (self.label.hidden) {
-        [self reloadUIWithoutMessage];
-        return;
+    if (self.hudMode == HUDModeDefault || self.hudMode == HUDModeActivity) {
+        [self reloadUIActivity];
+    } else if (self.hudMode == HUDModeText) {
+        [self reloadUIText];
+    } else if (self.hudMode == HUDModeActivityWithText) {
+        [self reloadUIActivityText];
+    } else if (self.hudMode == HUDModeCustomView) {
+        [self reloadUICustom];
+    } else if (self.hudMode == HUDModeCustomViewWithText) {
+        [self reloadUICustomText];
     }
-    
-    if (self.activityView.hidden && self.imageView.hidden) {
-        [self reloadUIWithoutActivity];
-        return;
-    }
-
-    [self reloadUIAll];
 }
 
-- (void)reloadUIAll
+// 活动指示器
+- (void)reloadUIActivity
 {
-    if (self.superview == nil) {
-        return;
-    }
-    
-    self.backgroundColor = self.hudColor;
-    self.layer.cornerRadius = self.hudCorner;
+    self.hudView.backgroundColor = self.hudColor;
+    self.hudView.layer.cornerRadius = self.hudCorner;
     //
-    self.label.textColor = self.textColor;
-    self.label.font = self.textFont;
+    [self.activityView startAnimating];
+    self.customView.hidden = YES;
+    self.label.hidden = YES;
+    //
+    CGFloat width = self.frame.size.width;
+    CGFloat height = (self.frame.size.height - self.keyboardHeight);
+    CGFloat hudWidth = self.sizeWidth;
+    CGFloat hudHeight = self.sizeHeight;
+    // hud 视图 frame 设置
+    CGRect rect = self.hudView.frame;
+    rect.origin.x = (width - hudWidth) / 2;
+    rect.origin.y = (self.topPosition > 0 ? self.topPosition : (height - self.hudSize.height) / 2);
+    rect.size.width = hudWidth;
+    rect.size.height = hudHeight;
+    self.hudView.frame = rect;
     //
     self.activityView.color = self.activityColor;
-    
-    //
-    UIView *view = self.superview;
-    CGFloat width = view.frame.size.width;
-    CGFloat height = (view.frame.size.height - self.keyboardHeight);
-    //
-    CGRect textRect = [self.label.text boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.label.font} context:nil];
-    CGFloat widthText = textRect.size.width;
-    if (widthText > (width - originX * 2)) {
-        widthText = (width - originX * 2);
-    }
-    if (widthText < self.hudSize.width) {
-        widthText = self.hudSize.width;
-    }
-    // hud 视图 frame 设置
-    CGRect rect = self.frame;
-    rect.origin.x = (width - widthText) / 2;
-    rect.origin.y = (self.topPosition > 0 ? self.topPosition : (height - self.hudSize.height) / 2);
-    rect.size.width = widthText;
-    rect.size.height = self.hudSize.height;
-    self.frame = rect;
-    //
     CGRect rectActivity = self.activityView.frame;
-    rectActivity.origin.x = (self.frame.size.width - self.activityView.frame.size.width) / 2;
-    rectActivity.origin.y = (self.frame.size.height - originXYInset * 3 - self.activityView.frame.size.height) / 2;
+    rectActivity.origin.x = (self.hudView.frame.size.width - self.activityView.frame.size.width) / 2;
+    rectActivity.origin.y = (self.hudView.frame.size.height - self.activityView.frame.size.height) / 2;
     self.activityView.frame = rectActivity;
-    self.imageView.frame = rectActivity;
+}
+
+// 活动指示器+文本
+- (void)reloadUIActivityText
+{
+    self.hudView.backgroundColor = self.hudColor;
+    self.hudView.layer.cornerRadius = self.hudCorner;
     //
-    self.label.frame = CGRectMake(originXYInset, (self.imageView.frame.origin.y + self.imageView.frame.size.height + originXYInset), (self.frame.size.width - originXYInset * 2), heightLabel);
+    [self.activityView startAnimating];
+    self.customView.hidden = YES;
+    self.label.hidden = NO;
     //
-    if (!self.activityView.hidden) {
-        [self.activityView startAnimating];
-    }
-    if (!self.imageView.hidden) {
-        if (self.imageView.animationImages.count) {
-            [self.imageView startAnimating];
+    CGFloat width = self.frame.size.width;
+    CGFloat height = (self.frame.size.height - self.keyboardHeight);
+    CGFloat hudWidth = self.sizeWidth;
+    CGFloat hudHeight = self.sizeHeight;
+    if (self.isAutoSize) {
+        if (hudWidth < hudHeight) {
+            hudWidth = hudHeight;
         }
-    }
-}
-
-- (void)reloadUIWithoutMessage
-{
-    if (self.superview == nil) {
-        return;
-    }
-    
-    self.backgroundColor = self.hudColor;
-    self.layer.cornerRadius = self.hudCorner;
-    //
-    UIView *view = self.superview;
-    CGFloat width = view.frame.size.width;
-    CGFloat height = (view.frame.size.height - self.keyboardHeight);
-    // hud 视图 frame 设置
-    CGRect rect = self.frame;
-    rect.origin.x = (width - self.hudSize.width) / 2;
-    rect.origin.y = (self.topPosition > 0 ? self.topPosition : (height - self.hudSize.height) / 2);
-    rect.size.width = self.hudSize.width;
-    rect.size.height = self.hudSize.height;
-    self.frame = rect;
-    //
-    CGRect rectActivity = self.activityView.frame;
-    rectActivity.origin.x = (self.frame.size.width - self.activityView.frame.size.width) / 2;
-    rectActivity.origin.y = (self.frame.size.height - self.activityView.frame.size.height) / 2;
-    self.activityView.frame = rectActivity;
-    self.imageView.frame = rectActivity;
-    //
-    if (self.activityView.hidden) {
-        
     } else {
-        self.activityView.color = self.activityColor;
-        [self.activityView startAnimating];
-    }
-}
-
-- (void)reloadUIWithoutActivity
-{
-    if (self.superview == nil) {
-        return;
-    }
-    
-    self.backgroundColor = self.hudColor;
-    self.layer.cornerRadius = self.hudCorner;
-    //
-    UIView *view = self.superview;
-    CGFloat width = view.frame.size.width;
-    CGFloat height = (view.frame.size.height - self.keyboardHeight);
-    //
-    CGRect textRect = [self.label.text boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.label.font} context:nil];
-    CGFloat widthText = textRect.size.width;
-    if (widthText > (width - originX * 2)) {
-        widthText = (width - originX * 2);
-    }
-    if (widthText < self.hudSize.width) {
-        widthText = self.hudSize.width;
+        CGFloat value = MAX(hudHeight, hudWidth);
+        hudWidth = value;
+        hudHeight = value;
     }
     // hud 视图 frame 设置
-    CGRect rect = self.frame;
-    rect.origin.x = (width - widthText) / 2;
-    rect.origin.y = (self.topPosition > 0 ? self.topPosition : (height - (heightLabel + originXYInset * 2)) / 2);
-    rect.size.width = widthText;
-    rect.size.height = (heightLabel + originXYInset * 2);
-    self.frame = rect;
+    CGRect rect = self.hudView.frame;
+    rect.origin.x = (width - hudWidth) / 2;
+    rect.origin.y = (self.topPosition > 0 ? self.topPosition : (height - self.hudSize.height) / 2);
+    rect.size.width = hudWidth;
+    rect.size.height = hudHeight;
+    self.hudView.frame = rect;
+    //
+    self.activityView.color = self.activityColor;
+    CGRect rectActivity = self.activityView.frame;
+    rectActivity.origin.x = (self.hudView.frame.size.width - self.activityView.frame.size.width) / 2;
+    rectActivity.origin.y = (self.hudView.frame.size.height - originXYInset * 3 - self.activityView.frame.size.height) / 2;
+    self.activityView.frame = rectActivity;
     //
     self.label.textColor = self.textColor;
     self.label.font = self.textFont;
-    //
-    self.label.frame = CGRectMake(originXYInset, originXYInset, (self.frame.size.width - originXYInset * 2), heightLabel);
+    self.label.frame = CGRectMake(originXYInset, (self.activityView.frame.origin.y + self.activityView.frame.size.height + originXYInset), (self.hudView.frame.size.width - originXYInset * 2), heightLabel);
 }
+
+// 文本
+- (void)reloadUIText
+{
+    self.hudView.backgroundColor = self.hudColor;
+    self.hudView.layer.cornerRadius = self.hudCorner;
+    //
+    [self.activityView stopAnimating];
+    self.customView.hidden = YES;
+    self.label.hidden = NO;
+    //
+    CGFloat width = self.frame.size.width;
+    CGFloat height = (self.frame.size.height - self.keyboardHeight);
+    CGFloat hudWidth = self.sizeWidth;
+    CGFloat hudHeight = self.sizeHeight;
+    // hud 视图 frame 设置
+    CGRect rect = self.hudView.frame;
+    rect.origin.x = (width - hudWidth) / 2;
+    rect.origin.y = (self.topPosition > 0 ? self.topPosition : (height - (heightLabel + originXYInset * 2)) / 2);
+    rect.size.width = hudWidth;
+    rect.size.height = hudHeight;
+    self.hudView.frame = rect;
+    //
+    self.label.textColor = self.textColor;
+    self.label.font = self.textFont;
+    self.label.frame = CGRectMake(originXYInset, originXYInset, (self.hudView.frame.size.width - originXYInset * 2), (self.hudView.frame.size.height - originXYInset * 2));
+}
+
+// 图标
+- (void)reloadUICustom
+{
+    self.hudView.backgroundColor = self.hudColor;
+    self.hudView.layer.cornerRadius = self.hudCorner;
+    //
+    [self.activityView stopAnimating];
+    self.customView.hidden = NO;
+    self.label.hidden = YES;
+    //
+    CGFloat width = self.frame.size.width;
+    CGFloat height = (self.frame.size.height - self.keyboardHeight);
+    CGFloat hudWidth = self.sizeWidth;
+    CGFloat hudHeight = self.sizeHeight;
+    // hud 视图 frame 设置
+    CGRect rect = self.hudView.frame;
+    rect.origin.x = (width - hudWidth) / 2;
+    rect.origin.y = (self.topPosition > 0 ? self.topPosition : (height - self.hudSize.height) / 2);
+    rect.size.width = hudWidth;
+    rect.size.height = hudHeight;
+    self.hudView.frame = rect;
+    //
+    CGRect rectActivity = self.activityView.frame;
+    rectActivity.origin.x = (self.hudView.frame.size.width - self.activityView.frame.size.width) / 2;
+    rectActivity.origin.y = (self.hudView.frame.size.height - self.activityView.frame.size.height) / 2;
+    self.activityView.frame = rectActivity;
+    self.customView.frame = rectActivity;
+}
+
+// 图标+文本
+- (void)reloadUICustomText
+{
+    self.hudView.backgroundColor = self.hudColor;
+    self.hudView.layer.cornerRadius = self.hudCorner;
+    //
+    [self.activityView stopAnimating];
+    self.customView.hidden = NO;
+    self.label.hidden = NO;
+    //
+    CGFloat width = self.frame.size.width;
+    CGFloat height = (self.frame.size.height - self.keyboardHeight);
+    CGFloat hudWidth = self.sizeWidth;
+    CGFloat hudHeight = self.sizeHeight;
+    if (self.isAutoSize) {
+        if (hudWidth < hudHeight) {
+            hudWidth = hudHeight;
+        }
+    } else {
+        CGFloat value = MAX(hudHeight, hudWidth);
+        hudWidth = value;
+        hudHeight = value;
+    }
+    // hud 视图 frame 设置
+    CGRect rect = self.hudView.frame;
+    rect.origin.x = (width - hudWidth) / 2;
+    rect.origin.y = (self.topPosition > 0 ? self.topPosition : (height - self.hudSize.height) / 2);
+    rect.size.width = hudWidth;
+    rect.size.height = hudHeight;
+    self.hudView.frame = rect;
+    //
+    CGRect rectActivity = self.activityView.frame;
+    rectActivity.origin.x = (self.hudView.frame.size.width - self.activityView.frame.size.width) / 2;
+    rectActivity.origin.y = (self.hudView.frame.size.height - originXYInset * 3 - self.activityView.frame.size.height) / 2;
+    self.activityView.frame = rectActivity;
+    self.customView.frame = rectActivity;
+    //
+    self.label.textColor = self.textColor;
+    self.label.font = self.textFont;
+    self.label.frame = CGRectMake(originXYInset, (self.activityView.frame.origin.y + self.activityView.frame.size.height + originXYInset), (self.hudView.frame.size.width - originXYInset * 2), heightLabel);
+}
+
+- (CGRect)widthRect
+{
+    CGRect rect = [self.label.text boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.label.font} context:nil];
+    return rect;
+}
+
+- (CGFloat)sizeWidth
+{
+    CGFloat width = self.hudSize.width;
+    if (self.isAutoSize && (self.hudMode == HUDModeText || self.hudMode == HUDModeActivityWithText || self.hudMode == HUDModeCustomViewWithText)) {
+        //
+        width = self.widthRect.size.width;
+        width += originXYInset * 2; // 左右两边间距
+        //
+        if (width > (self.frame.size.width - originX * 2)) {
+            width = (self.frame.size.width - originX * 2);
+        }
+        if (width < self.hudSize.width) {
+            width = self.hudSize.width;
+        }
+    }
+    return width;
+}
+
+- (CGFloat)sizeHeight
+{
+    CGFloat height = self.hudSize.height;
+    if (self.hudMode == HUDModeText) {
+        if (self.isSingleline) {
+            self.label.numberOfLines = 1;
+            height = heightLabel;
+        } else {
+            self.label.numberOfLines = 0;
+            CGRect rect = [self.label.text boundingRectWithSize:CGSizeMake(self.sizeWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.label.font} context:nil];
+            height = rect.size.height;
+            if (height < heightLabel) {
+                height = heightLabel;
+            }
+        }
+        height += (originXYInset * 2);
+    } else if (self.hudMode == HUDModeActivityWithText || self.hudMode == HUDModeCustomViewWithText) {
+        height = (originXYInset + self.activityView.frame.size.height + originXYInset + heightLabel + originXYInset);
+        //
+        if (height > (self.frame.size.width - originX * 2)) {
+            height = (self.frame.size.width - originX * 2);
+        }
+        if (height < self.hudSize.height) {
+            height = self.hudSize.height;
+        }
+    }
+    return height;
+}
+
+#pragma mark 显示隐藏
 
 - (void)showHUD
 {
     [self addNotification];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self reloadUI];
+        
         UIViewAnimationOptions options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut;
-//        self.transform = CGAffineTransformScale(self.transform, 1.4, 1.4);
         [UIView animateWithDuration:0.3 delay:0 options:options animations:^{
-//            self.transform = CGAffineTransformScale(self.transform, 1/1.4, 1/1.4);
+            self.hudView.alpha = 1.0;
             self.alpha = 1.0;
         } completion:^(BOOL finished) {
-//            self.transform = CGAffineTransformScale(self.transform, 1, 1);
         }];
     });
 }
@@ -242,20 +333,15 @@ static CGFloat const heightLabel = 30;
             self.hideComplete();
         }
         UIViewAnimationOptions options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseIn;
-//        self.transform = CGAffineTransformScale(self.transform, 1, 1);
         [UIView animateWithDuration:0.3 delay:0 options:options animations:^{
-//            self.transform = CGAffineTransformScale(self.transform, 0.7, 0.7);
+            self.hudView.alpha = 0.0;
             self.alpha = 0.0;
         } completion:^(BOOL finished) {
+            self.superview.userInteractionEnabled = YES;
             [self removeFromSuperview];
-            self.selfSupperView.userInteractionEnabled = YES;
             if (self.activityView.isAnimating) {
                 [self.activityView stopAnimating];
             }
-            if (self.imageView.isAnimating) {
-                [self.imageView stopAnimating];
-            }
-//            self.transform = CGAffineTransformScale(self.transform, 1, 1);
         }];
     });
 }
@@ -264,64 +350,77 @@ static CGFloat const heightLabel = 30;
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     //
-    self.selfSupperView.userInteractionEnabled = YES;
+    self.superview.userInteractionEnabled = YES;
     if (self.activityView.isAnimating) {
         [self.activityView stopAnimating];
     }
 }
 
 /// hud 显示
-- (void)showMessage:(NSString *)message activity:(BOOL)isActivity icon:(NSArray <UIImage *> *)images view:(UIView *)view autoHide:(BOOL)isAuto duration:(NSTimeInterval)duration enable:(BOOL)isEnable
+- (void)showMessage:(NSString *)message customView:(UIView *)customView view:(UIView *)view mode:(HUDMode)mode autoHide:(BOOL)isAuto duration:(NSTimeInterval)duration enable:(BOOL)isEnable
 {
     if (view == nil || ![view isKindOfClass:UIView.class]) {
         NSAssert(view, @"View must not be nil and must be the class of UIView, use setContainerView:.");
         return;
-    } else if (view && [view respondsToSelector:@selector(addSubview:)]) {
-        view.userInteractionEnabled = isEnable;
-        [view addSubview:self];
     }
     
+    //
+    [view addSubview:self];
+    self.frame = view.bounds;
+    //
     [self hideHUDImmediately];
-    
     //
     self.label.text = message;
-    
-    //
-    if (images.count > 1) {
-        self.imageView.animationImages = images;
-        [self.imageView startAnimating];
-    } else if (images.count > 0) {
-        self.imageView.image = images.lastObject;
+    self.hudMode = mode;
+    self.superview.userInteractionEnabled = isEnable;
+    self.userInteractionEnabled = (isEnable ? NO : YES);
+    if (customView && [customView isKindOfClass:UIView.class]) {
+        if (self.customView) {
+            [self.customView removeFromSuperview];
+        }
+        self.customView = customView;
+        [self.hudView addSubview:self.customView];
     }
-    
+    //
+    [self showHUD];
     //
     if (isAuto) {
         [self hideDelay:duration complete:NULL];
     }
-    //
-    self.label.hidden = NO;
-    self.activityView.hidden = NO;
-    self.imageView.hidden = NO;
-    if (message == nil || ([message isKindOfClass:NSString.class] && message.length <= 0)) {
-        self.label.hidden = YES;
-    }
-    if (!isActivity) {
-        self.activityView.hidden = YES;
-    }
-    if (images == nil || ([images isKindOfClass:NSArray.class] && images.count <= 0)) {
-        self.imageView.hidden = YES;
-    }
-    //
-    [self showHUD];
+}
+/// hud 显示 活动指示器
+- (void)showActivity:(UIView *)view
+{
+    [self showMessage:nil customView:nil view:view mode:HUDModeActivity autoHide:NO duration:0 enable:YES];
+}
+/// hud 显示 文本
+- (void)showMessage:(NSString *)message view:(UIView *)view
+{
+    [self showMessage:message customView:nil view:view mode:HUDModeText autoHide:NO duration:0 enable:YES];
+}
+/// hud 显示 活动指示器+文本
+- (void)showActivityWithMessage:(NSString *)message view:(UIView *)view
+{
+    [self showMessage:message customView:nil view:view mode:HUDModeActivityWithText autoHide:NO duration:0 enable:YES];
 }
 
-///  带回调的延迟隐藏
+/// 带回调的延迟隐藏
 - (void)hideDelay:(NSTimeInterval)delay complete:(void (^)(void))complete
 {
     if ([self respondsToSelector:@selector(hideHUD)]) {
         self.hideComplete = [complete copy];
         [self performSelector:@selector(hideHUD) withObject:nil afterDelay:delay];
     }
+}
+/// 带回调的隐藏
+- (void)hideComplete:(void (^)(void))complete
+{
+    [self hideDelay:0 complete:complete];
+}
+/// 隐藏
+- (void)hide
+{
+    [self hideDelay:0 complete:NULL];
 }
 
 #pragma mark 通知类
@@ -360,13 +459,13 @@ static CGFloat const heightLabel = 30;
     //
     self.keyboardHeight = heightKeyboard;
     
-    CGRect screen = self.superview.bounds;
+    CGRect screen = self.hudView.superview.bounds;
     CGPoint center = CGPointMake(screen.size.width / 2, (screen.size.height - heightKeyboard) / 2);
     //
     if (self.shouldReloadTopWhileEdit) {
         //
         [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-            self.center = CGPointMake(center.x, center.y);
+            self.hudView.center = CGPointMake(center.x, center.y);
         } completion:^(BOOL finished) {
             
         }];
@@ -396,7 +495,7 @@ static CGFloat const heightLabel = 30;
 - (CGFloat)shouldReloadTopWhileEdit
 {
     if (self.topPosition > 0) {
-        CGFloat top = (self.superview.frame.size.height - self.keyboardHeight - self.frame.size.height) / 2;
+        CGFloat top = (self.hudView.superview.frame.size.height - self.keyboardHeight - self.hudView.frame.size.height) / 2;
         if (self.topPosition > top) {
             return YES;
         }
@@ -409,6 +508,17 @@ static CGFloat const heightLabel = 30;
 
 #pragma mark getter
 
+- (UIView *)hudView
+{
+    if (_hudView == nil) {
+        _hudView = [[UIView alloc] init];
+        _hudView.layer.masksToBounds = YES;
+        //
+        [self addSubview:_hudView];
+    }
+    return _hudView;
+}
+
 - (UIActivityIndicatorView *)activityView
 {
     if (_activityView == nil) {
@@ -417,28 +527,9 @@ static CGFloat const heightLabel = 30;
         _activityView.hidesWhenStopped = YES;
         [_activityView stopAnimating];
         //
-        [self addSubview:_activityView];
+        [self.hudView addSubview:_activityView];
     }
     return _activityView;
-}
-
-- (UIView *)ringView
-{
-    if (_ringView == nil) {
-        
-    }
-    return _ringView;
-}
-
-- (UIImageView *)imageView
-{
-    if (_imageView == nil) {
-        _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        _imageView.backgroundColor = UIColor.clearColor;
-        //
-        [self addSubview:_imageView];
-    }
-    return _imageView;
 }
 
 - (UILabel *)label
@@ -448,7 +539,7 @@ static CGFloat const heightLabel = 30;
         _label.backgroundColor = UIColor.clearColor;
         _label.textAlignment = NSTextAlignmentCenter;
         //
-        [self addSubview:_label];
+        [self.hudView addSubview:_label];
     }
     return _label;
 }
@@ -458,19 +549,19 @@ static CGFloat const heightLabel = 30;
 - (void)setHudColor:(UIColor *)hudColor
 {
     _hudColor = hudColor;
-    self.backgroundColor = _hudColor;
+    self.hudView.backgroundColor = _hudColor;
 }
 - (void)setHudCorner:(CGFloat)hudCorner
 {
     _hudCorner = hudCorner;
-    self.layer.cornerRadius = _hudCorner;
+    self.hudView.layer.cornerRadius = _hudCorner;
 }
 - (void)setHudSize:(CGSize)hudSize
 {
     _hudSize = hudSize;
-    CGRect rect = self.frame;
+    CGRect rect = self.hudView.frame;
     rect.size = _hudSize;
-    self.frame = rect;
+    self.hudView.frame = rect;
 }
 
 - (void)setTextFont:(UIFont *)textFont
@@ -483,186 +574,16 @@ static CGFloat const heightLabel = 30;
     _textColor = textColor;
     self.label.textColor = _textColor;
 }
+- (void)setTextAlign:(NSTextAlignment)textAlign
+{
+    _textAlign = textAlign;
+    self.label.textAlignment = _textAlign;
+}
 
 - (void)setActivityColor:(UIColor *)activityColor
 {
     _activityColor = activityColor;
     self.activityView.color = _activityColor;
 }
-
-#pragma mark - 类方法
-
-#pragma mark 属性定义
-
-/// 显示父视图
-+ (void)setContainerView:(UIView *)view
-{
-    SYUIProgressHUD.share.selfSupperView = view;
-}
-
-/// 背景颜色
-+ (void)setHUDBackgroundColor:(UIColor *)backgroundColor
-{
-    SYUIProgressHUD.share.hudColor = backgroundColor;
-}
-/// 圆角
-+ (void)setHUDCorner:(CGFloat)corner
-{
-    SYUIProgressHUD.share.hudCorner = corner;
-}
-/// 大小
-+ (void)setHUDSize:(CGSize)size
-{
-    CGFloat minSize = (originXYInset + SYUIProgressHUD.share.activityView.frame.size.width + originXYInset + heightLabel + originXYInset);
-    if (MIN(size.width, size.height) < minSize) {
-        size.width = minSize;
-        size.height = minSize;
-    }
-    CGFloat maxSize = (SYUIProgressHUD.share.selfSupperView.frame.size.width - originX * 2);
-    if (MAX(size.width, size.height) > maxSize) {
-        size.width = maxSize;
-        size.height = maxSize;
-    }
-    SYUIProgressHUD.share.hudSize = size;
-}
-/// 顶端对齐，默认居中
-+ (void)setHUDPosition:(CGFloat)top
-{
-    SYUIProgressHUD.share.topPosition = top;
-}
-
-/// 字体大小
-+ (void)setTextFont:(UIFont *)font
-{
-    SYUIProgressHUD.share.textFont = font;
-}
-/// 字体颜色
-+ (void)setTextColor:(UIColor *)color
-{
-    SYUIProgressHUD.share.textColor = color;
-}
-/// 字体对齐
-+ (void)setTextAlignment:(NSTextAlignment)alignment
-{
-    SYUIProgressHUD.share.label.textAlignment = alignment;
-}
-
-/// 活动指示器颜色
-+ (void)setActivityColor:(UIColor *)color
-{
-    SYUIProgressHUD.share.activityColor = color;
-}
-
-/// 自动隐藏时间，默认3秒
-+ (void)setDurationAutoHide:(NSTimeInterval)duratoion
-{
-    SYUIProgressHUD.share.durationTime = duratoion;
-}
-
-/// 是否跟随键盘改变位置，默认 YES
-+ (void)setPositionFollowKeyboard:(BOOL)isFollow
-{
-    SYUIProgressHUD.share.isFollowKeyboard = isFollow;
-}
-
-#pragma mark 显示或隐藏
-
-#pragma mark 显示
-/// 显示
-+ (void)showMessage:(NSString *)message activitty:(BOOL)showActivity images:(NSArray <UIImage *> *)images view:(UIView *)view autoHide:(BOOL)isAuto duration:(NSTimeInterval)duration enable:(BOOL)isEnable
-{
-    [SYUIProgressHUD.share showMessage:message activity:showActivity icon:images view:view autoHide:isAuto duration:duration enable:isEnable];
-}
-
-/// 显示活动指示器
-+ (void)showActivity
-{
-    UIView *view = SYUIProgressHUD.share.selfSupperView;
-    [SYUIProgressHUD showMessage:@"" activitty:YES images:nil view:view autoHide:NO duration:0 enable:YES];
-}
-/// 显示活动指示器，自动隐藏
-+ (void)showActivityAutoHide
-{
-    UIView *view = SYUIProgressHUD.share.selfSupperView;
-    NSTimeInterval duration = SYUIProgressHUD.share.durationTime;
-    [SYUIProgressHUD showMessage:@"" activitty:YES images:nil view:view autoHide:YES duration:duration enable:YES];
-}
-
-/// 显示活动指示器和信息
-+ (void)showMessageWithActivity:(NSString *)message
-{
-    UIView *view = SYUIProgressHUD.share.selfSupperView;
-    [SYUIProgressHUD showMessage:message activitty:YES images:nil view:view autoHide:NO duration:0 enable:YES];
-}
-/// 显示活动指示器和信息，自动隐藏
-+ (void)showMessageWithActivityAutoHide:(NSString *)message
-{
-    UIView *view = SYUIProgressHUD.share.selfSupperView;
-    NSTimeInterval duration = SYUIProgressHUD.share.durationTime;
-    [SYUIProgressHUD showMessage:message activitty:YES images:nil view:view autoHide:YES duration:duration enable:YES];
-}
-
-/// 显示图标
-+ (void)showIcon:(NSArray <UIImage *> *)images
-{
-    UIView *view = SYUIProgressHUD.share.selfSupperView;
-    [SYUIProgressHUD showMessage:@"" activitty:NO images:images view:view autoHide:NO duration:0 enable:YES];
-}
-/// 显示图标，自动隐藏
-+ (void)showIconAutoHide:(NSArray <UIImage *> *)images
-{
-    UIView *view = SYUIProgressHUD.share.selfSupperView;
-    NSTimeInterval duration = SYUIProgressHUD.share.durationTime;
-    [SYUIProgressHUD showMessage:@"" activitty:NO images:images view:view autoHide:YES duration:duration enable:YES];
-}
-
-/// 显示图标和信息
-+ (void)showMessageWithIcon:(NSString *)message icon:(NSArray <UIImage *> *)images
-{
-    UIView *view = SYUIProgressHUD.share.selfSupperView;
-    [SYUIProgressHUD showMessage:message activitty:NO images:images view:view autoHide:NO duration:0 enable:YES];
-}
-/// 显示图标和信息，自动隐藏
-+ (void)showMessageWithIconAutoHide:(NSString *)message icon:(NSArray <UIImage *> *)images
-{
-    UIView *view = SYUIProgressHUD.share.selfSupperView;
-    NSTimeInterval duration = SYUIProgressHUD.share.durationTime;
-    [SYUIProgressHUD showMessage:message activitty:NO images:images view:view autoHide:YES duration:duration enable:YES];
-}
-
-/// 显示信息
-+ (void)showMessage:(NSString *)message
-{
-    UIView *view = SYUIProgressHUD.share.selfSupperView;
-    [SYUIProgressHUD showMessage:message activitty:NO images:nil view:view autoHide:NO duration:0 enable:YES];
-}
-/// 显示信息，自动隐藏
-+ (void)showMessageAutoHide:(NSString *)message
-{
-    UIView *view = SYUIProgressHUD.share.selfSupperView;
-    NSTimeInterval duration = SYUIProgressHUD.share.durationTime;
-    [SYUIProgressHUD showMessage:message activitty:NO images:nil view:view autoHide:YES duration:duration enable:YES];
-}
-
-#pragma mark 隐藏
-
-/// 隐藏
-+ (void)hide
-{
-    [SYUIProgressHUD.share hideDelay:0 complete:NULL];
-}
-
-/// 带回调的隐藏
-+ (void)hideComplete:(void (^)(void))complete
-{
-    [SYUIProgressHUD.share hideDelay:0 complete:complete];
-}
-
-///  带回调的延迟隐藏
-+ (void)hideDelay:(NSTimeInterval)delay complete:(void (^)(void))complete
-{
-    [SYUIProgressHUD.share hideDelay:delay complete:complete];
-}
-
 
 @end
