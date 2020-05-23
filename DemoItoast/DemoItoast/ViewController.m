@@ -8,8 +8,12 @@
 
 #import "ViewController.h"
 #import "SYProgressHUDVC.h"
+#import "MBHUDVC.h"
+#import "SVHUDVC.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) NSArray *array;
 
 @end
 
@@ -26,6 +30,11 @@
     tableView.delegate = self;
     tableView.dataSource = self;
     tableView.tableFooterView = [UIView new];
+    
+    
+    NSInteger age;
+    UILabel *mylabel = [UILabel new];
+    mylabel.text = age ? [NSString stringWithFormat:@"%@", age]: @"";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,7 +53,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return self.array.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -54,9 +63,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
     }
     
-    if (indexPath.row == 0) {
-        cell.textLabel.text = @"SYProgressHUD";
-    }
+    Class class = self.array[indexPath.row];
+    cell.textLabel.text = NSStringFromClass(class);
     
     return cell;
 }
@@ -65,11 +73,17 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    UIViewController *nextVC = nil;
-    if (indexPath.row == 0) {
-        nextVC = [SYProgressHUDVC new];
-    }
+    Class class = self.array[indexPath.row];
+    UIViewController *nextVC = [[class alloc] init];
     [self.navigationController pushViewController:nextVC animated:YES];
+}
+
+- (NSArray *)array
+{
+    if (_array == nil) {
+        _array = @[SYProgressHUDVC.class, MBHUDVC.class, SVHUDVC.class];
+    }
+    return _array;
 }
 
 @end

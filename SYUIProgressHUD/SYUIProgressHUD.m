@@ -23,8 +23,10 @@ static CGFloat const heightLabel = 30;
 //
 @property (nonatomic, assign) CGFloat keyboardHeight;
 //
-@property (nonatomic, assign) HUDMode hudMode;
+@property (nonatomic, assign) BOOL isAnimation;
+@property (nonatomic, assign, getter=isFinished) BOOL finished;
 @property (nonatomic, assign) NSTimeInterval durationTime;
+@property (nonatomic, strong) NSTimer *durationTimer;
 //
 @property (nonatomic, copy) void (^hideComplete)(void);
 
@@ -32,15 +34,39 @@ static CGFloat const heightLabel = 30;
 
 @implementation SYUIProgressHUD
 
-+ (instancetype)share
+
+#pragma mark - 类方法
+
+/// 默认菊花转
++ (instancetype)showHUDWithView:(UIView *)view animated:(BOOL)animated
 {
-    static SYUIProgressHUD *shareHUD;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        shareHUD = [[self alloc] init];
-    });
-    return shareHUD;
+    SYUIProgressHUD *hud = [[SYUIProgressHUD alloc] initWithView:view];
+    [hud showAnimated:animated];
+    return hud;
 }
+/// 隐藏
++ (BOOL)hideHUDWithView:(UIView *)view animated:(BOOL)animated
+{
+    SYUIProgressHUD *hud = [self HUDFromView:view];
+    if (hud && [hud isKindOfClass:SYUIProgressHUD.class]) {
+        [hud hideAnimated:animated];
+        return YES;
+    }
+    return NO;
+}
+///
++ (instancetype)HUDFromView:(UIView *)view
+{
+    NSEnumerator *subviewsEnum = [view.subviews reverseObjectEnumerator];
+    for (UIView *subview in subviewsEnum) {
+        if ([subview isKindOfClass:SYUIProgressHUD.class]) {
+            return (SYUIProgressHUD *)subview;
+        }
+    }
+    return nil;
+}
+
+#pragma mark - 实例方法
 
 - (instancetype)init
 {
@@ -67,7 +93,35 @@ static CGFloat const heightLabel = 30;
     return self;
 }
 
-#pragma mark - 方法
+/// 初始化
+- (instancetype)initWithView:(UIView *)view
+{
+    if (view == nil || ![view respondsToSelector:@selector(addSubview:)]) {
+        NSAssert(view, @"View must not be nil and must be the class of UIView");
+        return nil;
+    }
+    
+    self = [super init];
+    if (self) {
+        [view addSubview:self];
+    }
+    return self;
+}
+
+// - (void)setNeedsLayout;
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+}
+
+// - (void)setNeedsUpdateConstraints
+- (void)updateConstraints
+{
+    [super updateConstraints];
+    
+}
+
+#pragma mark - UI视图
 
 - (void)reloadUI
 {
@@ -306,7 +360,51 @@ static CGFloat const heightLabel = 30;
     return height;
 }
 
-#pragma mark 显示隐藏
+#pragma mark - 显示隐藏方法
+
+/// 显示
+- (void)showAnimated:(BOOL)animated
+{
+    NSAssert([NSThread isMainThread], @"SYUIProgressHUD needs to be accessed on the main thread.");
+    //
+    self.isAnimation = animated;
+    self.finished = NO;
+    [self showHUD];
+}
+
+///
+- (void)hideAnimated:(BOOL)animated
+{
+    [self hideAnimated:animated afterDelay:0 complete:NULL];
+}
+///
+- (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay
+{
+    [self hideAnimated:animated afterDelay:delay complete:NULL];
+}
+/// 带回调的延迟隐藏
+- (void)hideAnimated:(BOOL)animated complete:(void (^)(void))complete
+{
+    [self hideAnimated:animated afterDelay:0 complete:complete];
+}
+/// 带回调的隐藏
+- (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay complete:(void (^)(void))complete
+{
+    self.durationTime = delay;
+    if (self.durationTime > 0.0) {
+        NSTimer *timer = [NSTimer timerWithTimeInterval:self.durationTime target:self selector:@selector(hideHUD) userInfo:nil repeats:NO];
+        [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+        self.durationTimer = timer;
+    } else {
+        [self hideHUD];
+    }
+}
+
+
+
+
+
+
 
 - (void)showHUD
 {
