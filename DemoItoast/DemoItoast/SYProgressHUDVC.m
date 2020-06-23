@@ -54,11 +54,11 @@
 //    [SYUIProgressHUD setHUDAutoSize:NO];
 //    [SYUIProgressHUD setHUDPosition:80];
     //
-    SYUIProgressHUD.share.activityColor = UIColor.blueColor;
-    SYUIProgressHUD.share.hudSize = CGSizeMake(80, 80);
-    SYUIProgressHUD.share.hudColor = UIColor.brownColor;
-    SYUIProgressHUD.share.hudCorner = 10;
-    SYUIProgressHUD.share.isAutoSize = NO;
+    SYUIProgressHUD.shareHUD.activityColor = UIColor.blueColor;
+    SYUIProgressHUD.shareHUD.hudSize = CGSizeMake(80, 80);
+    SYUIProgressHUD.shareHUD.hudColor = UIColor.brownColor;
+    SYUIProgressHUD.shareHUD.hudCornerRadius = 10;
+    SYUIProgressHUD.shareHUD.autoSize = NO;
 }
 
 - (void)loadView
@@ -72,7 +72,7 @@
 
 - (void)dealloc
 {
-    [SYHUDUtil hide];
+    [HUDUtil hide:NO];
 }
 
 - (void)hideKeyboardClick
@@ -102,65 +102,54 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     //
-    SYUIProgressHUD.share.backgroundColor = UIColor.clearColor;
-    SYUIProgressHUD.share.activityColor = UIColor.blueColor;
-    SYUIProgressHUD.share.hudSize = CGSizeMake(80, 80);
-    SYUIProgressHUD.share.hudColor = UIColor.brownColor;
-    SYUIProgressHUD.share.hudCorner = 10;
-    SYUIProgressHUD.share.isAutoSize = NO;
-    SYUIProgressHUD.share.textAlign = NSTextAlignmentCenter;
-    SYHUDUtil.isFollowKeyboard = YES;
-    SYUIProgressHUD.share.isSingleline = YES;
+    SYUIProgressHUD.shareHUD.backgroundColor = UIColor.clearColor;
+    SYUIProgressHUD.shareHUD.activityColor = UIColor.blueColor;
+    SYUIProgressHUD.shareHUD.hudSize = CGSizeMake(80, 80);
+    SYUIProgressHUD.shareHUD.hudColor = UIColor.brownColor;
+    SYUIProgressHUD.shareHUD.hudCornerRadius = 10;
+    SYUIProgressHUD.shareHUD.autoSize = NO;
+    SYUIProgressHUD.shareHUD.isSingleline = YES;
     //
     UIView *view = UIApplication.sharedApplication.delegate.window;
     NSString *message = self.textArray[arc4random() % self.textArray.count];
     //
     NSString *text = self.array[indexPath.row];
     if ([text isEqualToString:@"隐藏HUD"]) {
-        [SYHUDUtil hideDelay:0 complete:^{
-            NSLog(@"3秒后隐藏");
-        }];
+        [HUDUtil hide:YES];
     } else if ([text isEqualToString:@"显示HUD不隐藏 仅信息"]) {
-        SYUIProgressHUD.share.isAutoSize = YES;
-        SYUIProgressHUD.share.isSingleline = NO;
-        SYUIProgressHUD.share.textAlign = NSTextAlignmentLeft;
-        
+        HUDUtil.autoSize = YES;
+        HUDUtil.isSingleline = NO;
 //        message = @"因为你的不努力，现在发现了很多存在的隐患，你必须在规定的时间点完成所有的工作。否则后果很严重！";
-        [SYHUDUtil showMessage:message view:view];
+        [HUDUtil showWithView:view message:message];
     } else if ([text isEqualToString:@"显示HUD自动隐藏 仅信息"]) {
-        SYUIProgressHUD.share.hudColor = UIColor.yellowColor;
-        SYUIProgressHUD.share.textColor = UIColor.redColor;
-        SYUIProgressHUD.share.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.5];
-        [SYHUDUtil showMessage:message customView:nil view:view mode:HUDModeText autoHide:YES duration:3 enable:YES];
+        HUDUtil.hudColor = UIColor.yellowColor;
+        HUDUtil.messageColor = UIColor.redColor;
+        HUDUtil.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.5];
+        [HUDUtil showWithView:view type:SYUIProgressHUDModeText image:nil message:message hide:YES delay:3 enabled:YES shadow:YES animation:YES];
     } else if ([text isEqualToString:@"显示HUD不隐藏 仅符号指示器"]) {
-        SYUIProgressHUD.share.activityColor = UIColor.redColor;
-        [SYHUDUtil showActivity:view];
+        SYUIProgressHUD.shareHUD.activityColor = UIColor.redColor;
+        [HUDUtil showWithActivityView:view];
     } else if ([text isEqualToString:@"显示HUD自动隐藏 仅符号指示器"]) {
-        [SYHUDUtil showMessage:nil customView:nil view:view mode:HUDModeActivity autoHide:YES duration:3 enable:YES];
+        [HUDUtil showWithView:view type:SYUIProgressHUDModeDefault image:nil message:nil hide:YES delay:3 enabled:YES shadow:NO animation:YES];
     } else if ([text isEqualToString:@"显示HUD不隐藏 仅图标"]) {
         UIImage *image = [UIImage imageNamed:@"withNetwork"];
-        UIImageView *imageview = [[UIImageView alloc] initWithImage:image];
-        [SYUIProgressHUD.share showMessage:nil customView:imageview view:view mode:HUDModeCustomView autoHide:NO duration:3 enable:YES];
+        [HUDUtil showWithView:view type:SYUIProgressHUDModeCustomView image:image message:nil hide:NO delay:3 enabled:YES shadow:NO animation:YES];
     } else if ([text isEqualToString:@"显示HUD自动隐藏 仅图标"]) {
         UIImage *image = [UIImage imageNamed:@"withoutNetwork"];
-        UIImageView *imageview = [[UIImageView alloc] initWithImage:image];
-        [SYUIProgressHUD.share showMessage:nil customView:imageview view:view mode:HUDModeCustomView autoHide:YES duration:3 enable:YES];
+        [HUDUtil showWithView:view type:SYUIProgressHUDModeCustomView image:image message:nil hide:YES delay:3 enabled:YES shadow:NO animation:YES];
     } else if ([text isEqualToString:@"显示HUD不隐藏 信息和符号指示器"]) {
-        SYUIProgressHUD.share.hudSize = CGSizeMake(200, 200);
-        SYUIProgressHUD.share.isAutoSize = YES;
-        [SYHUDUtil showMessage:message customView:nil view:view mode:HUDModeActivityWithText autoHide:NO duration:0 enable:YES];
+        SYUIProgressHUD.shareHUD.hudSize = CGSizeMake(200, 200);
+        SYUIProgressHUD.shareHUD.autoSize = YES;
+        [SYUIProgressHUD.shareHUD showWithView:view type:SYUIProgressHUDModeDefault image:nil message:message hide:NO delay:0 enabled:YES shadow:NO animation:YES];
     } else if ([text isEqualToString:@"显示HUD自动隐藏 信息和符号指示器"]) {
-        [SYHUDUtil showMessage:message customView:nil view:view mode:HUDModeActivityWithText autoHide:YES duration:3 enable:NO];
+        [SYUIProgressHUD.shareHUD showWithView:view type:SYUIProgressHUDModeDefault image:nil message:message hide:YES delay:3 enabled:YES shadow:YES animation:YES];
     } else if ([text isEqualToString:@"显示HUD不隐藏 信息和图标"]) {
-        SYUIProgressHUD.share.isAutoSize = YES;
-        SYUIProgressHUD.share.isFollowKeyboard = NO;
+        SYUIProgressHUD.shareHUD.autoSize = YES;
         UIImage *image = [UIImage imageNamed:@"error"];
-        UIImageView *imageview = [[UIImageView alloc] initWithImage:image];
-        [SYUIProgressHUD.share showMessage:message customView:imageview view:view mode:HUDModeCustomViewWithText autoHide:NO duration:3 enable:YES];
+        [SYUIProgressHUD.shareHUD showWithView:view type:SYUIProgressHUDModeCustomView image:image message:message hide:NO delay:0 enabled:YES shadow:NO animation:YES];
     } else if ([text isEqualToString:@"显示HUD自动隐藏 信息和图标"]) {
         UIImage *image = [UIImage imageNamed:@"success"];
-        UIImageView *imageview = [[UIImageView alloc] initWithImage:image];
-        [SYUIProgressHUD.share showMessage:message customView:imageview view:view mode:HUDModeCustomViewWithText autoHide:YES duration:3 enable:NO];
+        [SYUIProgressHUD.shareHUD showWithView:view type:SYUIProgressHUDModeDefault image:image message:message hide:YES delay:3 enabled:YES shadow:YES animation:YES];
     }
 }
 

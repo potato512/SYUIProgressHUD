@@ -8,680 +8,642 @@
 
 #import "SYUIProgressHUD.h"
 
-static CGFloat const originX = 40;
-static CGFloat const originXYInset = 10;
-static CGFloat const heightLabel = 30;
+static CGFloat const originX = 10.0;
+static CGFloat const originMessage = 20.0;
+static CGFloat const heightMessage = 48;
+static CGFloat const minSize = 102;
+//
+static NSString *const keyWidthSelf = @"keyWidthSelf";
+static NSString *const keyHeightSelf = @"keyHeightSelf";
+static NSString *const keyWidthText = @"keyWidthText";
+static NSString *const keyHeightText = @"keyHeightText";
+
+#define HUDMainThreadAssert() NSAssert([NSThread isMainThread], @"SYUIProgressHUD needs to be accessed on the main thread.");
 
 @interface SYUIProgressHUD ()
 
-+ (instancetype)share;
-
-@property (nonatomic, strong) UIView *hudView;
-@property (nonatomic, strong) UIActivityIndicatorView *activityView;
-@property (nonatomic, strong) UIView *customView;
-@property (nonatomic, strong) UILabel *label;
-//
-@property (nonatomic, assign) CGFloat keyboardHeight;
-//
+@property (nonatomic, assign) SYUIProgressHUDMode mode;
 @property (nonatomic, assign) BOOL isAnimation;
-@property (nonatomic, assign, getter=isFinished) BOOL finished;
-@property (nonatomic, assign) NSTimeInterval durationTime;
-@property (nonatomic, strong) NSTimer *durationTimer;
 //
-@property (nonatomic, copy) void (^hideComplete)(void);
+@property (nonatomic, strong) UIView *shadowView;
+//
+@property (nonatomic, strong) UIActivityIndicatorView *activityView;
+@property (nonatomic, strong) UIImageView *iconView;
+@property (nonatomic, strong) UILabel *messageLabel;
+//
+@property (nonatomic, weak) NSTimer *hideDelayTimer;
 
 @end
 
 @implementation SYUIProgressHUD
 
 
-#pragma mark - 类方法
-
-/// 默认菊花转
-+ (instancetype)showHUDWithView:(UIView *)view animated:(BOOL)animated
+/// 单例
++ (instancetype)shareHUD
 {
-    SYUIProgressHUD *hud = [[SYUIProgressHUD alloc] initWithView:view];
-    [hud showAnimated:animated];
-    return hud;
+    static SYUIProgressHUD *hudManager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        hudManager = [[SYUIProgressHUD alloc] init];
+    });
+    return hudManager;
 }
-/// 隐藏
-+ (BOOL)hideHUDWithView:(UIView *)view animated:(BOOL)animated
-{
-    SYUIProgressHUD *hud = [self HUDFromView:view];
-    if (hud && [hud isKindOfClass:SYUIProgressHUD.class]) {
-        [hud hideAnimated:animated];
-        return YES;
-    }
-    return NO;
-}
-///
-+ (instancetype)HUDFromView:(UIView *)view
-{
-    NSEnumerator *subviewsEnum = [view.subviews reverseObjectEnumerator];
-    for (UIView *subview in subviewsEnum) {
-        if ([subview isKindOfClass:SYUIProgressHUD.class]) {
-            return (SYUIProgressHUD *)subview;
-        }
-    }
-    return nil;
-}
-
-#pragma mark - 实例方法
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        _hudColor = [UIColor.blackColor colorWithAlphaComponent:0.3];
-        _hudCorner = 10;
-        _hudSize = CGSizeMake(120, 120);
-        _isAutoSize = YES;
-        _textColor = UIColor.blackColor;
-        _textFont = [UIFont systemFontOfSize:15];
-        _activityColor = [UIColor.whiteColor colorWithAlphaComponent:1];
-        _durationTime = 3;
-        _isFollowKeyboard = YES;
+        _hudSize = CGSizeMake(102, 102);
+        _hudColor = [UIColor colorWithWhite:0.0 alpha:0.2];
+        _hudCornerRadius = 10;
+        _activityColor = UIColor.whiteColor;
+        _messageFont = [UIFont systemFontOfSize:15.0];
+        _messageColor = [UIColor blackColor];
+        _animationMode = SYUIProgressHUDAnimationModeDefault;
+        _autoSize = NO;
+        _hudEnable = YES;
+        _iconAnimationEnable = NO;
         //
-        self.hudView.frame = CGRectMake(0, 0, self.hudSize.width, self.hudSize.height);
-        self.hudView.backgroundColor = _hudColor;
-        self.hudView.layer.cornerRadius = _hudCorner;
-        self.hudView.alpha = 0.0;
-        //
-        self.alpha = 0.0;
-        self.backgroundColor = UIColor.clearColor;
+        self.backgroundColor = _hudColor;
+        self.layer.cornerRadius = _hudCornerRadius;
+        self.layer.masksToBounds = YES;
+        
+        [self addTouch:self];
     }
     return self;
 }
 
-/// 初始化
-- (instancetype)initWithView:(UIView *)view
+#pragma mark - UI设置
+
+- (void)loadUI
 {
-    if (view == nil || ![view respondsToSelector:@selector(addSubview:)]) {
-        NSAssert(view, @"View must not be nil and must be the class of UIView");
-        return nil;
+    if (self.activityView.superview == nil) {
+        [self addSubview:self.activityView];
+    }
+    if (self.iconView.superview == nil) {
+        [self addSubview:self.iconView];
+    }
+    if (self.messageLabel.superview == nil) {
+        [self addSubview:self.messageLabel];
     }
     
-    self = [super init];
-    if (self) {
-        [view addSubview:self];
+    // 最小值不能小于102
+    CGFloat width = self.hudSize.width;
+    CGFloat height = self.hudSize.height;
+    if (width < minSize) {
+        width = minSize;
     }
-    return self;
-}
-
-// - (void)setNeedsLayout;
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-}
-
-// - (void)setNeedsUpdateConstraints
-- (void)updateConstraints
-{
-    [super updateConstraints];
+    if (height < minSize) {
+        height = minSize;
+    }
+    self.hudSize = CGSizeMake(width, height);
     
+    self.frame = CGRectMake((self.superview.frame.size.width - self.hudSize.width) / 2, (self.superview.frame.size.height - self.hudSize.height) / 2, self.hudSize.width, self.hudSize.height);
+    self.activityView.frame = CGRectMake((self.frame.size.width - self.activityView.frame.size.width) / 2, (self.frame.size.height - heightMessage / 2 - originX - self.activityView.frame.size.height) / 2, self.activityView.frame.size.width, self.activityView.frame.size.height);
+    self.iconView.frame = CGRectMake((self.frame.size.width - self.activityView.frame.size.width) / 2, (self.frame.size.height - heightMessage / 2 - originX - self.activityView.frame.size.height) / 2, self.activityView.frame.size.width, self.activityView.frame.size.height);
+    self.messageLabel.frame = CGRectMake(originMessage, (self.iconView.frame.origin.y + self.iconView.frame.size.height + originX), (self.frame.size.width - originMessage * 2), heightMessage / 2);
+    
+    if (self.autoSize && self.mode != SYUIProgressHUDModeText && self.messageLabel.text.length > 0) {
+        NSNumber *widthTextNumber = self.textSize[keyWidthText];
+        // 文本宽度小于等于hud大小时，不做处理
+        if ((widthTextNumber.doubleValue + originMessage * 2) > self.frame.size.width) {
+//            NSNumber *widthNumber = self.textSize[keyWidthSelf];
+//            CGFloat widthSelf = widthNumber.doubleValue;
+            CGFloat widthSelf = widthTextNumber.doubleValue + originMessage * 2;
+            //
+            self.frame = CGRectMake((self.superview.frame.size.width - widthSelf) / 2, (self.superview.frame.size.height - self.hudSize.height) / 2, widthSelf, self.hudSize.height);
+            //
+            self.activityView.frame = CGRectMake((self.frame.size.width - self.activityView.frame.size.width) / 2, (self.frame.size.height - heightMessage / 2 - originX - self.activityView.frame.size.height) / 2, self.activityView.frame.size.width, self.activityView.frame.size.height);
+            self.iconView.frame = CGRectMake((self.frame.size.width - self.activityView.frame.size.width) / 2, (self.frame.size.height - heightMessage / 2 - originX - self.activityView.frame.size.height) / 2, self.activityView.frame.size.width, self.activityView.frame.size.height);
+            self.messageLabel.frame = CGRectMake((self.frame.size.width - widthTextNumber.doubleValue) / 2, (self.iconView.frame.origin.y + self.iconView.frame.size.height + originX), widthTextNumber.doubleValue, heightMessage / 2);
+        }
+    }
+    
+    [self reloadUI];
 }
-
-#pragma mark - UI视图
 
 - (void)reloadUI
 {
-    if (self.hudMode == HUDModeDefault || self.hudMode == HUDModeActivity) {
-        [self reloadUIActivity];
-    } else if (self.hudMode == HUDModeText) {
-        [self reloadUIText];
-    } else if (self.hudMode == HUDModeActivityWithText) {
-        [self reloadUIActivityText];
-    } else if (self.hudMode == HUDModeCustomView) {
-        [self reloadUICustom];
-    } else if (self.hudMode == HUDModeCustomViewWithText) {
-        [self reloadUICustomText];
-    }
-}
+    self.activityView.hidden = NO;
+    self.iconView.hidden = NO;
+    self.messageLabel.hidden = NO;
 
-// 活动指示器
-- (void)reloadUIActivity
-{
-    self.hudView.backgroundColor = self.hudColor;
-    self.hudView.layer.cornerRadius = self.hudCorner;
-    //
-    [self.activityView startAnimating];
-    self.customView.hidden = YES;
-    self.label.hidden = YES;
-    //
-    CGFloat width = self.frame.size.width;
-    CGFloat height = (self.frame.size.height - self.keyboardHeight);
-    CGFloat hudWidth = self.sizeWidth;
-    CGFloat hudHeight = self.sizeHeight;
-    // hud 视图 frame 设置
-    CGRect rect = self.hudView.frame;
-    rect.origin.x = (width - hudWidth) / 2;
-    rect.origin.y = (self.topPosition > 0 ? self.topPosition : (height - self.hudSize.height) / 2);
-    rect.size.width = hudWidth;
-    rect.size.height = hudHeight;
-    self.hudView.frame = rect;
-    //
-    self.activityView.color = self.activityColor;
-    CGRect rectActivity = self.activityView.frame;
-    rectActivity.origin.x = (self.hudView.frame.size.width - self.activityView.frame.size.width) / 2;
-    rectActivity.origin.y = (self.hudView.frame.size.height - self.activityView.frame.size.height) / 2;
-    self.activityView.frame = rectActivity;
-}
-
-// 活动指示器+文本
-- (void)reloadUIActivityText
-{
-    self.hudView.backgroundColor = self.hudColor;
-    self.hudView.layer.cornerRadius = self.hudCorner;
-    //
-    [self.activityView startAnimating];
-    self.customView.hidden = YES;
-    self.label.hidden = NO;
-    //
-    CGFloat width = self.frame.size.width;
-    CGFloat height = (self.frame.size.height - self.keyboardHeight);
-    CGFloat hudWidth = self.sizeWidth;
-    CGFloat hudHeight = self.sizeHeight;
-    if (self.isAutoSize) {
-        if (hudWidth < hudHeight) {
-            hudWidth = hudHeight;
+    if (self.mode == SYUIProgressHUDModeDefault) {
+        self.iconView.hidden = YES;
+        [self.activityView startAnimating];
+        if (self.messageLabel.text.length <= 0.0) {
+            self.messageLabel.hidden = YES;
+            self.activityView.frame = CGRectMake((self.frame.size.width - self.activityView.frame.size.width) / 2, (self.frame.size.height - self.activityView.frame.size.height) / 2, self.activityView.frame.size.width, self.activityView.frame.size.height);
         }
-    } else {
-        CGFloat value = MAX(hudHeight, hudWidth);
-        hudWidth = value;
-        hudHeight = value;
-    }
-    // hud 视图 frame 设置
-    CGRect rect = self.hudView.frame;
-    rect.origin.x = (width - hudWidth) / 2;
-    rect.origin.y = (self.topPosition > 0 ? self.topPosition : (height - self.hudSize.height) / 2);
-    rect.size.width = hudWidth;
-    rect.size.height = hudHeight;
-    self.hudView.frame = rect;
-    //
-    self.activityView.color = self.activityColor;
-    CGRect rectActivity = self.activityView.frame;
-    rectActivity.origin.x = (self.hudView.frame.size.width - self.activityView.frame.size.width) / 2;
-    rectActivity.origin.y = (self.hudView.frame.size.height - originXYInset * 3 - self.activityView.frame.size.height) / 2;
-    self.activityView.frame = rectActivity;
-    //
-    self.label.textColor = self.textColor;
-    self.label.font = self.textFont;
-    self.label.frame = CGRectMake(originXYInset, (self.activityView.frame.origin.y + self.activityView.frame.size.height + originXYInset), (self.hudView.frame.size.width - originXYInset * 2), heightLabel);
-}
-
-// 文本
-- (void)reloadUIText
-{
-    self.hudView.backgroundColor = self.hudColor;
-    self.hudView.layer.cornerRadius = self.hudCorner;
-    //
-    [self.activityView stopAnimating];
-    self.customView.hidden = YES;
-    self.label.hidden = NO;
-    //
-    CGFloat width = self.frame.size.width;
-    CGFloat height = (self.frame.size.height - self.keyboardHeight);
-    CGFloat hudWidth = self.sizeWidth;
-    CGFloat hudHeight = self.sizeHeight;
-    // hud 视图 frame 设置
-    CGRect rect = self.hudView.frame;
-    rect.origin.x = (width - hudWidth) / 2;
-    rect.origin.y = (self.topPosition > 0 ? self.topPosition : (height - (heightLabel + originXYInset * 2)) / 2);
-    rect.size.width = hudWidth;
-    rect.size.height = hudHeight;
-    self.hudView.frame = rect;
-    //
-    self.label.textColor = self.textColor;
-    self.label.font = self.textFont;
-    self.label.frame = CGRectMake(originXYInset, originXYInset, (self.hudView.frame.size.width - originXYInset * 2), (self.hudView.frame.size.height - originXYInset * 2));
-}
-
-// 图标
-- (void)reloadUICustom
-{
-    self.hudView.backgroundColor = self.hudColor;
-    self.hudView.layer.cornerRadius = self.hudCorner;
-    //
-    [self.activityView stopAnimating];
-    self.customView.hidden = NO;
-    self.label.hidden = YES;
-    //
-    CGFloat width = self.frame.size.width;
-    CGFloat height = (self.frame.size.height - self.keyboardHeight);
-    CGFloat hudWidth = self.sizeWidth;
-    CGFloat hudHeight = self.sizeHeight;
-    // hud 视图 frame 设置
-    CGRect rect = self.hudView.frame;
-    rect.origin.x = (width - hudWidth) / 2;
-    rect.origin.y = (self.topPosition > 0 ? self.topPosition : (height - self.hudSize.height) / 2);
-    rect.size.width = hudWidth;
-    rect.size.height = hudHeight;
-    self.hudView.frame = rect;
-    //
-    CGRect rectActivity = self.activityView.frame;
-    rectActivity.origin.x = (self.hudView.frame.size.width - self.activityView.frame.size.width) / 2;
-    rectActivity.origin.y = (self.hudView.frame.size.height - self.activityView.frame.size.height) / 2;
-    self.activityView.frame = rectActivity;
-    self.customView.frame = rectActivity;
-}
-
-// 图标+文本
-- (void)reloadUICustomText
-{
-    self.hudView.backgroundColor = self.hudColor;
-    self.hudView.layer.cornerRadius = self.hudCorner;
-    //
-    [self.activityView stopAnimating];
-    self.customView.hidden = NO;
-    self.label.hidden = NO;
-    //
-    CGFloat width = self.frame.size.width;
-    CGFloat height = (self.frame.size.height - self.keyboardHeight);
-    CGFloat hudWidth = self.sizeWidth;
-    CGFloat hudHeight = self.sizeHeight;
-    if (self.isAutoSize) {
-        if (hudWidth < hudHeight) {
-            hudWidth = hudHeight;
+    } else if (self.mode == SYUIProgressHUDModeCustomView) {
+        self.activityView.hidden = YES;
+        if (self.messageLabel.text.length <= 0.0) {
+            self.messageLabel.hidden = YES;
+            self.iconView.frame = CGRectMake((self.frame.size.width - self.activityView.frame.size.width) / 2, (self.frame.size.height - self.activityView.frame.size.height) / 2, self.activityView.frame.size.width, self.activityView.frame.size.height);
         }
-    } else {
-        CGFloat value = MAX(hudHeight, hudWidth);
-        hudWidth = value;
-        hudHeight = value;
-    }
-    // hud 视图 frame 设置
-    CGRect rect = self.hudView.frame;
-    rect.origin.x = (width - hudWidth) / 2;
-    rect.origin.y = (self.topPosition > 0 ? self.topPosition : (height - self.hudSize.height) / 2);
-    rect.size.width = hudWidth;
-    rect.size.height = hudHeight;
-    self.hudView.frame = rect;
-    //
-    CGRect rectActivity = self.activityView.frame;
-    rectActivity.origin.x = (self.hudView.frame.size.width - self.activityView.frame.size.width) / 2;
-    rectActivity.origin.y = (self.hudView.frame.size.height - originXYInset * 3 - self.activityView.frame.size.height) / 2;
-    self.activityView.frame = rectActivity;
-    self.customView.frame = rectActivity;
-    //
-    self.label.textColor = self.textColor;
-    self.label.font = self.textFont;
-    self.label.frame = CGRectMake(originXYInset, (self.activityView.frame.origin.y + self.activityView.frame.size.height + originXYInset), (self.hudView.frame.size.width - originXYInset * 2), heightLabel);
-}
-
-- (CGRect)widthRect
-{
-    CGRect rect = [self.label.text boundingRectWithSize:CGSizeMake(MAXFLOAT, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.label.font} context:nil];
-    return rect;
-}
-
-- (CGFloat)sizeWidth
-{
-    CGFloat width = self.hudSize.width;
-    if (self.isAutoSize && (self.hudMode == HUDModeText || self.hudMode == HUDModeActivityWithText || self.hudMode == HUDModeCustomViewWithText)) {
+    } else if (self.mode == SYUIProgressHUDModeText) {
+        self.activityView.hidden = YES;
+        self.iconView.hidden = YES;
         //
-        width = self.widthRect.size.width;
-        width += originXYInset * 2; // 左右两边间距
-        //
-        if (width > (self.frame.size.width - originX * 2)) {
-            width = (self.frame.size.width - originX * 2);
-        }
-        if (width < self.hudSize.width) {
-            width = self.hudSize.width;
-        }
+        NSNumber *widthNumber = self.textSize[keyWidthSelf];
+        NSNumber *heightNumber = self.textSize[keyHeightSelf];
+        NSNumber *widthTextNumber = self.textSize[keyWidthText];
+        NSNumber *heightTextNumber = self.textSize[keyHeightText];
+        self.frame = CGRectMake((self.superview.frame.size.width - widthNumber.doubleValue) / 2, (self.superview.frame.size.height - (heightMessage + originX * 2)) / 2, widthNumber.doubleValue, heightNumber.doubleValue);
+        self.messageLabel.frame = CGRectMake((self.frame.size.width - widthTextNumber.doubleValue) / 2, originX, widthTextNumber.doubleValue, heightTextNumber.doubleValue);
     }
-    return width;
 }
 
-- (CGFloat)sizeHeight
+- (NSDictionary *)textSize
 {
-    CGFloat height = self.hudSize.height;
-    if (self.hudMode == HUDModeText) {
-        if (self.isSingleline) {
-            self.label.numberOfLines = 1;
-            height = heightLabel;
+    self.minWidth = (self.minWidth <= 0 ? self.hudSize.width : self.minWidth);
+    self.maxWidth = (self.maxWidth <= 0 ? (self.superview.frame.size.width - originX * 2) : self.maxWidth);
+    CGSize minSize = [self sizeWithText:self.messageLabel.text font:self.messageLabel.font constrainedSize:CGSizeMake((self.minWidth - originMessage * 2), MAXFLOAT)];
+    CGSize maxSize = [self sizeWithText:self.messageLabel.text font:self.messageLabel.font constrainedSize:CGSizeMake((self.maxWidth - originMessage * 2), MAXFLOAT)];
+    //
+    CGFloat width = 0;
+    CGFloat height = 0;
+    CGFloat widthText = 0;
+    CGFloat heightText = 0;
+    
+    //
+    if ((minSize.height + originX * 2) <= heightMessage) {
+        width = self.minWidth;
+//        width = MIN(self.minWidth, minSize.width);
+        height = heightMessage;
+        widthText = minSize.width;
+        heightText = (heightMessage - originX * 2);
+    } else {
+        if ((maxSize.height + originX * 2) <= heightMessage) {
+            width = self.maxWidth;
+//            width = MAX(self.maxWidth, maxSize.width);
+            height = heightMessage;
+            widthText = maxSize.width;
+            heightText = (heightMessage - originX * 2);
         } else {
-            self.label.numberOfLines = 0;
-            CGRect rect = [self.label.text boundingRectWithSize:CGSizeMake(self.sizeWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.label.font} context:nil];
-            height = rect.size.height;
-            if (height < heightLabel) {
-                height = heightLabel;
-            }
-        }
-        height += (originXYInset * 2);
-    } else if (self.hudMode == HUDModeActivityWithText || self.hudMode == HUDModeCustomViewWithText) {
-        height = (originXYInset + self.activityView.frame.size.height + originXYInset + heightLabel + originXYInset);
-        //
-        if (height > (self.frame.size.width - originX * 2)) {
-            height = (self.frame.size.width - originX * 2);
-        }
-        if (height < self.hudSize.height) {
-            height = self.hudSize.height;
+            width = self.maxWidth;
+//            width = MAX(self.maxWidth, maxSize.width);
+            height = (maxSize.height + originX * 2);
+            widthText = maxSize.width;
+            heightText = maxSize.height;
         }
     }
-    return height;
-}
-
-#pragma mark - 显示隐藏方法
-
-/// 显示
-- (void)showAnimated:(BOOL)animated
-{
-    NSAssert([NSThread isMainThread], @"SYUIProgressHUD needs to be accessed on the main thread.");
     //
-    self.isAnimation = animated;
-    self.finished = NO;
-    [self showHUD];
+    if (self.isSingleline) {
+        self.messageLabel.textAlignment = NSTextAlignmentCenter;
+        self.messageLabel.numberOfLines = 1;
+        height = heightMessage;
+        heightText = (heightMessage - originX * 2);
+    } else {
+        self.messageLabel.textAlignment = NSTextAlignmentLeft;
+        self.messageLabel.numberOfLines = 0;
+    }
+    return @{keyWidthSelf:[NSNumber numberWithFloat:width],
+             keyHeightSelf:[NSNumber numberWithFloat:height],
+             keyWidthText:[NSNumber numberWithFloat:widthText],
+             keyHeightText:[NSNumber numberWithFloat:heightText]};
 }
 
-///
-- (void)hideAnimated:(BOOL)animated
+#pragma mark -
+
+/// 显示（在window层，淡入淡出）
+- (void)showWithView:(UIView *)view message:(NSString *)message
 {
-    [self hideAnimated:animated afterDelay:0 complete:NULL];
+    self.isSingleline = NO;
+    [self showWithView:view type:SYUIProgressHUDModeText image:nil message:message hide:NO delay:3.0 enabled:self.hudEnable shadow:NO animation:YES];
 }
-///
-- (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay
+/// 显示（在window层，淡入淡出）
+- (void)showWithActivityView:(UIView *)view
 {
-    [self hideAnimated:animated afterDelay:delay complete:NULL];
+    [self showWithView:view type:SYUIProgressHUDModeDefault image:nil message:nil hide:NO delay:3.0 enabled:YES shadow:NO animation:YES];
 }
-/// 带回调的延迟隐藏
-- (void)hideAnimated:(BOOL)animated complete:(void (^)(void))complete
+/// 显示（在window层，淡入淡出）
+- (void)showWithView:(UIView *)view icon:(UIImage *)image animation:(BOOL)animation
 {
-    [self hideAnimated:animated afterDelay:0 complete:complete];
+    self.iconAnimationEnable = animation;
+    [self showWithView:view type:SYUIProgressHUDModeCustomView image:image message:nil hide:NO delay:3.0 enabled:self.hudEnable shadow:NO animation:YES];
 }
-/// 带回调的隐藏
-- (void)hideAnimated:(BOOL)animated afterDelay:(NSTimeInterval)delay complete:(void (^)(void))complete
+
+/// 显示（在window层，淡入淡出）
+- (void)showWithActivityView:(UIView *)view message:(NSString *)message
 {
-    self.durationTime = delay;
-    if (self.durationTime > 0.0) {
-        NSTimer *timer = [NSTimer timerWithTimeInterval:self.durationTime target:self selector:@selector(hideHUD) userInfo:nil repeats:NO];
-        [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-        self.durationTimer = timer;
+    self.isSingleline = YES;
+    [self showWithView:view type:SYUIProgressHUDModeDefault image:nil message:message hide:NO delay:3.0 enabled:self.hudEnable shadow:NO animation:YES];
+}
+/// 显示（在window层，淡入淡出）
+- (void)showWithIconView:(UIView *)view message:(NSString *)message icon:(UIImage *)image animation:(BOOL)animation
+{
+    self.isSingleline = YES;
+    self.iconAnimationEnable = animation;
+    [self showWithView:view type:SYUIProgressHUDModeCustomView image:image message:message hide:NO delay:3.0 enabled:self.hudEnable shadow:NO animation:YES];
+}
+
+/// 显示（在window层，淡入淡出，3秒后自动消失）
+- (void)showAutoHideWithView:(UIView *)view message:(NSString *)message
+{
+    self.isSingleline = NO;
+    [self showWithView:view type:SYUIProgressHUDModeText image:nil message:message hide:YES delay:3.0 enabled:self.hudEnable shadow:NO animation:YES];
+}
+/// 显示（在window层，淡入淡出，n秒后自动消失）
+- (void)showAutoHideWithView:(UIView *)view message:(NSString *)message delayTime:(NSTimeInterval)delayTime
+{
+    self.isSingleline = NO;
+    [self showWithView:view type:SYUIProgressHUDModeText image:nil message:message hide:YES delay:delayTime enabled:self.hudEnable shadow:NO animation:YES];
+}
+
+- (void)showWithView:(UIView *)view type:(SYUIProgressHUDMode)type image:(UIImage *)image message:(NSString *)message hide:(BOOL)autoHide delay:(NSTimeInterval)delayTime enabled:(BOOL)isEnabled shadow:(BOOL)showShadow animation:(BOOL)animation
+{
+    HUDMainThreadAssert();
+    
+    // 如果已存在，则从父视图移除
+    if (self.superview) {
+        [self removeFromSuperview];
+        if (self.shadowView.superview) {
+            [self.shadowView removeFromSuperview];
+        }
+    }
+    [self stopTimer];
+    
+    if (view) {
+        //
+        [view addSubview:self.shadowView];
+        self.shadowView.frame = view.bounds;
+        //
+        [view addSubview:self];
+    }
+    //
+    self.mode = type;
+    self.isAnimation = animation;
+    //
+    self.messageLabel.text = message;
+    if (image) {
+        self.iconView.image = image;
+    }
+    // 显示视图
+    [self loadUI];
+    //
+    [self showHUD];
+    [self startIconAnimation];
+
+    if (showShadow) {
+        self.shadowView.hidden = NO;
     } else {
-        [self hideHUD];
+        self.shadowView.hidden = YES;
+    }
+    self.hudEnable = isEnabled;
+    
+    if (autoHide) {
+        [self startTimerDelay:delayTime];
     }
 }
 
+- (void)hide:(BOOL)animation
+{
+    HUDMainThreadAssert();
+    self.isAnimation = animation;
+    [self hideHUD];
+}
 
+- (void)hide:(BOOL)animation delay:(NSTimeInterval)delayTime
+{
+    HUDMainThreadAssert();
+    self.isAnimation = animation;
+    [self startTimerDelay:delayTime];
+}
 
-
-
-
+#pragma mark - 显示隐藏
 
 - (void)showHUD
 {
-    [self addNotification];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self reloadUI];
-        
-        UIViewAnimationOptions options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut;
-        [UIView animateWithDuration:0.3 delay:0 options:options animations:^{
-            self.hudView.alpha = 1.0;
-            self.alpha = 1.0;
-        } completion:^(BOOL finished) {
-        }];
-    });
+    HUDMainThreadAssert();
+    if (self.animationMode == SYUIProgressHUDAnimationModeDefault) {
+        [self animationDefault:YES];
+    } else if (self.animationMode == SYUIProgressHUDAnimationModeScale) {
+        [self animationScale:YES];
+    } else if (self.animationMode == SYUIProgressHUDAnimationModeTopToDown) {
+        [self animationTopToDown:YES];
+    }
 }
 
 - (void)hideHUD
 {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    [self removeNotification];
-    //
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.hideComplete) {
-            self.hideComplete();
+    HUDMainThreadAssert();
+    if (self.animationMode == SYUIProgressHUDAnimationModeDefault) {
+        [self animationDefault:NO];
+    } else if (self.animationMode == SYUIProgressHUDAnimationModeScale) {
+        [self animationScale:NO];
+    } else if (self.animationMode == SYUIProgressHUDAnimationModeTopToDown) {
+        [self animationTopToDown:NO];
+    }
+    [self stopTimer];
+    self.hudEnable = YES;
+    self.iconAnimationEnable = NO;
+}
+
+#pragma mark - 动画样式
+
+- (void)animationDefault:(BOOL)show
+{
+    HUDMainThreadAssert();
+    if (show) {
+        self.alpha = 0.0;
+        self.shadowView.alpha = 0.0;
+        if (self.isAnimation) {
+            [UIView animateWithDuration:0.3 animations:^{
+                self.alpha = 1.0;
+                self.shadowView.alpha = 1.0;
+            } completion:^(BOOL finished) {
+                
+            }];
+        } else {
+            self.alpha = 1.0;
+            self.shadowView.alpha = 1.0;
         }
-        UIViewAnimationOptions options = UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseIn;
-        [UIView animateWithDuration:0.3 delay:0 options:options animations:^{
-            self.hudView.alpha = 0.0;
+    } else {
+        [self animationHide];
+    }
+}
+
+- (void)animationScale:(BOOL)show
+{
+    HUDMainThreadAssert();
+    if (show) {
+        self.alpha = 1.0;
+        self.shadowView.alpha = 1.0;
+        self.transform = CGAffineTransformMakeScale(0.3, 0.3);
+        if (self.isAnimation) {
+            // 放大缩小动画
+            [UIView animateWithDuration:0.3 animations:^{
+                // 放大
+                self.transform = CGAffineTransformMakeScale(1.2, 1.2);
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.3 animations:^{
+                    // 缩小
+                    self.transform = CGAffineTransformMakeScale(0.8, 0.8);
+                } completion:^(BOOL finished) {
+                    [UIView animateWithDuration:0.3 animations:^{
+                        // 还原
+                        self.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                    }];
+                }];
+            }];
+        } else {
+            self.transform = CGAffineTransformMakeScale(1.0, 1.0);
+            self.shadowView.alpha = 1.0;
+        }
+    } else {
+        [self animationHide];
+    }
+}
+
+- (void)animationTopToDown:(BOOL)show
+{
+    HUDMainThreadAssert();
+    if (show) {
+        self.alpha = 1.0;
+        self.shadowView.alpha = 1.0;
+        self.frame = CGRectMake(self.frame.origin.x, -self.hudSize.height, self.hudSize.width, self.hudSize.height);
+        if (self.isAnimation) {
+            // 下坠上移
+            [UIView animateWithDuration:0.3 animations:^{
+                // 下坠
+                self.frame = CGRectMake(self.frame.origin.x, (self.superview.frame.size.height - self.hudSize.height) / 2 + originX * 2, self.hudSize.width, self.hudSize.height);
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:0.3 animations:^{
+                    // 上移
+                    self.frame = CGRectMake(self.frame.origin.x, (self.superview.frame.size.height - self.hudSize.height) / 2 - originX, self.hudSize.width, self.hudSize.height);
+                } completion:^(BOOL finished) {
+                    [UIView animateWithDuration:0.3 animations:^{
+                        // 还原
+                        self.frame = CGRectMake(self.frame.origin.x, (self.superview.frame.size.height - self.hudSize.height) / 2, self.hudSize.width, self.hudSize.height);
+                    }];
+                }];
+            }];
+            
+        } else {
+            self.frame = CGRectMake(self.frame.origin.x, (self.superview.frame.size.height - self.hudSize.height) / 2, self.hudSize.width, self.hudSize.height);
+            self.shadowView.alpha = 1.0;
+        }
+    } else {
+        [self animationHide];
+    }
+}
+
+- (void)animationHide
+{
+    HUDMainThreadAssert();
+    if (self.isAnimation) {
+        [UIView animateWithDuration:0.3 animations:^{
             self.alpha = 0.0;
+            self.shadowView.alpha = 0.0;
         } completion:^(BOOL finished) {
-            self.superview.userInteractionEnabled = YES;
-            [self removeFromSuperview];
+            if (self.mode == SYUIProgressHUDModeCustomView) {
+                if (self.activityView.isAnimating) {
+                    [self.activityView stopAnimating];
+                }
+            }
+            if (self.superview) {
+                [self removeFromSuperview];
+                self.shadowView.hidden = YES;
+            }
+        }];
+    } else {
+        self.alpha = 0.0;
+        self.shadowView.alpha = 0.0;
+        
+        if (self.mode == SYUIProgressHUDModeCustomView) {
             if (self.activityView.isAnimating) {
                 [self.activityView stopAnimating];
             }
-        }];
-    });
-}
-
-- (void)hideHUDImmediately
-{
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    //
-    self.superview.userInteractionEnabled = YES;
-    if (self.activityView.isAnimating) {
-        [self.activityView stopAnimating];
+        }
+        self.hidden = YES;
+        self.shadowView.hidden = YES;
     }
 }
 
-/// hud 显示
-- (void)showMessage:(NSString *)message customView:(UIView *)customView view:(UIView *)view mode:(HUDMode)mode autoHide:(BOOL)isAuto duration:(NSTimeInterval)duration enable:(BOOL)isEnable
+- (CGSize)sizeWithText:(NSString *)text font:(UIFont *)font constrainedSize:(CGSize)size
 {
-    if (view == nil || ![view isKindOfClass:UIView.class]) {
-        NSAssert(view, @"View must not be nil and must be the class of UIView, use setContainerView:.");
+    CGSize sizeTmp = CGSizeZero;
+    if (text && font) {
+        if (7.0 <= [UIDevice currentDevice].systemVersion.floatValue) {
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+            NSDictionary *dict = @{NSFontAttributeName:font, NSParagraphStyleAttributeName:paragraphStyle.copy};
+            
+            sizeTmp = [text boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+        }
+    }
+    return sizeTmp;
+}
+
+#pragma mark - 延时隐藏计时器
+
+- (void)startTimerDelay:(NSTimeInterval)time
+{
+    HUDMainThreadAssert();
+    if (time <= 0) {
+        return;
+    }
+    NSTimer *timer = [NSTimer timerWithTimeInterval:time target:self selector:@selector(hideHUD) userInfo:nil repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    self.hideDelayTimer = timer;
+}
+
+- (void)stopTimer
+{
+    HUDMainThreadAssert();
+    if (self.hideDelayTimer.isValid) {
+        [self.hideDelayTimer invalidate];
+    }
+    
+    //
+    [self stopIconAnimation];
+}
+
+#pragma mark - icon动画
+
+- (void)startIconAnimation
+{
+    HUDMainThreadAssert();
+    [self animationRotationWithView:self.iconView duration:0.5 animation:self.iconAnimationEnable];
+}
+
+- (void)stopIconAnimation
+{
+    HUDMainThreadAssert();
+    [self animationRotationWithView:self.iconView duration:0.5 animation:NO];
+}
+
+/// 旋转动画 add by zhangshaoyu 20190731
+- (void)animationRotationWithView:(UIView *)view duration:(NSTimeInterval)duration animation:(BOOL)isAnimation
+{
+    if (view == nil) {
         return;
     }
     
-    //
-    [view addSubview:self];
-    self.frame = view.bounds;
-    //
-    [self hideHUDImmediately];
-    //
-    self.label.text = message;
-    self.hudMode = mode;
-    self.superview.userInteractionEnabled = isEnable;
-    self.userInteractionEnabled = (isEnable ? NO : YES);
-    if (customView && [customView isKindOfClass:UIView.class]) {
-        if (self.customView) {
-            [self.customView removeFromSuperview];
-        }
-        self.customView = customView;
-        [self.hudView addSubview:self.customView];
-    }
-    //
-    [self showHUD];
-    //
-    if (isAuto) {
-        [self hideDelay:duration complete:NULL];
-    }
-}
-/// hud 显示 活动指示器
-- (void)showActivity:(UIView *)view
-{
-    [self showMessage:nil customView:nil view:view mode:HUDModeActivity autoHide:NO duration:0 enable:YES];
-}
-/// hud 显示 文本
-- (void)showMessage:(NSString *)message view:(UIView *)view
-{
-    [self showMessage:message customView:nil view:view mode:HUDModeText autoHide:NO duration:0 enable:YES];
-}
-/// hud 显示 活动指示器+文本
-- (void)showActivityWithMessage:(NSString *)message view:(UIView *)view
-{
-    [self showMessage:message customView:nil view:view mode:HUDModeActivityWithText autoHide:NO duration:0 enable:YES];
-}
-
-/// 带回调的延迟隐藏
-- (void)hideDelay:(NSTimeInterval)delay complete:(void (^)(void))complete
-{
-    if ([self respondsToSelector:@selector(hideHUD)]) {
-        self.hideComplete = [complete copy];
-        [self performSelector:@selector(hideHUD) withObject:nil afterDelay:delay];
-    }
-}
-/// 带回调的隐藏
-- (void)hideComplete:(void (^)(void))complete
-{
-    [self hideDelay:0 complete:complete];
-}
-/// 隐藏
-- (void)hide
-{
-    [self hideDelay:0 complete:NULL];
-}
-
-#pragma mark 通知类
-
-- (void)addNotification
-{
-    if (self.isFollowKeyboard) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudPosition:) name:UIDeviceOrientationDidChangeNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudPosition:) name:UIKeyboardWillHideNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hudPosition:) name:UIKeyboardWillShowNotification object:nil];
-    }
-}
-
-- (void)removeNotification
-{
-    if (self.isFollowKeyboard) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self];
-    }
-}
-
-- (void)hudPosition:(NSNotification *)notification
-{
-    CGFloat heightKeyboard = 0;
-    NSTimeInterval duration = 0;
-
-    if (notification) {
-        NSDictionary *info = [notification userInfo];
-        CGRect keyboard = [[info valueForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-        duration = [[info valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-        if ((notification.name == UIKeyboardWillShowNotification) || (notification.name == UIKeyboardDidShowNotification)) {
-            heightKeyboard = keyboard.size.height;
-        }
-    } else {
-        heightKeyboard = self.heightFromKeyboard;
-    }
-    //
-    self.keyboardHeight = heightKeyboard;
+    [view.layer removeAllAnimations];
     
-    CGRect screen = self.hudView.superview.bounds;
-    CGPoint center = CGPointMake(screen.size.width / 2, (screen.size.height - heightKeyboard) / 2);
-    //
-    if (self.shouldReloadTopWhileEdit) {
-        //
-        [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-            self.hudView.center = CGPointMake(center.x, center.y);
-        } completion:^(BOOL finished) {
-            
-        }];
+    if (isAnimation) {
+        CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+        rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 ];
+        rotationAnimation.duration = duration;
+        rotationAnimation.cumulative = YES;
+        rotationAnimation.repeatCount = MAXFLOAT;
+        [view.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+    } else {
+        
     }
 }
 
-- (CGFloat)heightFromKeyboard
+#pragma mark - 点击手势
+
+- (void)addTouch:(UIView *)view
 {
-    for (UIWindow *testWindow in UIApplication.sharedApplication.windows) {
-        if (![testWindow.class isEqual:UIWindow.class]) {
-            for (UIView *possibleKeyboard in testWindow.subviews) {
-                if ([possibleKeyboard.description hasPrefix:@"<UIPeripheralHostView"]) {
-                    return possibleKeyboard.bounds.size.height;
-                } else if ([possibleKeyboard.description hasPrefix:@"<UIInputSetContainerView"]) {
-                    for (UIView *hostKeyboard in possibleKeyboard.subviews) {
-                        if ([hostKeyboard.description hasPrefix:@"<UIInputSetHost"]) {
-                            return hostKeyboard.frame.size.height;
-                        }
-                    }
-                }
-            }
+    if (view) {
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchHideClick:)];
+        view.userInteractionEnabled = YES;
+        [view addGestureRecognizer:tapRecognizer];
+    }
+}
+
+- (void)touchHideClick:(UITapGestureRecognizer *)recognizer
+{
+    UIGestureRecognizerState state = recognizer.state;
+    if (state == UIGestureRecognizerStateEnded) {
+        if (self.touchHide) {
+            [self hideHUD];
         }
     }
-    return 0;
 }
 
-- (CGFloat)shouldReloadTopWhileEdit
+#pragma mark - getter
+
+- (UIView *)shadowView
 {
-    if (self.topPosition > 0) {
-        CGFloat top = (self.hudView.superview.frame.size.height - self.keyboardHeight - self.hudView.frame.size.height) / 2;
-        if (self.topPosition > top) {
-            return YES;
-        }
-        return NO;
+    if (_shadowView == nil) {
+        _shadowView = [[UIView alloc] init];
+        _shadowView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+        _shadowView.userInteractionEnabled = YES;
+        [self addTouch:_shadowView];
     }
-    return YES;
-}
-
-#pragma mark - getter/setter
-
-#pragma mark getter
-
-- (UIView *)hudView
-{
-    if (_hudView == nil) {
-        _hudView = [[UIView alloc] init];
-        _hudView.layer.masksToBounds = YES;
-        //
-        [self addSubview:_hudView];
-    }
-    return _hudView;
+    return _shadowView;
 }
 
 - (UIActivityIndicatorView *)activityView
 {
     if (_activityView == nil) {
         _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        _activityView.backgroundColor = UIColor.clearColor;
         _activityView.hidesWhenStopped = YES;
-        [_activityView stopAnimating];
-        //
-        [self.hudView addSubview:_activityView];
+        _activityView.color = _activityColor;
     }
     return _activityView;
 }
 
-- (UILabel *)label
+- (UIImageView *)iconView
 {
-    if (_label == nil) {
-        _label = [[UILabel alloc] initWithFrame:CGRectZero];
-        _label.backgroundColor = UIColor.clearColor;
-        _label.textAlignment = NSTextAlignmentCenter;
-        //
-        [self.hudView addSubview:_label];
+    if (_iconView == nil) {
+        _iconView = [[UIImageView alloc] init];
+        _iconView.contentMode = UIViewContentModeScaleAspectFit;
+        _iconView.backgroundColor = UIColor.clearColor;
     }
-    return _label;
+    return _iconView;
 }
 
-#pragma mark setter
+- (UILabel *)messageLabel
+{
+    if (_messageLabel == nil) {
+        _messageLabel = [[UILabel alloc] init];
+        _messageLabel.backgroundColor = UIColor.clearColor;
+        _messageLabel.font = _messageFont;
+        _messageLabel.textColor = _messageColor;
+        _messageLabel.textAlignment = NSTextAlignmentLeft;
+        _messageLabel.numberOfLines = 0;
+    }
+    return _messageLabel;
+}
+
+#pragma mark - setter
 
 - (void)setHudColor:(UIColor *)hudColor
 {
+    HUDMainThreadAssert();
     _hudColor = hudColor;
-    self.hudView.backgroundColor = _hudColor;
-}
-- (void)setHudCorner:(CGFloat)hudCorner
-{
-    _hudCorner = hudCorner;
-    self.hudView.layer.cornerRadius = _hudCorner;
-}
-- (void)setHudSize:(CGSize)hudSize
-{
-    _hudSize = hudSize;
-    CGRect rect = self.hudView.frame;
-    rect.size = _hudSize;
-    self.hudView.frame = rect;
+    self.backgroundColor = _hudColor;
 }
 
-- (void)setTextFont:(UIFont *)textFont
+- (void)setHudCornerRadius:(CGFloat)hudCornerRadius
 {
-    _textFont = textFont;
-    self.label.font = _textFont;
-}
-- (void)setTextColor:(UIColor *)textColor
-{
-    _textColor = textColor;
-    self.label.textColor = _textColor;
-}
-- (void)setTextAlign:(NSTextAlignment)textAlign
-{
-    _textAlign = textAlign;
-    self.label.textAlignment = _textAlign;
+    HUDMainThreadAssert();
+    _hudCornerRadius = hudCornerRadius;
+    self.layer.cornerRadius = _hudCornerRadius;
 }
 
 - (void)setActivityColor:(UIColor *)activityColor
 {
+    HUDMainThreadAssert();
     _activityColor = activityColor;
     self.activityView.color = _activityColor;
+}
+
+- (void)setMessageFont:(UIFont *)messageFont
+{
+    HUDMainThreadAssert();
+    _messageFont = messageFont;
+    self.messageLabel.font = _messageFont;
+}
+
+- (void)setMessageColor:(UIColor *)messageColor
+{
+    HUDMainThreadAssert();
+    _messageColor = messageColor;
+    self.messageLabel.textColor= _messageColor;
+}
+
+- (void)setHudEnable:(BOOL)hudEnable
+{
+    HUDMainThreadAssert();
+    _hudEnable = hudEnable;
+    self.superview.userInteractionEnabled = _hudEnable;
 }
 
 @end

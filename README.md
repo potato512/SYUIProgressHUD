@@ -18,21 +18,19 @@
 
 ```
 // 属性设置
-SYUIProgressHUD.share.backgroundColor = UIColor.clearColor;
-SYUIProgressHUD.share.activityColor = UIColor.blueColor;
-SYUIProgressHUD.share.hudSize = CGSizeMake(80, 80);
-SYUIProgressHUD.share.hudColor = UIColor.brownColor;
-SYUIProgressHUD.share.hudCorner = 10;
-SYUIProgressHUD.share.isAutoSize = NO;
-SYUIProgressHUD.share.textAlign = NSTextAlignmentCenter;
-SYUIProgressHUD.share.isSingleline = YES;
-// 
-SYHUDUtil.isFollowKeyboard = YES;
+HUDUtil.hudColor = UIColorHexAndAlpha(#000000, 1.0);
+HUDUtil.hudCornerRadius = 8.0;
+HUDUtil.messageFont = UIFontAutoSize(16);
+HUDUtil.messageColor = UIColorHex(#FFFFFF);
+HUDUtil.minWidth = 158;
+HUDUtil.maxWidth = 260;
+HUDUtil.autoSize = YES;
 ```
 
 ```
 // 隐藏
-[SYHUDUtil hide];
+[HUDUtil hide:YES];
+[HUDUtil hide:YES delay:5];
 ```
 
 ```
@@ -48,60 +46,56 @@ UIView *view = UIApplication.sharedApplication.delegate.window;
 
 ```
 // 显示HUD不隐藏 仅信息"
-[SYHUDUtil showMessage:message view:view];
+[HUDUtil showWithView:view message:message];
 ```
 
 ```
 // 显示HUD自动隐藏 仅信息
-[SYHUDUtil showMessage:message customView:nil view:view mode:HUDModeText autoHide:YES duration:3 enable:YES];
+[HUDUtil showAutoHideWithView:view message:message];
 ```
 
 ```
 // 显示HUD不隐藏 仅符号指示器
-[SYHUDUtil showActivity:view];
+[HUDUtil showWithActivityView:view];
 ```
 
 ```
 // 显示HUD自动隐藏 仅符号指示器
-[SYHUDUtil showMessage:nil customView:nil view:view mode:HUDModeActivity autoHide:YES duration:3 enable:YES];
+[HUDUtil showWithView:view type:SYUIProgressHUDModeDefault image:nil message:nil hide:YES delay:3 enabled:YES shadow:YES animation:YES];
 ```
 
 ```
 显示HUD不隐藏 仅图标
 UIImage *image = [UIImage imageNamed:@"withNetwork"];
-UIImageView *imageview = [[UIImageView alloc] initWithImage:image];
-[SYUIProgressHUD.share showMessage:nil customView:imageview view:view mode:HUDModeCustomView autoHide:NO duration:3 enable:YES];
+[HUDUtil showWithView:view icon:image animation:YES];
 ```
 
 ```
 // 显示HUD自动隐藏 仅图标
 UIImage *image = [UIImage imageNamed:@"withoutNetwork"];
-UIImageView *imageview = [[UIImageView alloc] initWithImage:image];
-[SYUIProgressHUD.share showMessage:nil customView:imageview view:view mode:HUDModeCustomView autoHide:YES duration:3 enable:YES];
+[HUDUtil showWithView:view type:SYUIProgressHUDModeCustomView image:image message:nil hide:NO delay:3 enabled:YES shadow:YES animation:YES];
 ```
 
 ```
 // 显示HUD不隐藏 信息和符号指示器
-[SYHUDUtil showMessage:message customView:nil view:view mode:HUDModeActivityWithText autoHide:NO duration:0 enable:YES];
+[HUDUtil showWithActivityView:view message:message];
 ```
 
 ```
 // 显示HUD自动隐藏 信息和符号指示器
-[SYHUDUtil showMessage:message customView:nil view:view mode:HUDModeActivityWithText autoHide:YES duration:3 enable:NO];
+[HUDUtil showWithView:view type:SYUIProgressHUDModeDefault image:nil message:message hide:YES delay:3 enabled:YES shadow:YES animation:YES];
 ```
 
 ```
 // 显示HUD不隐藏 信息和图标
 UIImage *image = [UIImage imageNamed:@"error"];
-UIImageView *imageview = [[UIImageView alloc] initWithImage:image];
-[SYUIProgressHUD.share showMessage:message customView:imageview view:view mode:HUDModeCustomViewWithText autoHide:NO duration:3 enable:YES];
+[HUDUtil showWithView:view type:SYUIProgressHUDModeCustomView image:image message:message hide:NO delay:3 enabled:YES shadow:YES animation:YES];
 ```
 
 ```
 // 显示HUD自动隐藏 信息和图标
 UIImage *image = [UIImage imageNamed:@"success"];
-UIImageView *imageview = [[UIImageView alloc] initWithImage:image];
-[SYUIProgressHUD.share showMessage:message customView:imageview view:view mode:HUDModeCustomViewWithText autoHide:YES duration:3 enable:NO];
+[HUDUtil showWithView:view type:SYUIProgressHUDModeCustomView image:image message:message hide:YES delay:3 enabled:YES shadow:YES animation:YES];
 ```
 
 效果图
@@ -110,6 +104,12 @@ UIImageView *imageview = [[UIImageView alloc] initWithImage:image];
 
 
 #### 修改说明
+* 20200623
+  * 版本号：1.3.1
+  * 修改完善
+    * 新增属性：`@property (nonatomic, assign) CGSize hudSize;`
+    * 新增方法：`- (void)hide:(BOOL)animation delay:(NSTimeInterval)delayTime;`
+
 * 20200427
   * 版本号：1.3.0
   * 修改优化
