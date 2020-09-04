@@ -1,0 +1,7 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+pod 'MMProgressHUD', :path => '../MMProgressHUD.podspec'
+
+target :LogicTests do
+  pod 'OCMock'
+end

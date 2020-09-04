@@ -1,0 +1,17 @@
+PODS:
+  - MMProgressHUD (0.3.0)
+  - OCMock (3.1.2)
+
+DEPENDENCIES:
+  - MMProgressHUD (from `../MMProgressHUD.podspec`)
+  - OCMock
+
+EXTERNAL SOURCES:
+  MMProgressHUD:
+    :path: ../MMProgressHUD.podspec
+
+SPEC CHECKSUMS:
+  MMProgressHUD: 8e37d243f7c4b5036ac5b949472a0d9fa51f1128
+  OCMock: a10ea9f0a6e921651f96f78b6faee95ebc813b92
+
+COCOAPODS: 0.36.4

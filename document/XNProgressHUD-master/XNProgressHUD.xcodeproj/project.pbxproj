@@ -1,0 +1,746 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2842D5B32281D7910023B54C /* XNProgressHUD.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 2842D5AA2281D7910023B54C /* XNProgressHUD.podspec */; };
+		2842D5B42281D7910023B54C /* XNProgressHUD.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 2842D5AC2281D7910023B54C /* XNProgressHUD.podspec */; };
+		2842D5B52281D7910023B54C /* XNProgressHUD.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 2842D5AE2281D7910023B54C /* XNProgressHUD.podspec */; };
+		2842D5B62281D7910023B54C /* XNProgressHUD.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 2842D5B02281D7910023B54C /* XNProgressHUD.podspec */; };
+		2842D5B72281D7910023B54C /* XNProgressHUD.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 2842D5B22281D7910023B54C /* XNProgressHUD.podspec */; };
+		2842D5BA2281D7BC0023B54C /* XNProgressHUD.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 2842D5B92281D7BC0023B54C /* XNProgressHUD.podspec */; };
+		285DF6C220E60386001CD2C0 /* XNProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 285DF6BC20E60386001CD2C0 /* XNProgressHUD.m */; };
+		285DF6C320E60386001CD2C0 /* UIViewController+XNProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 285DF6BF20E60386001CD2C0 /* UIViewController+XNProgressHUD.m */; };
+		28A0B390207C9E9400D03037 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 28A0B38E207C9E9400D03037 /* README.md */; };
+		28A0B391207C9E9400D03037 /* XNProgressHUD.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 28A0B38F207C9E9400D03037 /* XNProgressHUD.podspec */; };
+		28A0B39E207CA6B700D03037 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28A0B394207CA6B700D03037 /* Assets.xcassets */; };
+		28A0B39F207CA6B700D03037 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A0B395207CA6B700D03037 /* ViewController.m */; };
+		28A0B3A0207CA6B700D03037 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A0B396207CA6B700D03037 /* LaunchScreen.storyboard */; };
+		28A0B3A1207CA6B700D03037 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A0B398207CA6B700D03037 /* Main.storyboard */; };
+		28A0B3A2207CA6B700D03037 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A0B39A207CA6B700D03037 /* main.m */; };
+		28A0B3A3207CA6B700D03037 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A0B39B207CA6B700D03037 /* AppDelegate.m */; };
+		28A0B3A4207CA6B700D03037 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28A0B39C207CA6B700D03037 /* Info.plist */; };
+		28DFD3F42080B24F00AE575B /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 28DFD3F32080B24E00AE575B /* LICENSE */; };
+		8EAECBC2228281C100919658 /* XNProgressHUD.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 8EAECBC1228281C100919658 /* XNProgressHUD.podspec */; };
+		9A7E97DF22E2B99C00E47064 /* XNAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7E97DE22E2B99C00E47064 /* XNAnimationView.m */; };
+		9A7E97E622E2ECF300E47064 /* XNHUDErrorLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7E97E522E2ECF300E47064 /* XNHUDErrorLayer.m */; };
+		9A7E97EC22E2ED5C00E47064 /* XNHUDProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7E97EB22E2ED5C00E47064 /* XNHUDProgressLayer.m */; };
+		9A7E97EF22E2ED7100E47064 /* XNHUDSuccessLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7E97EE22E2ED7100E47064 /* XNHUDSuccessLayer.m */; };
+		9A7E97F222E2ED8900E47064 /* XNHUDLoadingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7E97F122E2ED8900E47064 /* XNHUDLoadingLayer.m */; };
+		9A7E97F622E556B900E47064 /* XNHUDInfoLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7E97F522E556B900E47064 /* XNHUDInfoLayer.m */; };
+		9AEC3AEA22EE91B200EF8B97 /* CustomHUDLoadingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC3AE922EE91B200EF8B97 /* CustomHUDLoadingLayer.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		28A0B372207C9DCB00D03037 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 28A0B351207C9DC900D03037 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 28A0B358207C9DC900D03037;
+			remoteInfo = XNProgressHUD;
+		};
+		28A0B37D207C9DCB00D03037 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 28A0B351207C9DC900D03037 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 28A0B358207C9DC900D03037;
+			remoteInfo = XNProgressHUD;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2842D5AA2281D7910023B54C /* XNProgressHUD.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = XNProgressHUD.podspec; sourceTree = "<group>"; };
+		2842D5AC2281D7910023B54C /* XNProgressHUD.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = XNProgressHUD.podspec; sourceTree = "<group>"; };
+		2842D5AE2281D7910023B54C /* XNProgressHUD.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = XNProgressHUD.podspec; sourceTree = "<group>"; };
+		2842D5B02281D7910023B54C /* XNProgressHUD.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = XNProgressHUD.podspec; sourceTree = "<group>"; };
+		2842D5B22281D7910023B54C /* XNProgressHUD.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = XNProgressHUD.podspec; sourceTree = "<group>"; };
+		2842D5B92281D7BC0023B54C /* XNProgressHUD.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = XNProgressHUD.podspec; sourceTree = "<group>"; };
+		285DF6BB20E60386001CD2C0 /* UIViewController+XNProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+XNProgressHUD.h"; sourceTree = "<group>"; };
+		285DF6BC20E60386001CD2C0 /* XNProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XNProgressHUD.m; sourceTree = "<group>"; };
+		285DF6BD20E60386001CD2C0 /* XNAnimaionViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XNAnimaionViewProtocol.h; sourceTree = "<group>"; };
+		285DF6BF20E60386001CD2C0 /* UIViewController+XNProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+XNProgressHUD.m"; sourceTree = "<group>"; };
+		285DF6C020E60386001CD2C0 /* XNProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XNProgressHUD.h; sourceTree = "<group>"; };
+		28A0B359207C9DC900D03037 /* XNProgressHUD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XNProgressHUD.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		28A0B371207C9DCB00D03037 /* XNProgressHUDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XNProgressHUDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		28A0B37C207C9DCB00D03037 /* XNProgressHUDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XNProgressHUDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		28A0B38E207C9E9400D03037 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		28A0B38F207C9E9400D03037 /* XNProgressHUD.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = XNProgressHUD.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		28A0B393207CA6B700D03037 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		28A0B394207CA6B700D03037 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		28A0B395207CA6B700D03037 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		28A0B397207CA6B700D03037 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		28A0B399207CA6B700D03037 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		28A0B39A207CA6B700D03037 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		28A0B39B207CA6B700D03037 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; wrapsLines = 0; };
+		28A0B39C207CA6B700D03037 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		28A0B39D207CA6B700D03037 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		28DFD3F32080B24E00AE575B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		8EAECBC1228281C100919658 /* XNProgressHUD.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = XNProgressHUD.podspec; sourceTree = "<group>"; };
+		9A7E97DD22E2B99C00E47064 /* XNAnimationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNAnimationView.h; sourceTree = "<group>"; };
+		9A7E97DE22E2B99C00E47064 /* XNAnimationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNAnimationView.m; sourceTree = "<group>"; };
+		9A7E97E422E2ECF300E47064 /* XNHUDErrorLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNHUDErrorLayer.h; sourceTree = "<group>"; };
+		9A7E97E522E2ECF300E47064 /* XNHUDErrorLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNHUDErrorLayer.m; sourceTree = "<group>"; };
+		9A7E97EA22E2ED5C00E47064 /* XNHUDProgressLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNHUDProgressLayer.h; sourceTree = "<group>"; };
+		9A7E97EB22E2ED5C00E47064 /* XNHUDProgressLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNHUDProgressLayer.m; sourceTree = "<group>"; };
+		9A7E97ED22E2ED7100E47064 /* XNHUDSuccessLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNHUDSuccessLayer.h; sourceTree = "<group>"; };
+		9A7E97EE22E2ED7100E47064 /* XNHUDSuccessLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNHUDSuccessLayer.m; sourceTree = "<group>"; };
+		9A7E97F022E2ED8900E47064 /* XNHUDLoadingLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNHUDLoadingLayer.h; sourceTree = "<group>"; };
+		9A7E97F122E2ED8900E47064 /* XNHUDLoadingLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNHUDLoadingLayer.m; sourceTree = "<group>"; };
+		9A7E97F322E2EDD800E47064 /* XNHUDLayerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNHUDLayerProtocol.h; sourceTree = "<group>"; };
+		9A7E97F422E556B900E47064 /* XNHUDInfoLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNHUDInfoLayer.h; sourceTree = "<group>"; };
+		9A7E97F522E556B900E47064 /* XNHUDInfoLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNHUDInfoLayer.m; sourceTree = "<group>"; };
+		9AEC3AE822EE91B200EF8B97 /* CustomHUDLoadingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomHUDLoadingLayer.h; sourceTree = "<group>"; };
+		9AEC3AE922EE91B200EF8B97 /* CustomHUDLoadingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomHUDLoadingLayer.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		28A0B356207C9DC900D03037 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28A0B36E207C9DCB00D03037 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28A0B379207C9DCB00D03037 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2842D5A82281D7910023B54C /* XNProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				8EAECBC0228281C100919658 /* 1.1.0 */,
+				2842D5B82281D7BC0023B54C /* 1.0.9 */,
+				2842D5A92281D7910023B54C /* 1.0.7 */,
+				2842D5AB2281D7910023B54C /* 1.0.8 */,
+				2842D5AD2281D7910023B54C /* 1.0.4 */,
+				2842D5AF2281D7910023B54C /* 1.0.3 */,
+				2842D5B12281D7910023B54C /* 1.0.5 */,
+			);
+			path = XNProgressHUD;
+			sourceTree = "<group>";
+		};
+		2842D5A92281D7910023B54C /* 1.0.7 */ = {
+			isa = PBXGroup;
+			children = (
+				2842D5AA2281D7910023B54C /* XNProgressHUD.podspec */,
+			);
+			path = 1.0.7;
+			sourceTree = "<group>";
+		};
+		2842D5AB2281D7910023B54C /* 1.0.8 */ = {
+			isa = PBXGroup;
+			children = (
+				2842D5AC2281D7910023B54C /* XNProgressHUD.podspec */,
+			);
+			path = 1.0.8;
+			sourceTree = "<group>";
+		};
+		2842D5AD2281D7910023B54C /* 1.0.4 */ = {
+			isa = PBXGroup;
+			children = (
+				2842D5AE2281D7910023B54C /* XNProgressHUD.podspec */,
+			);
+			path = 1.0.4;
+			sourceTree = "<group>";
+		};
+		2842D5AF2281D7910023B54C /* 1.0.3 */ = {
+			isa = PBXGroup;
+			children = (
+				2842D5B02281D7910023B54C /* XNProgressHUD.podspec */,
+			);
+			path = 1.0.3;
+			sourceTree = "<group>";
+		};
+		2842D5B12281D7910023B54C /* 1.0.5 */ = {
+			isa = PBXGroup;
+			children = (
+				2842D5B22281D7910023B54C /* XNProgressHUD.podspec */,
+			);
+			path = 1.0.5;
+			sourceTree = "<group>";
+		};
+		2842D5B82281D7BC0023B54C /* 1.0.9 */ = {
+			isa = PBXGroup;
+			children = (
+				2842D5B92281D7BC0023B54C /* XNProgressHUD.podspec */,
+			);
+			path = 1.0.9;
+			sourceTree = "<group>";
+		};
+		285DF6B920E60386001CD2C0 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				9A7E97F722E599C000E47064 /* XNHUDAnimationView */,
+				285DF6BB20E60386001CD2C0 /* UIViewController+XNProgressHUD.h */,
+				285DF6BF20E60386001CD2C0 /* UIViewController+XNProgressHUD.m */,
+				285DF6C020E60386001CD2C0 /* XNProgressHUD.h */,
+				285DF6BC20E60386001CD2C0 /* XNProgressHUD.m */,
+				285DF6BD20E60386001CD2C0 /* XNAnimaionViewProtocol.h */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		28A0B350207C9DC900D03037 = {
+			isa = PBXGroup;
+			children = (
+				2842D5A82281D7910023B54C /* XNProgressHUD */,
+				285DF6B920E60386001CD2C0 /* Classes */,
+				28A0B392207CA6B700D03037 /* demo */,
+				28A0B38E207C9E9400D03037 /* README.md */,
+				28A0B38F207C9E9400D03037 /* XNProgressHUD.podspec */,
+				28DFD3F32080B24E00AE575B /* LICENSE */,
+				28A0B35A207C9DC900D03037 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		28A0B35A207C9DC900D03037 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				28A0B359207C9DC900D03037 /* XNProgressHUD.app */,
+				28A0B371207C9DCB00D03037 /* XNProgressHUDTests.xctest */,
+				28A0B37C207C9DCB00D03037 /* XNProgressHUDUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		28A0B392207CA6B700D03037 /* demo */ = {
+			isa = PBXGroup;
+			children = (
+				9A7E97E022E2EC8900E47064 /* custom */,
+				28A0B393207CA6B700D03037 /* AppDelegate.h */,
+				28A0B39B207CA6B700D03037 /* AppDelegate.m */,
+				28A0B394207CA6B700D03037 /* Assets.xcassets */,
+				28A0B39C207CA6B700D03037 /* Info.plist */,
+				28A0B396207CA6B700D03037 /* LaunchScreen.storyboard */,
+				28A0B39A207CA6B700D03037 /* main.m */,
+				28A0B398207CA6B700D03037 /* Main.storyboard */,
+				28A0B39D207CA6B700D03037 /* ViewController.h */,
+				28A0B395207CA6B700D03037 /* ViewController.m */,
+			);
+			path = demo;
+			sourceTree = "<group>";
+		};
+		8EAECBC0228281C100919658 /* 1.1.0 */ = {
+			isa = PBXGroup;
+			children = (
+				8EAECBC1228281C100919658 /* XNProgressHUD.podspec */,
+			);
+			path = 1.1.0;
+			sourceTree = "<group>";
+		};
+		9A7E97E022E2EC8900E47064 /* custom */ = {
+			isa = PBXGroup;
+			children = (
+				9AEC3AE822EE91B200EF8B97 /* CustomHUDLoadingLayer.h */,
+				9AEC3AE922EE91B200EF8B97 /* CustomHUDLoadingLayer.m */,
+			);
+			path = custom;
+			sourceTree = "<group>";
+		};
+		9A7E97F722E599C000E47064 /* XNHUDAnimationView */ = {
+			isa = PBXGroup;
+			children = (
+				9A7E97F322E2EDD800E47064 /* XNHUDLayerProtocol.h */,
+				9A7E97DD22E2B99C00E47064 /* XNAnimationView.h */,
+				9A7E97DE22E2B99C00E47064 /* XNAnimationView.m */,
+				9A7E97E422E2ECF300E47064 /* XNHUDErrorLayer.h */,
+				9A7E97E522E2ECF300E47064 /* XNHUDErrorLayer.m */,
+				9A7E97EA22E2ED5C00E47064 /* XNHUDProgressLayer.h */,
+				9A7E97EB22E2ED5C00E47064 /* XNHUDProgressLayer.m */,
+				9A7E97ED22E2ED7100E47064 /* XNHUDSuccessLayer.h */,
+				9A7E97EE22E2ED7100E47064 /* XNHUDSuccessLayer.m */,
+				9A7E97F022E2ED8900E47064 /* XNHUDLoadingLayer.h */,
+				9A7E97F122E2ED8900E47064 /* XNHUDLoadingLayer.m */,
+				9A7E97F422E556B900E47064 /* XNHUDInfoLayer.h */,
+				9A7E97F522E556B900E47064 /* XNHUDInfoLayer.m */,
+			);
+			path = XNHUDAnimationView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		28A0B358207C9DC900D03037 /* XNProgressHUD */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 28A0B385207C9DCB00D03037 /* Build configuration list for PBXNativeTarget "XNProgressHUD" */;
+			buildPhases = (
+				28A0B355207C9DC900D03037 /* Sources */,
+				28A0B356207C9DC900D03037 /* Frameworks */,
+				28A0B357207C9DC900D03037 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XNProgressHUD;
+			productName = XNProgressHUD;
+			productReference = 28A0B359207C9DC900D03037 /* XNProgressHUD.app */;
+			productType = "com.apple.product-type.application";
+		};
+		28A0B370207C9DCB00D03037 /* XNProgressHUDTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 28A0B388207C9DCB00D03037 /* Build configuration list for PBXNativeTarget "XNProgressHUDTests" */;
+			buildPhases = (
+				28A0B36D207C9DCB00D03037 /* Sources */,
+				28A0B36E207C9DCB00D03037 /* Frameworks */,
+				28A0B36F207C9DCB00D03037 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				28A0B373207C9DCB00D03037 /* PBXTargetDependency */,
+			);
+			name = XNProgressHUDTests;
+			productName = XNProgressHUDTests;
+			productReference = 28A0B371207C9DCB00D03037 /* XNProgressHUDTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		28A0B37B207C9DCB00D03037 /* XNProgressHUDUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 28A0B38B207C9DCB00D03037 /* Build configuration list for PBXNativeTarget "XNProgressHUDUITests" */;
+			buildPhases = (
+				28A0B378207C9DCB00D03037 /* Sources */,
+				28A0B379207C9DCB00D03037 /* Frameworks */,
+				28A0B37A207C9DCB00D03037 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				28A0B37E207C9DCB00D03037 /* PBXTargetDependency */,
+			);
+			name = XNProgressHUDUITests;
+			productName = XNProgressHUDUITests;
+			productReference = 28A0B37C207C9DCB00D03037 /* XNProgressHUDUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		28A0B351207C9DC900D03037 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "罗函";
+				TargetAttributes = {
+					28A0B358207C9DC900D03037 = {
+						CreatedOnToolsVersion = 9.3;
+					};
+					28A0B370207C9DCB00D03037 = {
+						CreatedOnToolsVersion = 9.3;
+						TestTargetID = 28A0B358207C9DC900D03037;
+					};
+					28A0B37B207C9DCB00D03037 = {
+						CreatedOnToolsVersion = 9.3;
+						TestTargetID = 28A0B358207C9DC900D03037;
+					};
+				};
+			};
+			buildConfigurationList = 28A0B354207C9DC900D03037 /* Build configuration list for PBXProject "XNProgressHUD" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 28A0B350207C9DC900D03037;
+			productRefGroup = 28A0B35A207C9DC900D03037 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				28A0B358207C9DC900D03037 /* XNProgressHUD */,
+				28A0B370207C9DCB00D03037 /* XNProgressHUDTests */,
+				28A0B37B207C9DCB00D03037 /* XNProgressHUDUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		28A0B357207C9DC900D03037 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28A0B391207C9E9400D03037 /* XNProgressHUD.podspec in Resources */,
+				28A0B3A1207CA6B700D03037 /* Main.storyboard in Resources */,
+				28A0B3A4207CA6B700D03037 /* Info.plist in Resources */,
+				2842D5BA2281D7BC0023B54C /* XNProgressHUD.podspec in Resources */,
+				28DFD3F42080B24F00AE575B /* LICENSE in Resources */,
+				2842D5B62281D7910023B54C /* XNProgressHUD.podspec in Resources */,
+				28A0B3A0207CA6B700D03037 /* LaunchScreen.storyboard in Resources */,
+				2842D5B52281D7910023B54C /* XNProgressHUD.podspec in Resources */,
+				2842D5B32281D7910023B54C /* XNProgressHUD.podspec in Resources */,
+				2842D5B42281D7910023B54C /* XNProgressHUD.podspec in Resources */,
+				2842D5B72281D7910023B54C /* XNProgressHUD.podspec in Resources */,
+				8EAECBC2228281C100919658 /* XNProgressHUD.podspec in Resources */,
+				28A0B39E207CA6B700D03037 /* Assets.xcassets in Resources */,
+				28A0B390207C9E9400D03037 /* README.md in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28A0B36F207C9DCB00D03037 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28A0B37A207C9DCB00D03037 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		28A0B355207C9DC900D03037 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A7E97F222E2ED8900E47064 /* XNHUDLoadingLayer.m in Sources */,
+				285DF6C320E60386001CD2C0 /* UIViewController+XNProgressHUD.m in Sources */,
+				285DF6C220E60386001CD2C0 /* XNProgressHUD.m in Sources */,
+				28A0B3A2207CA6B700D03037 /* main.m in Sources */,
+				9AEC3AEA22EE91B200EF8B97 /* CustomHUDLoadingLayer.m in Sources */,
+				9A7E97EF22E2ED7100E47064 /* XNHUDSuccessLayer.m in Sources */,
+				28A0B39F207CA6B700D03037 /* ViewController.m in Sources */,
+				28A0B3A3207CA6B700D03037 /* AppDelegate.m in Sources */,
+				9A7E97E622E2ECF300E47064 /* XNHUDErrorLayer.m in Sources */,
+				9A7E97DF22E2B99C00E47064 /* XNAnimationView.m in Sources */,
+				9A7E97EC22E2ED5C00E47064 /* XNHUDProgressLayer.m in Sources */,
+				9A7E97F622E556B900E47064 /* XNHUDInfoLayer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28A0B36D207C9DCB00D03037 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28A0B378207C9DCB00D03037 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		28A0B373207C9DCB00D03037 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 28A0B358207C9DC900D03037 /* XNProgressHUD */;
+			targetProxy = 28A0B372207C9DCB00D03037 /* PBXContainerItemProxy */;
+		};
+		28A0B37E207C9DCB00D03037 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 28A0B358207C9DC900D03037 /* XNProgressHUD */;
+			targetProxy = 28A0B37D207C9DCB00D03037 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		28A0B396207CA6B700D03037 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				28A0B397207CA6B700D03037 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		28A0B398207CA6B700D03037 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				28A0B399207CA6B700D03037 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		28A0B383207C9DCB00D03037 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		28A0B384207C9DCB00D03037 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		28A0B386207C9DCB00D03037 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H2V5ST8BY2;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.luohancc.XNProgressHUD;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		28A0B387207C9DCB00D03037 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H2V5ST8BY2;
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.luohancc.XNProgressHUD;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		28A0B389207C9DCB00D03037 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6B7777MZAW;
+				INFOPLIST_FILE = XNProgressHUDTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.luohan.XNProgressHUDTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XNProgressHUD.app/XNProgressHUD";
+			};
+			name = Debug;
+		};
+		28A0B38A207C9DCB00D03037 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6B7777MZAW;
+				INFOPLIST_FILE = XNProgressHUDTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.luohan.XNProgressHUDTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XNProgressHUD.app/XNProgressHUD";
+			};
+			name = Release;
+		};
+		28A0B38C207C9DCB00D03037 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6B7777MZAW;
+				INFOPLIST_FILE = XNProgressHUDUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.luohan.XNProgressHUDUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = XNProgressHUD;
+			};
+			name = Debug;
+		};
+		28A0B38D207C9DCB00D03037 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6B7777MZAW;
+				INFOPLIST_FILE = XNProgressHUDUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.luohan.XNProgressHUDUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = XNProgressHUD;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		28A0B354207C9DC900D03037 /* Build configuration list for PBXProject "XNProgressHUD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28A0B383207C9DCB00D03037 /* Debug */,
+				28A0B384207C9DCB00D03037 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		28A0B385207C9DCB00D03037 /* Build configuration list for PBXNativeTarget "XNProgressHUD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28A0B386207C9DCB00D03037 /* Debug */,
+				28A0B387207C9DCB00D03037 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		28A0B388207C9DCB00D03037 /* Build configuration list for PBXNativeTarget "XNProgressHUDTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28A0B389207C9DCB00D03037 /* Debug */,
+				28A0B38A207C9DCB00D03037 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		28A0B38B207C9DCB00D03037 /* Build configuration list for PBXNativeTarget "XNProgressHUDUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28A0B38C207C9DCB00D03037 /* Debug */,
+				28A0B38D207C9DCB00D03037 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 28A0B351207C9DC900D03037 /* Project object */;
+}
