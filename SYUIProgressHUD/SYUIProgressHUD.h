@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// 显示样式
+/// 显示样式（风火轮、自定义图标
 typedef NS_ENUM(NSInteger, SYUIProgressHUDMode) {
     /// 显示风火轮滚动（默认方式）
     SYUIProgressHUDModeDefault = 0,
