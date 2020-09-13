@@ -26,6 +26,7 @@
 		DF7AB4E6244C27BF00DF3789 /* SYProgressHUDVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7AB4E5244C27BF00DF3789 /* SYProgressHUDVC.m */; };
 		DF7FE961212478E000042EFB /* withoutNetwork.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7FE960212478E000042EFB /* withoutNetwork.png */; };
 		DF7FE9632124793800042EFB /* withNetwork.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7FE9622124793700042EFB /* withNetwork.png */; };
+		DFD30749250E692100EE7BDE /* SYToastVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DFD30748250E692100EE7BDE /* SYToastVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,8 @@
 		DF7AB4E5244C27BF00DF3789 /* SYProgressHUDVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYProgressHUDVC.m; sourceTree = "<group>"; };
 		DF7FE960212478E000042EFB /* withoutNetwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = withoutNetwork.png; sourceTree = "<group>"; };
 		DF7FE9622124793700042EFB /* withNetwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = withNetwork.png; sourceTree = "<group>"; };
+		DFD30747250E692100EE7BDE /* SYToastVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYToastVC.h; sourceTree = "<group>"; };
+		DFD30748250E692100EE7BDE /* SYToastVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYToastVC.m; sourceTree = "<group>"; };
 		F868EEE38BEAEA2E79FB5D6C /* Pods-DemoItoast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoItoast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoItoast/Pods-DemoItoast.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,9 +148,11 @@
 				A7F415D71B69B8D200DD360A /* AppDelegate.h */,
 				A7F415D81B69B8D200DD360A /* AppDelegate.m */,
 				A7F415DA1B69B8D200DD360A /* ViewController.h */,
-				A7F415DB1B69B8D200DD360A /* ViewController.m */,
 				DF7AB4E4244C27BF00DF3789 /* SYProgressHUDVC.h */,
+				A7F415DB1B69B8D200DD360A /* ViewController.m */,
 				DF7AB4E5244C27BF00DF3789 /* SYProgressHUDVC.m */,
+				DFD30747250E692100EE7BDE /* SYToastVC.h */,
+				DFD30748250E692100EE7BDE /* SYToastVC.m */,
 				58AE3D8D246E870B008D38AB /* MBHUDVC.h */,
 				58AE3D8E246E870B008D38AB /* MBHUDVC.m */,
 				58AE3D90246E8721008D38AB /* SVHUDVC.h */,
@@ -213,7 +218,6 @@
 				A7F415CC1B69B8D200DD360A /* Sources */,
 				A7F415CD1B69B8D200DD360A /* Frameworks */,
 				A7F415CE1B69B8D200DD360A /* Resources */,
-				A7C134E2F0E1DEF414F8E3EC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -308,26 +312,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A7C134E2F0E1DEF414F8E3EC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DemoItoast/Pods-DemoItoast-resources.sh",
-				"${PODS_ROOT}/ProgressHUD/ProgressHUD/ProgressHUD/ProgressHUD.bundle",
-				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ProgressHUD.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DemoItoast/Pods-DemoItoast-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		F1DDA209D7951082D0631DB0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -375,6 +359,7 @@
 				A7F415D91B69B8D200DD360A /* AppDelegate.m in Sources */,
 				DF7AB4E6244C27BF00DF3789 /* SYProgressHUDVC.m in Sources */,
 				58F3908C250C6FD600BC2C20 /* SYUIToast.m in Sources */,
+				DFD30749250E692100EE7BDE /* SYToastVC.m in Sources */,
 				58AE3D92246E8721008D38AB /* SVHUDVC.m in Sources */,
 				A7F415D61B69B8D200DD360A /* main.m in Sources */,
 				58528FFE244D5D2000A86E99 /* SYUIProgressHUD.m in Sources */,

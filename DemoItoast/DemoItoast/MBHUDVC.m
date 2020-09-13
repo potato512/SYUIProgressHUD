@@ -7,7 +7,7 @@
 //
 
 #import "MBHUDVC.h"
-#import <MBProgressHUD/MBProgressHUD.h>
+//#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface MBHUDVC ()
 
@@ -48,20 +48,20 @@
     
     
     // 小菊花
-    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:hud];
-    hud.removeFromSuperViewOnHide = YES;
-    //
-    hud.offset = CGPointMake(10, 10);
-    hud.minSize = CGSizeMake(120, 120);
-    hud.contentColor = UIColor.greenColor;
-//    hud.backgroundColor = [UIColor.yellowColor colorWithAlphaComponent:0.3];
-    hud.animationType = MBProgressHUDAnimationFade;
-//    hud.backgroundView.color = UIColor.brownColor;
-//    hud.backgroundView.style = MBProgressHUDBackgroundStyleBlur;
-    //
-    [hud showAnimated:YES];
-    [hud hideAnimated:YES afterDelay:3];
+//    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+//    [self.view addSubview:hud];
+//    hud.removeFromSuperViewOnHide = YES;
+//    //
+//    hud.offset = CGPointMake(10, 10);
+//    hud.minSize = CGSizeMake(120, 120);
+//    hud.contentColor = UIColor.greenColor;
+////    hud.backgroundColor = [UIColor.yellowColor colorWithAlphaComponent:0.3];
+//    hud.animationType = MBProgressHUDAnimationFade;
+////    hud.backgroundView.color = UIColor.brownColor;
+////    hud.backgroundView.style = MBProgressHUDBackgroundStyleBlur;
+//    //
+//    [hud showAnimated:YES];
+//    [hud hideAnimated:YES afterDelay:3];
     
     
     // 环形进度

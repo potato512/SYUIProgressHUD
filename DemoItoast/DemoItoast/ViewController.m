@@ -10,6 +10,7 @@
 #import "SYProgressHUDVC.h"
 #import "MBHUDVC.h"
 #import "SVHUDVC.h"
+#import "SYToastVC.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -32,9 +33,9 @@
     tableView.tableFooterView = [UIView new];
     
     
-    NSInteger age;
-    UILabel *mylabel = [UILabel new];
-    mylabel.text = age ? [NSString stringWithFormat:@"%@", age]: @"";
+//    NSInteger age;
+//    UILabel *mylabel = [UILabel new];
+//    mylabel.text = age ? [NSString stringWithFormat:@"%@", age]: @"";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,7 +82,7 @@
 - (NSArray *)array
 {
     if (_array == nil) {
-        _array = @[SYProgressHUDVC.class, MBHUDVC.class, SVHUDVC.class];
+        _array = @[SYProgressHUDVC.class, MBHUDVC.class, SVHUDVC.class, SYToastVC.class];
     }
     return _array;
 }
