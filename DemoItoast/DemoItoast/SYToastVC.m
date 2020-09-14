@@ -30,7 +30,7 @@
     tableView.dataSource = self;
         
     // 初始化
-    SYUIToast.share.isAmination = YES;
+//    SYUIToast.share.isAmination = YES;
 }
 
 - (void)loadView
@@ -75,62 +75,62 @@
     //
     NSString *text = self.array[indexPath.row];
     //
-    SYUIToast.share.autoSize = NO;
-    SYUIToast.share.touchHide = NO;
-    SYUIToast.share.toastColor = [UIColor.blackColor colorWithAlphaComponent:0.8];
-    SYUIToast.share.messageColor = UIColor.whiteColor;
-    SYUIToast.share.messageFont = [UIFont systemFontOfSize:13];
-    SYUIToast.share.shadowColor = UIColor.clearColor;
+//    SYUIToast.share.autoSize = NO;
+//    SYUIToast.share.touchHide = NO;
+//    SYUIToast.share.toastColor = [UIColor.blackColor colorWithAlphaComponent:0.8];
+//    SYUIToast.share.messageColor = UIColor.whiteColor;
+//    SYUIToast.share.messageFont = [UIFont systemFontOfSize:13];
+//    SYUIToast.share.shadowColor = UIColor.clearColor;
     //
     if ([text isEqualToString:@"隐藏HUD"]) {
-        [SYUIToast.share hideDelay:0 finishHandle:^{
-            NSLog(@"延迟0秒隐藏 -- %ld", indexPath.row);
-        }];
+//        [SYUIToast.share hideDelay:0 finishHandle:^{
+//            NSLog(@"延迟0秒隐藏 -- %ld", indexPath.row);
+//        }];
     } else if ([text isEqualToString:@"显示HUD不隐藏 window enble"]) {
-        [SYUIToast.share showInView:view enable:YES message:message autoHide:0 finishHandle:^{
-            NSLog(@"延迟0秒隐藏 -- %ld", indexPath.row);
-        }];
+//        [SYUIToast.share showInView:view enable:YES message:message autoHide:0 finishHandle:^{
+//            NSLog(@"延迟0秒隐藏 -- %ld", indexPath.row);
+//        }];
     } else if ([text isEqualToString:@"显示HUD自动隐藏 window enble"]) {
-        [SYUIToast.share showInView:view enable:YES message:message autoHide:3 finishHandle:^{
-            NSLog(@"延迟3秒隐藏 -- %ld", indexPath.row);
-        }];
+//        [SYUIToast.share showInView:view enable:YES message:message autoHide:3 finishHandle:^{
+//            NSLog(@"延迟3秒隐藏 -- %ld", indexPath.row);
+//        }];
     } else if ([text isEqualToString:@"显示HUD自动隐藏 window unenble"]) {
-        [SYUIToast.share showInView:view enable:NO message:message autoHide:3 finishHandle:^{
-            NSLog(@"延迟3秒隐藏 -- %ld", indexPath.row);
-        }];
+//        [SYUIToast.share showInView:view enable:NO message:message autoHide:3 finishHandle:^{
+//            NSLog(@"延迟3秒隐藏 -- %ld", indexPath.row);
+//        }];
     } else if ([text isEqualToString:@"显示HUD不隐藏 view enable"]) {
-        [SYUIToast.share showInView:viewSelf enable:YES message:message autoHide:0 finishHandle:^{
-            NSLog(@"延迟0秒隐藏 -- %ld", indexPath.row);
-        }];
+//        [SYUIToast.share showInView:viewSelf enable:YES message:message autoHide:0 finishHandle:^{
+//            NSLog(@"延迟0秒隐藏 -- %ld", indexPath.row);
+//        }];
     } else if ([text isEqualToString:@"显示HUD自动隐藏 view enble"]) {
-        [SYUIToast.share showInView:viewSelf enable:YES message:message autoHide:3 finishHandle:^{
-            NSLog(@"延迟3秒隐藏 -- %ld", indexPath.row);
-        }];
+//        [SYUIToast.share showInView:viewSelf enable:YES message:message autoHide:3 finishHandle:^{
+//            NSLog(@"延迟3秒隐藏 -- %ld", indexPath.row);
+//        }];
     } else if ([text isEqualToString:@"显示HUD不隐藏 view unenble"]) {
-        [SYUIToast.share showInView:viewSelf enable:NO message:message autoHide:0 finishHandle:^{
-            NSLog(@"延迟0秒隐藏 -- %ld", indexPath.row);
-        }];
+//        [SYUIToast.share showInView:viewSelf enable:NO message:message autoHide:0 finishHandle:^{
+//            NSLog(@"延迟0秒隐藏 -- %ld", indexPath.row);
+//        }];
     } else if ([text isEqualToString:@"显示HUD自动隐藏 view unenble"]) {
-        [SYUIToast.share showInView:viewSelf enable:NO message:message autoHide:3 finishHandle:^{
-            NSLog(@"延迟3秒隐藏 -- %ld", indexPath.row);
-        }];
+//        [SYUIToast.share showInView:viewSelf enable:NO message:message autoHide:3 finishHandle:^{
+//            NSLog(@"延迟3秒隐藏 -- %ld", indexPath.row);
+//        }];
     } else if ([text isEqualToString:@"显示HUD不隐藏 window autosize"]) {
-        SYUIToast.share.autoSize = YES;
-        SYUIToast.share.touchHide = YES;
-        SYUIToast.share.toastColor = UIColor.greenColor;
-        SYUIToast.share.messageFont = [UIFont systemFontOfSize:16];
-        [SYUIToast.share showInView:view enable:YES message:message autoHide:0 finishHandle:^{
-            NSLog(@"延迟0秒隐藏 -- %ld", indexPath.row);
-        }];
+//        SYUIToast.share.autoSize = YES;
+//        SYUIToast.share.touchHide = YES;
+//        SYUIToast.share.toastColor = UIColor.greenColor;
+//        SYUIToast.share.messageFont = [UIFont systemFontOfSize:16];
+//        [SYUIToast.share showInView:view enable:YES message:message autoHide:0 finishHandle:^{
+//            NSLog(@"延迟0秒隐藏 -- %ld", indexPath.row);
+//        }];
     } else if ([text isEqualToString:@"显示HUD不隐藏 view autosize"]) {
-        SYUIToast.share.autoSize = YES;
-        SYUIToast.share.toastColor = UIColor.yellowColor;
-        SYUIToast.share.messageColor = UIColor.redColor;
-        SYUIToast.share.messageFont = [UIFont systemFontOfSize:20];
-        SYUIToast.share.shadowColor = [UIColor.blackColor colorWithAlphaComponent:0.3];
-        [SYUIToast.share showInView:viewSelf enable:YES message:message autoHide:3 finishHandle:^{
-            NSLog(@"延迟3秒隐藏 -- %ld", indexPath.row);
-        }];
+//        SYUIToast.share.autoSize = YES;
+//        SYUIToast.share.toastColor = UIColor.yellowColor;
+//        SYUIToast.share.messageColor = UIColor.redColor;
+//        SYUIToast.share.messageFont = [UIFont systemFontOfSize:20];
+//        SYUIToast.share.shadowColor = [UIColor.blackColor colorWithAlphaComponent:0.3];
+//        [SYUIToast.share showInView:viewSelf enable:YES message:message autoHide:3 finishHandle:^{
+//            NSLog(@"延迟3秒隐藏 -- %ld", indexPath.row);
+//        }];
     }
 }
 

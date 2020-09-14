@@ -1,16 +1,25 @@
 //
-//  SYUIBaseHUD.h
-//  DemoItoast
+//  SYUIHUD.h
+//  zhangshaoyu
 //
 //  Created by zhangshaoyu on 2020/9/12.
 //  Copyright © 2020 zhangshaoyu. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SYUIBaseHUD : UIView
+/// 显示样式（风火轮、自定义图标
+typedef NS_ENUM(NSInteger, SYUIProgressHUDMode) {
+    /// 显示风火轮滚动（默认方式）
+    SYUIProgressHUDModeDefault = 0,
+    /// 自定义显示图标
+    SYUIProgressHUDModeCustomView
+};
+
+@interface SYUIHUD : NSObject
 
 #pragma mark - 属性
 
@@ -54,29 +63,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 显示、隐藏
 
++ (instancetype)share;
+
 /// 显示
-- (void)show;
-/// 显示，提示语
-- (void)showWithMessage:(NSString *)msg;
-/// 显示，提示语 + 回调
-- (void)showWithMessage:(NSString *)msg handle:(void (^)(void))handle;
-/// 显示，自动隐藏
-- (void)showAutoHide;
-/// 显示，自动隐藏 + 提示语
-- (void)showAutoHideWithMessage:(NSString *)msg;
-/// 显示，自动隐藏 + 提示语 + 回调
-- (void)showAutoHideWithMessage:(NSString *)msg handle:(void (^)(void))handle;
+- (void)showInView:(UIView *)view enable:(BOOL)enable message:(NSString *)message delayTime:(NSTimeInterval)time finishHandle:(void (^)(void))handle;
+
 /// 隐藏
-- (void)hide;
-/// 隐藏，延迟
-- (void)hideDelay:(NSTimeInterval)time;
-/// 隐藏，延迟 + 回调
-- (void)hideDelay:(NSTimeInterval)time handle:(void (^)(void))handle;
-
-#pragma mark -
-
-/// 旋转动画
-- (void)animationRotationWithView:(UIView *)view duration:(NSTimeInterval)duration animation:(BOOL)isAnimation;
+- (void)hideDelay:(NSTimeInterval)time finishHandle:(void (^)(void))handle;
 
 @end
 
