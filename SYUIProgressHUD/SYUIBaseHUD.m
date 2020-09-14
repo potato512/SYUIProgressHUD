@@ -8,10 +8,6 @@
 
 #import "SYUIBaseHUD.h"
 
-//static CGFloat const originX = 10.0;
-//static CGFloat const originMessage = 20.0;
-//static CGFloat const heightMessage = 48;
-//static CGFloat const minSize = 102;
 //
 static NSString *const keyWidthSelf = @"keyWidthSelf";
 static NSString *const keyHeightSelf = @"keyHeightSelf";
@@ -21,8 +17,8 @@ static NSString *const keyHeightText = @"keyHeightText";
 @interface SYUIBaseHUD ()
 
 //@property (nonatomic, assign) BOOL isAnimation;
-////
-//@property (nonatomic, strong) UIView *shadowView;
+//
+@property (nonatomic, strong) UIView *shadowView;
 ////
 //@property (nonatomic, strong) UIActivityIndicatorView *activityView;
 //@property (nonatomic, strong) UIImageView *iconView;
@@ -61,11 +57,11 @@ static NSString *const keyHeightText = @"keyHeightText";
     _messageColor = [UIColor blackColor];
     _autoSize = NO;
     //
-    self.contentView.backgroundColor = _color;
-    self.contentView.layer.cornerRadius = _cornerRadius;
-    self.contentView.layer.masksToBounds = YES;
+    self.shadowView.backgroundColor = _color;
+    self.layer.cornerRadius = _cornerRadius;
+    self.layer.masksToBounds = YES;
     
-    [self addTapRecognizer];
+//    [self addTapRecognizer];
 }
 
 #pragma mark - UI设置
@@ -270,6 +266,7 @@ static NSString *const keyHeightText = @"keyHeightText";
 
 #pragma mark - 动画样式
 
+/*
 - (void)animationDefault:(BOOL)show
 {
     HUDMainThreadAssert();
@@ -403,9 +400,11 @@ static NSString *const keyHeightText = @"keyHeightText";
     }
     return sizeTmp;
 }
+*/
 
 #pragma mark - 延时隐藏计时器
 
+/*
 - (void)startTimerDelay:(NSTimeInterval)time
 {
     HUDMainThreadAssert();
@@ -430,19 +429,20 @@ static NSString *const keyHeightText = @"keyHeightText";
     //
     [self stopIconAnimation];
 }
+*/
 
 #pragma mark - icon动画
 
-- (void)startIconAnimation
+- (void)startAnimation
 {
-    HUDMainThreadAssert();
-    [self animationRotationWithView:self.iconView duration:0.5 animation:self.iconAnimationEnable];
+//    HUDMainThreadAssert();
+//    [self animationRotationWithView:self.iconView duration:0.5 animation:self.iconAnimationEnable];
 }
 
-- (void)stopIconAnimation
+- (void)stopAnimation
 {
-    HUDMainThreadAssert();
-    [self animationRotationWithView:self.iconView duration:0.5 animation:NO];
+//    HUDMainThreadAssert();
+//    [self animationRotationWithView:self.iconView duration:0.5 animation:NO];
 }
 
 /// 旋转动画 add by zhangshaoyu 20190731
@@ -468,12 +468,12 @@ static NSString *const keyHeightText = @"keyHeightText";
 
 #pragma mark - 点击手势
 
-- (void)addTapRecognizer
+- (void)addTapRecognizer:(UIView *)view
 {
-    if (self.contentView) {
+    if ([view isKindOfClass:UIView.class]) {
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchHideClick:)];
-        self.contentView.userInteractionEnabled = YES;
-        [self.contentView addGestureRecognizer:tapRecognizer];
+        view.userInteractionEnabled = YES;
+        [view addGestureRecognizer:tapRecognizer];
     }
 }
 
@@ -482,22 +482,22 @@ static NSString *const keyHeightText = @"keyHeightText";
     if (self.touchHide) {
         UIGestureRecognizerState state = recognizer.state;
         if (state == UIGestureRecognizerStateEnded) {
-            [self hideHUD];
+//            [self hideHUD];
         }
     }
 }
 
 #pragma mark - getter
 
-- (UIView *)contentView
+- (UIView *)shadowView
 {
-    if (_contentView == nil) {
-        _contentView = [[UIView alloc] init];
-        _contentView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+    if (_shadowView == nil) {
+        _shadowView = [[UIView alloc] init];
+        _shadowView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
         //
-        [self addSubview:_contentView];
+        [self addSubview:_shadowView];
     }
-    return _contentView;
+    return _shadowView;
 }
 
 - (UIActivityIndicatorView *)activityView
@@ -507,7 +507,7 @@ static NSString *const keyHeightText = @"keyHeightText";
         _activityView.hidesWhenStopped = YES;
         _activityView.color = _activityColor;
         //
-        [self.contentView addSubview:_activityView];
+        [self addSubview:_activityView];
     }
     return _activityView;
 }
@@ -519,7 +519,7 @@ static NSString *const keyHeightText = @"keyHeightText";
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         _imageView.backgroundColor = UIColor.clearColor;
         //
-        [self.contentView addSubview:_imageView];
+        [self addSubview:_imageView];
     }
     return _imageView;
 }
@@ -534,82 +534,12 @@ static NSString *const keyHeightText = @"keyHeightText";
         _messageLabel.textAlignment = NSTextAlignmentLeft;
         _messageLabel.numberOfLines = 0;
         //
-        [self.contentView addSubview:_messageLabel];
+        [self addSubview:_messageLabel];
     }
     return _messageLabel;
 }
 
-#pragma mark - setter
-
-- (void)setHudColor:(UIColor *)hudColor
-{
-    HUDMainThreadAssert();
-    _hudColor = hudColor;
-    self.backgroundColor = _hudColor;
-}
-
-- (void)setHudCornerRadius:(CGFloat)hudCornerRadius
-{
-    HUDMainThreadAssert();
-    _hudCornerRadius = hudCornerRadius;
-    self.layer.cornerRadius = _hudCornerRadius;
-}
-
-- (void)setActivityColor:(UIColor *)activityColor
-{
-    HUDMainThreadAssert();
-    _activityColor = activityColor;
-    self.activityView.color = _activityColor;
-}
-
-- (void)setMessageFont:(UIFont *)messageFont
-{
-    HUDMainThreadAssert();
-    _messageFont = messageFont;
-    self.messageLabel.font = _messageFont;
-}
-
-- (void)setMessageColor:(UIColor *)messageColor
-{
-    HUDMainThreadAssert();
-    _messageColor = messageColor;
-    self.messageLabel.textColor= _messageColor;
-}
-
-- (void)setHudEnable:(BOOL)hudEnable
-{
-    HUDMainThreadAssert();
-    _hudEnable = hudEnable;
-    self.superview.userInteractionEnabled = _hudEnable;
-}
-
-#pragma mark - 显示隐藏
-
-- (void)showHUD
-{
-//    if (self.animationMode == SYUIProgressHUDAnimationModeDefault) {
-//        [self animationDefault:YES];
-//    } else if (self.animationMode == SYUIProgressHUDAnimationModeScale) {
-//        [self animationScale:YES];
-//    } else if (self.animationMode == SYUIProgressHUDAnimationModeTopToDown) {
-//        [self animationTopToDown:YES];
-//    }
-}
-
-- (void)hideHUD
-{
-//    HUDMainThreadAssert();
-//    if (self.animationMode == SYUIProgressHUDAnimationModeDefault) {
-//        [self animationDefault:NO];
-//    } else if (self.animationMode == SYUIProgressHUDAnimationModeScale) {
-//        [self animationScale:NO];
-//    } else if (self.animationMode == SYUIProgressHUDAnimationModeTopToDown) {
-//        [self animationTopToDown:NO];
-//    }
-//    [self stopTimer];
-//    self.hudEnable = YES;
-//    self.iconAnimationEnable = NO;
-}
+#pragma mark - 显示、隐藏
 
 /// 显示
 - (void)show
@@ -622,7 +552,7 @@ static NSString *const keyHeightText = @"keyHeightText";
     
 }
 /// 显示，提示语 + 回调
-- (void)showWithMessage:(NSString *)msg handle:(void (^)(void))handle
+- (void)showWithMessage:(NSString *)msg finishHandle:(void (^)(void))handle
 {
     
 }
@@ -637,7 +567,7 @@ static NSString *const keyHeightText = @"keyHeightText";
     
 }
 /// 显示，自动隐藏 + 提示语 + 回调
-- (void)showAutoHideWithMessage:(NSString *)msg handle:(void (^)(void))handle
+- (void)showAutoHideWithMessage:(NSString *)msg finishHandle:(void (^)(void))handle
 {
     
 }
@@ -652,7 +582,7 @@ static NSString *const keyHeightText = @"keyHeightText";
     
 }
 /// 隐藏，延迟 + 回调
-- (void)hideDelay:(NSTimeInterval)time handle:(void (^)(void))handle
+- (void)hideDelay:(NSTimeInterval)time finishHandle:(void (^)(void))handle
 {
     
 }

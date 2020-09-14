@@ -7,6 +7,7 @@
 //  github:https://github.com/potato512/SYUIProgressHUD
 
 #import <UIKit/UIKit.h>
+#import "SYUIToast.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

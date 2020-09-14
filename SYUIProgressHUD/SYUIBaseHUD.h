@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 属性
 
-/// 内容视图
-@property (nonatomic, strong) UIView *contentView;
 //
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
 @property (nonatomic, strong) UIImageView *imageView;
@@ -44,6 +42,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL autoSize;
 /// 是否点击隐藏（默认否）
 @property (nonatomic, assign) BOOL touchHide;
+/// 是否动画（默认否）
+@property (nonatomic, assign) BOOL isAmination;
 
 /// 是否多行显示（默认NO，即多行显示）
 @property (nonatomic, assign) BOOL isSingleline;
@@ -72,11 +72,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)hideDelay:(NSTimeInterval)time;
 /// 隐藏，延迟 + 回调
 - (void)hideDelay:(NSTimeInterval)time handle:(void (^)(void))handle;
-
-#pragma mark -
-
-/// 旋转动画
-- (void)animationRotationWithView:(UIView *)view duration:(NSTimeInterval)duration animation:(BOOL)isAnimation;
 
 @end
 
