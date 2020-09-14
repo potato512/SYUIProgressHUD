@@ -11,6 +11,7 @@
 #import "MBHUDVC.h"
 #import "SVHUDVC.h"
 #import "SYToastVC.h"
+#import "SYHUDVC.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -82,7 +83,7 @@
 - (NSArray *)array
 {
     if (_array == nil) {
-        _array = @[SYProgressHUDVC.class, MBHUDVC.class, SVHUDVC.class, SYToastVC.class];
+        _array = @[SYProgressHUDVC.class, MBHUDVC.class, SVHUDVC.class, SYToastVC.class, SYHUDVC.class];
     }
     return _array;
 }

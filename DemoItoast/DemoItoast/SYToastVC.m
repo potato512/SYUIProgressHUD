@@ -82,39 +82,39 @@
     SYUIToast.share.messageFont = [UIFont systemFontOfSize:13];
     SYUIToast.share.shadowColor = UIColor.clearColor;
     //
-    if ([text isEqualToString:@"隐藏HUD"]) {
+    if ([text isEqualToString:@"隐藏toast"]) {
         [SYUIToast.share hideDelay:0 finishHandle:^{
             NSLog(@"延迟0秒隐藏 -- %ld", indexPath.row);
         }];
-    } else if ([text isEqualToString:@"显示HUD不隐藏 window enble"]) {
+    } else if ([text isEqualToString:@"显示toast不隐藏 window enble"]) {
         [SYUIToast.share showInView:view enable:YES message:message autoHide:0 finishHandle:^{
             NSLog(@"延迟0秒隐藏 -- %ld", indexPath.row);
         }];
-    } else if ([text isEqualToString:@"显示HUD自动隐藏 window enble"]) {
+    } else if ([text isEqualToString:@"显示toast自动隐藏 window enble"]) {
         [SYUIToast.share showInView:view enable:YES message:message autoHide:3 finishHandle:^{
             NSLog(@"延迟3秒隐藏 -- %ld", indexPath.row);
         }];
-    } else if ([text isEqualToString:@"显示HUD自动隐藏 window unenble"]) {
+    } else if ([text isEqualToString:@"显示toast自动隐藏 window unenble"]) {
         [SYUIToast.share showInView:view enable:NO message:message autoHide:3 finishHandle:^{
             NSLog(@"延迟3秒隐藏 -- %ld", indexPath.row);
         }];
-    } else if ([text isEqualToString:@"显示HUD不隐藏 view enable"]) {
+    } else if ([text isEqualToString:@"显示toast不隐藏 view enable"]) {
         [SYUIToast.share showInView:viewSelf enable:YES message:message autoHide:0 finishHandle:^{
             NSLog(@"延迟0秒隐藏 -- %ld", indexPath.row);
         }];
-    } else if ([text isEqualToString:@"显示HUD自动隐藏 view enble"]) {
+    } else if ([text isEqualToString:@"显示toast自动隐藏 view enble"]) {
         [SYUIToast.share showInView:viewSelf enable:YES message:message autoHide:3 finishHandle:^{
             NSLog(@"延迟3秒隐藏 -- %ld", indexPath.row);
         }];
-    } else if ([text isEqualToString:@"显示HUD不隐藏 view unenble"]) {
+    } else if ([text isEqualToString:@"显示toast不隐藏 view unenble"]) {
         [SYUIToast.share showInView:viewSelf enable:NO message:message autoHide:0 finishHandle:^{
             NSLog(@"延迟0秒隐藏 -- %ld", indexPath.row);
         }];
-    } else if ([text isEqualToString:@"显示HUD自动隐藏 view unenble"]) {
+    } else if ([text isEqualToString:@"显示toast自动隐藏 view unenble"]) {
         [SYUIToast.share showInView:viewSelf enable:NO message:message autoHide:3 finishHandle:^{
             NSLog(@"延迟3秒隐藏 -- %ld", indexPath.row);
         }];
-    } else if ([text isEqualToString:@"显示HUD不隐藏 window autosize"]) {
+    } else if ([text isEqualToString:@"显示toast不隐藏 window autosize"]) {
         SYUIToast.share.autoSize = YES;
         SYUIToast.share.touchHide = YES;
         SYUIToast.share.toastColor = UIColor.greenColor;
@@ -122,13 +122,13 @@
         [SYUIToast.share showInView:view enable:YES message:message autoHide:0 finishHandle:^{
             NSLog(@"延迟0秒隐藏 -- %ld", indexPath.row);
         }];
-    } else if ([text isEqualToString:@"显示HUD不隐藏 view autosize"]) {
+    } else if ([text isEqualToString:@"显示toast不隐藏 view autosize"]) {
         SYUIToast.share.autoSize = YES;
         SYUIToast.share.toastColor = UIColor.yellowColor;
         SYUIToast.share.messageColor = UIColor.redColor;
         SYUIToast.share.messageFont = [UIFont systemFontOfSize:20];
         SYUIToast.share.shadowColor = [UIColor.blackColor colorWithAlphaComponent:0.3];
-        [SYUIToast.share showInView:viewSelf enable:YES message:message autoHide:3 finishHandle:^{
+        [SYUIToast.share showInView:viewSelf enable:YES message:message autoHide:0 finishHandle:^{
             NSLog(@"延迟3秒隐藏 -- %ld", indexPath.row);
         }];
     }
@@ -137,7 +137,16 @@
 - (NSArray *)array
 {
     if (_array == nil) {
-        _array = @[@"隐藏HUD", @"显示HUD不隐藏 window enble", @"显示HUD自动隐藏 window enble", @"显示HUD自动隐藏 window unenble", @"显示HUD不隐藏 view enable", @"显示HUD自动隐藏 view enble", @"显示HUD不隐藏 view unenble", @"显示HUD自动隐藏 view unenble",@"显示HUD不隐藏 window autosize", @"显示HUD不隐藏 view autosize"];
+        _array = @[@"隐藏toast",
+                   @"显示toast不隐藏 window enble",
+                   @"显示toast自动隐藏 window enble",
+                   @"显示toast自动隐藏 window unenble",
+                   @"显示toast不隐藏 view enable",
+                   @"显示toast自动隐藏 view enble",
+                   @"显示toast不隐藏 view unenble",
+                   @"显示toast自动隐藏 view unenble",
+                   @"显示toast不隐藏 window autosize",
+                   @"显示toast不隐藏 view autosize"];
     }
     return _array;
 }

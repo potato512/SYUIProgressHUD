@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SYUIToast.h"
+#import "SYUIHUD.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

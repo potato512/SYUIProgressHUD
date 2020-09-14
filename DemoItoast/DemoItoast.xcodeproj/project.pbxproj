@@ -11,7 +11,7 @@
 		58AE3D8F246E870B008D38AB /* MBHUDVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 58AE3D8E246E870B008D38AB /* MBHUDVC.m */; };
 		58AE3D92246E8721008D38AB /* SVHUDVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 58AE3D91246E8721008D38AB /* SVHUDVC.m */; };
 		58F3908C250C6FD600BC2C20 /* SYUIToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F3908B250C6FD600BC2C20 /* SYUIToast.m */; };
-		58F3908F250C752600BC2C20 /* SYUIBaseHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F3908E250C752600BC2C20 /* SYUIBaseHUD.m */; };
+		58F3908F250C752600BC2C20 /* SYUIHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 58F3908E250C752600BC2C20 /* SYUIHUD.m */; };
 		A7F415D61B69B8D200DD360A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F415D51B69B8D200DD360A /* main.m */; };
 		A7F415D91B69B8D200DD360A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F415D81B69B8D200DD360A /* AppDelegate.m */; };
 		A7F415DC1B69B8D200DD360A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F415DB1B69B8D200DD360A /* ViewController.m */; };
@@ -26,6 +26,9 @@
 		DF7AB4E6244C27BF00DF3789 /* SYProgressHUDVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7AB4E5244C27BF00DF3789 /* SYProgressHUDVC.m */; };
 		DF7FE961212478E000042EFB /* withoutNetwork.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7FE960212478E000042EFB /* withoutNetwork.png */; };
 		DF7FE9632124793800042EFB /* withNetwork.png in Resources */ = {isa = PBXBuildFile; fileRef = DF7FE9622124793700042EFB /* withNetwork.png */; };
+		DF999810250FE65A0068A0A4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF99980F250FE65A0068A0A4 /* UIKit.framework */; };
+		DF999812250FE6680068A0A4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF999811250FE6680068A0A4 /* Foundation.framework */; };
+		DF999815250FE8A70068A0A4 /* SYHUDVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF999814250FE8A70068A0A4 /* SYHUDVC.m */; };
 		DFD30749250E692100EE7BDE /* SYToastVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DFD30748250E692100EE7BDE /* SYToastVC.m */; };
 /* End PBXBuildFile section */
 
@@ -49,8 +52,8 @@
 		58AE3D91246E8721008D38AB /* SVHUDVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVHUDVC.m; sourceTree = "<group>"; };
 		58F3908A250C6FD600BC2C20 /* SYUIToast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYUIToast.h; sourceTree = "<group>"; };
 		58F3908B250C6FD600BC2C20 /* SYUIToast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYUIToast.m; sourceTree = "<group>"; };
-		58F3908D250C752600BC2C20 /* SYUIBaseHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYUIBaseHUD.h; sourceTree = "<group>"; };
-		58F3908E250C752600BC2C20 /* SYUIBaseHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYUIBaseHUD.m; sourceTree = "<group>"; };
+		58F3908D250C752600BC2C20 /* SYUIHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYUIHUD.h; sourceTree = "<group>"; };
+		58F3908E250C752600BC2C20 /* SYUIHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYUIHUD.m; sourceTree = "<group>"; };
 		A2EFA80F30E1353BABC029A5 /* Pods-DemoItoastTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoItoastTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoItoastTests/Pods-DemoItoastTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A7CDA8E3977C5EA086CBDD67 /* Pods-DemoItoast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoItoast.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoItoast/Pods-DemoItoast.release.xcconfig"; sourceTree = "<group>"; };
 		A7F415D01B69B8D200DD360A /* DemoItoast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoItoast.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +77,10 @@
 		DF7AB4E5244C27BF00DF3789 /* SYProgressHUDVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYProgressHUDVC.m; sourceTree = "<group>"; };
 		DF7FE960212478E000042EFB /* withoutNetwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = withoutNetwork.png; sourceTree = "<group>"; };
 		DF7FE9622124793700042EFB /* withNetwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = withNetwork.png; sourceTree = "<group>"; };
+		DF99980F250FE65A0068A0A4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DF999811250FE6680068A0A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DF999813250FE8A70068A0A4 /* SYHUDVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYHUDVC.h; sourceTree = "<group>"; };
+		DF999814250FE8A70068A0A4 /* SYHUDVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYHUDVC.m; sourceTree = "<group>"; };
 		DFD30747250E692100EE7BDE /* SYToastVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYToastVC.h; sourceTree = "<group>"; };
 		DFD30748250E692100EE7BDE /* SYToastVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYToastVC.m; sourceTree = "<group>"; };
 		F868EEE38BEAEA2E79FB5D6C /* Pods-DemoItoast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoItoast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoItoast/Pods-DemoItoast.debug.xcconfig"; sourceTree = "<group>"; };
@@ -84,6 +91,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF999812250FE6680068A0A4 /* Foundation.framework in Frameworks */,
+				DF999810250FE65A0068A0A4 /* UIKit.framework in Frameworks */,
 				A9E09AF24A6B6B5302CB05D8 /* libPods-DemoItoast.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +111,8 @@
 		26AF06CAFAE1226BC844C1C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DF999811250FE6680068A0A4 /* Foundation.framework */,
+				DF99980F250FE65A0068A0A4 /* UIKit.framework */,
 				2F79D2D2F5313F7271CE5C3A /* libPods-DemoItoast.a */,
 				B116BAE8C95FE7D0A0ADB493 /* libPods-DemoItoastTests.a */,
 			);
@@ -115,8 +126,8 @@
 				58528FFD244D5D2000A86E99 /* SYUIProgressHUD.m */,
 				58F3908A250C6FD600BC2C20 /* SYUIToast.h */,
 				58F3908B250C6FD600BC2C20 /* SYUIToast.m */,
-				58F3908D250C752600BC2C20 /* SYUIBaseHUD.h */,
-				58F3908E250C752600BC2C20 /* SYUIBaseHUD.m */,
+				58F3908D250C752600BC2C20 /* SYUIHUD.h */,
+				58F3908E250C752600BC2C20 /* SYUIHUD.m */,
 			);
 			name = SYUIProgressHUD;
 			path = ../../SYUIProgressHUD;
@@ -153,6 +164,8 @@
 				DF7AB4E5244C27BF00DF3789 /* SYProgressHUDVC.m */,
 				DFD30747250E692100EE7BDE /* SYToastVC.h */,
 				DFD30748250E692100EE7BDE /* SYToastVC.m */,
+				DF999813250FE8A70068A0A4 /* SYHUDVC.h */,
+				DF999814250FE8A70068A0A4 /* SYHUDVC.m */,
 				58AE3D8D246E870B008D38AB /* MBHUDVC.h */,
 				58AE3D8E246E870B008D38AB /* MBHUDVC.m */,
 				58AE3D90246E8721008D38AB /* SVHUDVC.h */,
@@ -356,6 +369,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7F415DC1B69B8D200DD360A /* ViewController.m in Sources */,
+				DF999815250FE8A70068A0A4 /* SYHUDVC.m in Sources */,
 				A7F415D91B69B8D200DD360A /* AppDelegate.m in Sources */,
 				DF7AB4E6244C27BF00DF3789 /* SYProgressHUDVC.m in Sources */,
 				58F3908C250C6FD600BC2C20 /* SYUIToast.m in Sources */,
@@ -363,7 +377,7 @@
 				58AE3D92246E8721008D38AB /* SVHUDVC.m in Sources */,
 				A7F415D61B69B8D200DD360A /* main.m in Sources */,
 				58528FFE244D5D2000A86E99 /* SYUIProgressHUD.m in Sources */,
-				58F3908F250C752600BC2C20 /* SYUIBaseHUD.m in Sources */,
+				58F3908F250C752600BC2C20 /* SYUIHUD.m in Sources */,
 				58AE3D8F246E870B008D38AB /* MBHUDVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,7 +12,7 @@
 
 static CGFloat const kOrigin = 10;
 static CGFloat const kMinWidth = 120;
-#define kMaxWidth (UIScreen.mainScreen.bounds.size.width - 40)
+#define kMaxWidth (UIScreen.mainScreen.bounds.size.width - kOrigin * 4)
 static CGFloat const kMinHeight = 40;
 static CGFloat const kCorner = 8;
 
@@ -194,7 +194,6 @@ static CGFloat const kCorner = 8;
     self.delayTime = 0;
 }
 
-
 #pragma mark 显示、隐藏
 
 /// 显示
@@ -218,43 +217,44 @@ static CGFloat const kCorner = 8;
         }];
     } else {
         self.alpha = 1.0;
+        self.backgroundColor = (self.shadowColor ? self.shadowColor : UIColor.clearColor);
     }
 }
 /// 显示，自动隐藏 + 提示语 + 回调
 - (void)showAutoHide:(NSTimeInterval)time finishHandle:(void (^)(void))handle
 {
     [self show];
-    [self hideDelay:time finishHandle:handle];
+    if (time > 0) {
+        [self hideDelay:time finishHandle:handle];
+    }
 }
 
 /// 隐藏
 - (void)hide
 {
+    self.userInteractionEnabled = YES;
+    
     if (self.isAmination) {
         [UIView animateWithDuration:0.3 delay:self.delayTime options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.alpha = 0.0;
             self.backgroundColor = UIColor.clearColor;
         } completion:^(BOOL finished) {
-            [self timerStop];
-            if (self.superview) {
-                self.superview.userInteractionEnabled = YES;
-                [self removeFromSuperview];
-            }
-            if (self.hideBlock) {
-                self.hideBlock();
-            }
+            [self hideFinish];
         }];
     } else {
         self.alpha = 0.0;
         self.backgroundColor = UIColor.clearColor;
-        [self timerStop];
-        if (self.superview) {
-            self.superview.userInteractionEnabled = YES;
-            [self removeFromSuperview];
-        }
-        if (self.hideBlock) {
-            self.hideBlock();
-        }
+        [self hideFinish];
+    }
+}
+- (void)hideFinish
+{
+    [self timerStop];
+    if (self.superview) {
+        [self removeFromSuperview];
+    }
+    if (self.hideBlock) {
+        self.hideBlock();
     }
 }
 /// 隐藏，延迟 + 回调
@@ -359,10 +359,16 @@ static CGFloat const kCorner = 8;
     _messageColor = messageColor;
     self.toastView.label.textColor = _messageColor;
 }
+
 - (void)setToastColor:(UIColor *)toastColor
 {
     _toastColor = toastColor;
     self.toastView.contanerView.backgroundColor = _toastColor;
+}
+- (void)setToastCornerRadius:(CGFloat)toastCornerRadius
+{
+    _toastCornerRadius = toastCornerRadius;
+    self.toastView.contanerView.layer.cornerRadius = _toastCornerRadius;
 }
 
 - (void)setShadowColor:(UIColor *)shadowColor
@@ -376,22 +382,26 @@ static CGFloat const kCorner = 8;
 /// 显示，自动隐藏 + 提示语 + 回调
 - (void)showInView:(UIView *)view enable:(BOOL)enable message:(NSString *)message autoHide:(NSTimeInterval)time finishHandle:(void (^)(void))handle
 {
-    if (view && [view isKindOfClass:UIView.class] && [view respondsToSelector:@selector(addSubview:)]) {
-        [view addSubview:self.toastView];
-        self.toastView.userInteractionEnabled = !enable;
-    }
-    self.toastView.label.text = message;
-    if (time > 0) {
-        [self.toastView showAutoHide:time finishHandle:handle];
-    } else {
-        [self.toastView show];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (view && [view isKindOfClass:UIView.class] && [view respondsToSelector:@selector(addSubview:)]) {
+            [view addSubview:self.toastView];
+            self.toastView.userInteractionEnabled = !enable;
+        }
+        self.toastView.label.text = message;
+        if (time > 0) {
+            [self.toastView showAutoHide:time finishHandle:handle];
+        } else {
+            [self.toastView show];
+        }
+    });
 }
 
 /// 隐藏，延迟 + 回调
 - (void)hideDelay:(NSTimeInterval)time finishHandle:(void (^)(void))handle
 {
-    [self.toastView hideDelay:time finishHandle:handle];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.toastView hideDelay:time finishHandle:handle];
+    });
 }
 
 @end

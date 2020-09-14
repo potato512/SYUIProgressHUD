@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SYUIToast : NSObject
 
-+ (instancetype)share;
-
 /// 最小宽度（默认宽度：60）
 @property (nonatomic, assign) CGFloat minWidth;
 /// 最大宽度（默认宽度：屏幕宽-20）
@@ -34,11 +32,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIFont *messageFont;
 /// 字体颜色
 @property (nonatomic, strong) UIColor *messageColor;
+
 /// toast 背景色
 @property (nonatomic, strong) UIColor *toastColor;
-
+/// toast 圆角
+@property (nonatomic, assign) CGFloat toastCornerRadius;
 /// 阴影背景色（默认透明色）
 @property (nonatomic, strong) UIColor *shadowColor;
+
++ (instancetype)share;
 
 /// 显示，自动隐藏 + 提示语 + 回调
 - (void)showInView:(UIView *)view enable:(BOOL)enable message:(NSString *)message autoHide:(NSTimeInterval)time finishHandle:(void (^)(void))handle;
