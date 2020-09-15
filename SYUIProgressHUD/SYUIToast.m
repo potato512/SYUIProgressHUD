@@ -207,6 +207,18 @@ static CGFloat const kCorner = 8;
     [self.delayTimer invalidate];
 }
 
+#pragma mark 通知
+
+- (void)notificationPostShow
+{
+    [NSNotificationCenter.defaultCenter postNotificationName:kNotificationToastDidShow object:nil];
+}
+
+- (void)notificationPostHide
+{
+    [NSNotificationCenter.defaultCenter postNotificationName:kNotificationToastDidHide object:nil];
+}
+
 #pragma mark 显示、隐藏
 
 /// 显示
@@ -232,6 +244,7 @@ static CGFloat const kCorner = 8;
         self.alpha = 1.0;
         self.backgroundColor = (self.shadowColor ? self.shadowColor : UIColor.clearColor);
     }
+    [self notificationPostShow];
 }
 /// 显示，自动隐藏 + 提示语 + 回调
 - (void)showAutoHide:(NSTimeInterval)time finishHandle:(void (^)(void))handle
@@ -269,6 +282,7 @@ static CGFloat const kCorner = 8;
     if (self.hideBlock) {
         self.hideBlock();
     }
+    [self notificationPostHide];
 }
 /// 隐藏，延迟 + 回调
 - (void)hideDelay:(NSTimeInterval)time finishHandle:(void (^)(void))handle

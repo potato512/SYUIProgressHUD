@@ -306,6 +306,18 @@ static CGFloat const kMinSize = 102;
     }
 }
 
+#pragma mark 通知
+
+- (void)notificationPostShow
+{
+    [NSNotificationCenter.defaultCenter postNotificationName:kNotificationHUDDidShow object:nil];
+}
+
+- (void)notificationPostHide
+{
+    [NSNotificationCenter.defaultCenter postNotificationName:kNotificationHUDDidHide object:nil];
+}
+
 #pragma mark 显示隐藏
 
 /// 显示
@@ -331,6 +343,7 @@ static CGFloat const kMinSize = 102;
     } else {
         self.alpha = 1;
     }
+    [self notificationPostShow];
 }
 /// 显示，自动隐藏 + 提示语 + 回调
 - (void)showAutoHide:(NSTimeInterval)time finishHandle:(void (^)(void))handle
@@ -371,6 +384,7 @@ static CGFloat const kMinSize = 102;
     if (self.hideBlock) {
         self.hideBlock();
     }
+    [self notificationPostHide];
 }
 /// 隐藏，延迟 + 回调
 - (void)hideDelay:(NSTimeInterval)time finishHandle:(void (^)(void))handle

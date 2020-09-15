@@ -12,6 +12,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
+/// Toast显示通知
+static NSString *const kNotificationToastDidShow = @"notificationToastDidShow";
+/// Toast隐藏通知
+static NSString *const kNotificationToastDidHide = @"notificationToastDidHide";
+
+
 @interface SYUIToast : NSObject
 
 /// 最小宽度（默认宽度：120）

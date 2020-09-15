@@ -31,6 +31,7 @@
         
     // 初始化
     SYUIToast.share.isAmination = YES;
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(toastHideAction) name:kNotificationToastDidHide object:nil];
 }
 
 - (void)loadView
@@ -45,6 +46,11 @@
 - (void)dealloc
 {
 
+}
+
+- (void)toastHideAction
+{
+    NSLog(@"toastHideAction");
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

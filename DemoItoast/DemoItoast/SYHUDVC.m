@@ -31,6 +31,7 @@
         
     // 初始化
     SYUIHUD.share.isAmination = YES;
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(hudHideAction) name:kNotificationHUDDidHide object:nil];
 }
 
 - (void)loadView
@@ -45,6 +46,11 @@
 - (void)dealloc
 {
 
+}
+
+- (void)hudHideAction
+{
+    NSLog(@"hudHideAction");
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

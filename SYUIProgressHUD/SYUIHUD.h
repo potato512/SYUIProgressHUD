@@ -11,6 +11,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+/// HUD显示通知
+static NSString *const kNotificationHUDDidShow = @"notificationHUDDidShow";
+/// HUD隐藏通知
+static NSString *const kNotificationHUDDidHide = @"notificationHUDDidHide";
+
+
 /// 显示样式（风火轮、自定义图标）
 typedef NS_ENUM(NSInteger, SYUIHUDMode) {
     /// 显示风火轮滚动+文本（默认方式）
