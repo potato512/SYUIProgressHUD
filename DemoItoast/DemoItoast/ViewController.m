@@ -8,8 +8,6 @@
 
 #import "ViewController.h"
 #import "SYProgressHUDVC.h"
-#import "MBHUDVC.h"
-#import "SVHUDVC.h"
 #import "SYToastVC.h"
 #import "SYHUDVC.h"
 
@@ -83,7 +81,7 @@
 - (NSArray *)array
 {
     if (_array == nil) {
-        _array = @[SYProgressHUDVC.class, MBHUDVC.class, SVHUDVC.class, SYToastVC.class, SYHUDVC.class];
+        _array = @[SYProgressHUDVC.class, SYToastVC.class, SYHUDVC.class];
     }
     return _array;
 }
