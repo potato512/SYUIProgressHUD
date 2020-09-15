@@ -133,6 +133,7 @@
 ////        message = @"因为你的不努力，现在发现了很多存在的隐患，你必须在规定的时间点完成所有的工作。否则后果很严重！";
 //        [HUDUtil showWithView:view message:message];
         
+        HUDManager.hud.offsetY = 100;
         [HUDManager.hud showInView:self.view enable:YES message:message autoHide:0 finishHandle:NULL];
         HUDManager.toast.offsetY = 20;
         HUDManager.toast.autoSize = YES;
