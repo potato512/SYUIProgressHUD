@@ -16,8 +16,6 @@ static CGFloat const kCorner = 8;
 static CGFloat const kMinSize = 102;
 #define kMaxWidth (UIScreen.mainScreen.bounds.size.width - kOrigin * 4)
 
-#define HUDMainThreadAssert() NSAssert([NSThread isMainThread], @"SYUIProgressHUD needs to be accessed on the main thread.");
-
 @interface SYUIHUDView : UIView
 
 #pragma mark - 属性
