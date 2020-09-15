@@ -66,6 +66,8 @@ typedef NS_ENUM(NSInteger, SYUIHUDMode) {
 /// 字体颜色（默认white）
 @property (nonatomic, strong) UIColor *messageColor;
 
+/// y显示位置（默认居中）
+@property (nonatomic, assign) CGFloat offsetY;
 
 + (instancetype)share;
 

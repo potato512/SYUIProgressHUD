@@ -46,6 +46,9 @@ static CGFloat const kMinSize = 102;
 @property (nonatomic, assign) CGFloat maxWidth;
 /// 大小（默认102*102）
 @property (nonatomic, assign) CGSize size;
+
+@property (nonatomic, assign) CGFloat originY;
+
 @property (nonatomic, assign) SYUIHUDMode mode;
 
 @property (nonatomic, copy) void (^hideBlock)(void);
@@ -98,6 +101,9 @@ static CGFloat const kMinSize = 102;
     CGFloat heightTotal = self.size.height;
     CGFloat originXTotal = (self.superview.frame.size.width - widthTotal) / 2;
     CGFloat originYTotal = (self.superview.frame.size.height - heightTotal) / 2;
+    if (self.originY > 0) {
+        originYTotal = self.originY;
+    }
     //
     self.frame = self.superview.bounds;
     self.contanerView.frame = CGRectMake(originXTotal, originYTotal, widthTotal, heightTotal);
@@ -129,6 +135,9 @@ static CGFloat const kMinSize = 102;
         //
         originXActivity = (self.contanerView.frame.size.width - self.activityView.frame.size.width) / 2;
         originYActivity = (self.contanerView.frame.size.height - self.activityView.frame.size.height) / 2;
+        if (self.originY > 0) {
+            originYTotal = self.originY;
+        }
         //
         self.activityView.frame = CGRectMake(originXActivity, originYActivity, self.activityView.frame.size.width, self.activityView.frame.size.height);
         self.imageView.frame = CGRectMake(originXActivity, originYActivity, self.activityView.frame.size.width, self.activityView.frame.size.height);
@@ -501,6 +510,12 @@ static CGFloat const kMinSize = 102;
 {
     _messageColor = messageColor;
     self.hudView.label.textColor = _messageColor;
+}
+
+- (void)setOffsetY:(CGFloat)offsetY
+{
+    _offsetY = offsetY;
+    self.hudView.originY = _offsetY;
 }
 
 #pragma mark 显示隐藏
