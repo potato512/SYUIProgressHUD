@@ -12,7 +12,7 @@
 
 static CGFloat const kOrigin = 10.0;
 static CGFloat const kHeightMessage = 30;
-static CGFloat const kCorner = 10;
+static CGFloat const kCorner = 8;
 static CGFloat const kMinSize = 102;
 #define kMaxWidth (UIScreen.mainScreen.bounds.size.width - kOrigin * 4)
 
@@ -33,17 +33,16 @@ static CGFloat const kMinSize = 102;
 @property (nonatomic, assign) BOOL imageAnimation;
 @property (nonatomic, assign) NSTimeInterval imageDuration;
 //
-@property (nonatomic, assign) NSTimeInterval delayTime;
-@property (nonatomic, strong) NSTimer *delayTimer;
+@property (nonatomic, weak) NSTimer *delayTimer;
 
-/// 是否点击隐藏（默认否）
+/// 是否点击隐藏（默认NO）
 @property (nonatomic, assign) BOOL touchHide;
-/// 是否动画（默认否）
+/// 是否动画（默认NO）
 @property (nonatomic, assign) BOOL isAnimation;
 
 /// 是否自适应字符大小（默认YES）
 @property (nonatomic, assign) BOOL autoSize;
-/// 最大宽度（默认宽度：屏幕宽-20）
+/// 最大宽度（默认宽度：屏幕宽-40）
 @property (nonatomic, assign) CGFloat maxWidth;
 /// 大小（默认102*102）
 @property (nonatomic, assign) CGSize size;
@@ -79,6 +78,8 @@ static CGFloat const kMinSize = 102;
     
     _imageAnimation = NO;
     _imageDuration = 0.5;
+    
+    _mode = SYUIHUDModeDefault;
 }
 
 - (void)reloadUI
@@ -242,19 +243,20 @@ static CGFloat const kMinSize = 102;
 
 #pragma mark 定时器
 
-- (void)timerStart
+- (void)timerStart:(NSTimeInterval)time
 {
-    self.delayTimer = [NSTimer scheduledTimerWithTimeInterval:self.delayTime target:self selector:@selector(hide) userInfo:nil repeats:NO];
+    if (time <= 0) {
+        return;
+    }
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(hide) userInfo:nil repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    self.delayTimer = timer;
 }
 
 - (void)timerStop
 {
-    if (self.delayTimer) {
-        [self.delayTimer invalidate];
-        self.delayTimer = nil;
-    }
-    //
-    self.delayTime = 0;
+    [self.delayTimer invalidate];
 }
 
 #pragma mark 动画
@@ -283,12 +285,13 @@ static CGFloat const kMinSize = 102;
     [view.layer removeAllAnimations];
     
     if (isAnimation) {
-        CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-        rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 ];
-        rotationAnimation.duration = duration;
-        rotationAnimation.cumulative = YES;
-        rotationAnimation.repeatCount = MAXFLOAT;
-        [view.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+        animation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 ];
+        animation.duration = duration;
+        animation.cumulative = YES;
+        animation.repeatCount = MAXFLOAT;
+        animation.removedOnCompletion = NO;
+        [view.layer addAnimation:animation forKey:@"rotationAnimation"];
     } else {
         
     }
@@ -364,9 +367,8 @@ static CGFloat const kMinSize = 102;
 - (void)hideDelay:(NSTimeInterval)time finishHandle:(void (^)(void))handle
 {
     self.hideBlock = [handle copy];
-    self.delayTime = time;
     if (time > 0) {
-        [self timerStart];
+        [self timerStart:time];
     } else {
         [self hide];
     }

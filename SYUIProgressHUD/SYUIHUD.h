@@ -27,42 +27,43 @@ typedef NS_ENUM(NSInteger, SYUIHUDMode) {
 
 @interface SYUIHUD : NSObject
 
+/// 显示模式（默认SYUIHUDModeDefault）
 @property (nonatomic, assign) SYUIHUDMode mode;
 
 /// 大小（默认102*102）
 @property (nonatomic, assign) CGSize size;
-/// 最大宽度（默认宽度：屏幕宽-20）
+/// 最大宽度（默认宽度：屏幕宽-40）
 @property (nonatomic, assign) CGFloat maxWidth;
 
-/// 是否自适应字符长度（默认否）
+/// 是否自适应字符长度（默认NO）
 @property (nonatomic, assign) BOOL autoSize;
 
-/// 是否点击隐藏（默认否）
+/// 是否点击隐藏（默认NO）
 @property (nonatomic, assign) BOOL touchHide;
-/// 是否动画（默认否）
+/// 是否动画（默认NO）
 @property (nonatomic, assign) BOOL isAmination;
 
-/// 阴影背景颜色（默认透明色）
+/// 阴影背景颜色（默认clear）
 @property (nonatomic, strong) UIColor *shadowColor;
 
-/// HUD背景颜色（默认灰色）
+/// HUD背景颜色（默认black 0.8）
 @property (nonatomic, strong) UIColor *hudColor;
-/// HUD圆角（默认10）
+/// HUD圆角（默认8）
 @property (nonatomic, assign) CGFloat hudCornerRadius;
 
-/// 风火轮颜色（默认白色）
+/// 风火轮颜色（默认white）
 @property (nonatomic, strong) UIColor *activityColor;
 
 /// 图标（默认无）
 @property (nonatomic, strong) NSString *imageName;
-/// 图标旋转动画（默认无）
+/// 图标旋转动画（默认NO）
 @property (nonatomic, assign) BOOL imageAnimation;
 /// 图标旋转动画时间（默认0.5）
 @property (nonatomic, assign) NSTimeInterval imageDuration;
 
-/// 字体大小（默认15）
+/// 字体大小（默认13）
 @property (nonatomic, strong) UIFont *messageFont;
-/// 字体颜色（默认黑色）
+/// 字体颜色（默认white）
 @property (nonatomic, strong) UIColor *messageColor;
 
 

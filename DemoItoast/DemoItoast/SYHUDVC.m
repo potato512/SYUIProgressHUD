@@ -134,6 +134,7 @@
         }];
     } else if ([text isEqualToString:@"显示hud不隐藏 view activity"]) {
         SYUIHUD.share.autoSize = YES;
+        SYUIHUD.share.shadowColor = [UIColor.blackColor colorWithAlphaComponent:0.3];
         SYUIHUD.share.mode = SYUIHUDModeActivity;
         [SYUIHUD.share showInView:viewSelf enable:YES message:message autoHide:0 finishHandle:^{
             NSLog(@"延迟3秒隐藏 -- %ld", indexPath.row);

@@ -26,23 +26,23 @@ static CGFloat const kCorner = 8;
 /// 背景阴影色
 @property (nonatomic, strong) UIColor *shadowColor;
 
-/// 最小宽度（默认宽度：60）
+/// 最小宽度（默认宽度：120）
 @property (nonatomic, assign) CGFloat minWidth;
-/// 最大宽度（默认宽度：屏幕宽-20）
+/// 最大宽度（默认宽度：屏幕宽-40）
 @property (nonatomic, assign) CGFloat maxWidth;
 /// 最小高度（默认高度：40）
 @property (nonatomic, assign) CGFloat minHeight;
-/// 是否自适应字符大小（默认否）
+/// 是否自适应字符大小（默认NO）
 @property (nonatomic, assign) BOOL autoSize;
 
+@property (nonatomic, assign) CGFloat originY;
 
-/// 是否点击隐藏（默认否）
+/// 是否点击隐藏（默认NO）
 @property (nonatomic, assign) BOOL touchHide;
-/// 是否动画（默认否）
+/// 是否动画（默认NO）
 @property (nonatomic, assign) BOOL isAmination;
 
-@property (nonatomic, assign) NSTimeInterval delayTime;
-@property (nonatomic, strong) NSTimer *delayTimer;
+@property (nonatomic, weak) NSTimer *delayTimer;
 @property (nonatomic, copy) void (^hideBlock)(void);
 
 @end
@@ -81,11 +81,19 @@ static CGFloat const kCorner = 8;
     CGFloat heightMessage = size.height;
     //
     if (self.autoSize) {
-        self.label.numberOfLines = 0;
-        self.label.textAlignment = NSTextAlignmentLeft;
-        //
-        widthMessage = (self.maxWidth - kOrigin * 2);
-        heightMessage = (size.height + kOrigin * 2);
+        if (heightMessage <= self.minHeight) {
+            self.label.numberOfLines = 1;
+            self.label.textAlignment = NSTextAlignmentCenter;
+            //
+            widthMessage = MAX(widthMessage, self.minWidth);
+            heightMessage = self.minHeight;
+        } else {
+            self.label.numberOfLines = 0;
+            self.label.textAlignment = NSTextAlignmentLeft;
+            //
+            widthMessage = (self.maxWidth - kOrigin * 2);
+            heightMessage = (size.height + kOrigin * 2);
+        }
     } else {
         self.label.numberOfLines = 1;
         self.label.textAlignment = NSTextAlignmentCenter;
@@ -98,6 +106,9 @@ static CGFloat const kCorner = 8;
     CGFloat heightTotal = heightMessage;
     CGFloat originX = (self.superview.frame.size.width - widthTotal) / 2;
     CGFloat originY = (self.superview.frame.size.height - heightTotal) / 2;
+    if (self.originY > 0) {
+        originY = self.originY;
+    }
     //
     self.frame = self.superview.bounds;
     self.contanerView.frame = CGRectMake(originX, originY, widthTotal, heightTotal);
@@ -180,18 +191,20 @@ static CGFloat const kCorner = 8;
 
 #pragma mark 定时器
 
-- (void)timerStart
+- (void)timerStart:(NSTimeInterval)time
 {
-    self.delayTimer = [NSTimer scheduledTimerWithTimeInterval:self.delayTime target:self selector:@selector(hide) userInfo:nil repeats:NO];
+    if (time <= 0) {
+        return;
+    }
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(hide) userInfo:nil repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    self.delayTimer = timer;
 }
 
 - (void)timerStop
 {
-    if (self.delayTimer) {
-        [self.delayTimer invalidate];
-        self.delayTimer = nil;
-    }
-    self.delayTime = 0;
+    [self.delayTimer invalidate];
 }
 
 #pragma mark 显示、隐藏
@@ -235,7 +248,7 @@ static CGFloat const kCorner = 8;
     self.userInteractionEnabled = YES;
     
     if (self.isAmination) {
-        [UIView animateWithDuration:0.3 delay:self.delayTime options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.alpha = 0.0;
             self.backgroundColor = UIColor.clearColor;
         } completion:^(BOOL finished) {
@@ -261,9 +274,8 @@ static CGFloat const kCorner = 8;
 - (void)hideDelay:(NSTimeInterval)time finishHandle:(void (^)(void))handle
 {
     self.hideBlock = [handle copy];
-    self.delayTime = time;
     if (time > 0) {
-        [self timerStart];
+        [self timerStart:time];
     } else {
         [self hide];
     }
@@ -375,6 +387,12 @@ static CGFloat const kCorner = 8;
 {
     _shadowColor = shadowColor;
     self.toastView.shadowColor = _shadowColor;
+}
+
+- (void)setOffsetY:(CGFloat)offsetY
+{
+    _offsetY = offsetY;
+    self.toastView.originY = _offsetY;
 }
 
 #pragma mark 显示隐藏
