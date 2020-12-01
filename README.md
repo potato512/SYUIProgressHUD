@@ -104,6 +104,12 @@ UIImage *image = [UIImage imageNamed:@"success"];
 
 
 #### 修改说明
+* 20201201
+  * 版本号：1.3.2
+  * 修改完善
+    * 新增属性：`@property (nonatomic, assign) NSTimeInterval minShowTime;`用于设置最小显示时间，避免一闪而过
+    * 优化显示两次显示，避免上次显示消失后，下次显示不出现
+
 * 20200623
   * 版本号：1.3.1
   * 修改完善

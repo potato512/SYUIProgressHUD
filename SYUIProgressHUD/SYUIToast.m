@@ -36,6 +36,7 @@ static CGFloat const kCorner = 8;
 @property (nonatomic, assign) BOOL autoSize;
 
 @property (nonatomic, assign) CGFloat originY;
+@property (nonatomic, assign) CGFloat originBottom;
 
 /// 是否点击隐藏（默认NO）
 @property (nonatomic, assign) BOOL touchHide;
@@ -407,6 +408,11 @@ static CGFloat const kCorner = 8;
 {
     _offsetY = offsetY;
     self.toastView.originY = _offsetY;
+}
+- (void)setOffsetYBottom:(CGFloat)offsetYBottom
+{
+    _offsetYBottom = offsetYBottom;
+    self.toastView.originBottom = _offsetYBottom;
 }
 
 #pragma mark 显示隐藏

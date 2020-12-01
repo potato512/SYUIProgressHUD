@@ -48,6 +48,8 @@ static NSString *const kNotificationToastDidHide = @"notificationToastDidHide";
 
 /// y显示位置（默认居中）
 @property (nonatomic, assign) CGFloat offsetY;
+/// y显示位置（默认居中）
+@property (nonatomic, assign) CGFloat offsetYBottom;
 
 + (instancetype)share;
 

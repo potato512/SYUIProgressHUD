@@ -61,7 +61,7 @@ typedef NS_ENUM(NSInteger, SYUIHUDMode) {
 /// 风火轮颜色（默认white）
 @property (nonatomic, strong) UIColor *activityColor;
 
-/// 图标（默认无）
+/// 图标名称（默认无）
 @property (nonatomic, strong) NSString *imageName;
 /// 图标（默认无）
 @property (nonatomic, strong) UIImage *image;
@@ -77,6 +77,10 @@ typedef NS_ENUM(NSInteger, SYUIHUDMode) {
 
 /// y显示位置（默认居中）
 @property (nonatomic, assign) CGFloat offsetY;
+
+/// 最小显示时间，避免一闪而逝（默认0.6秒）
+@property (nonatomic, assign) NSTimeInterval minShowTime;
+
 
 + (instancetype)share;
 

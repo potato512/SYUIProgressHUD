@@ -89,6 +89,7 @@
     SYUIHUD.share.shadowColor = UIColor.clearColor;
     SYUIHUD.share.mode = SYUIHUDModeDefault;
     //
+    
     if ([text isEqualToString:@"隐藏hud"]) {
         [SYUIHUD.share hideDelay:0 finishHandle:^{
             NSLog(@"延迟0秒隐藏 -- %ld", indexPath.row);

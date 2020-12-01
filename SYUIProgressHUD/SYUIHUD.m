@@ -32,6 +32,9 @@ static CGFloat const kMinSize = 102;
 @property (nonatomic, assign) NSTimeInterval imageDuration;
 //
 @property (nonatomic, weak) NSTimer *delayTimer;
+@property (nonatomic, weak) NSTimer *minShowTimer;
+@property (nonatomic, assign) NSTimeInterval minShowTimeInterval;
+@property (nonatomic, strong) NSDate *showDate;
 
 /// 是否点击隐藏（默认NO）
 @property (nonatomic, assign) BOOL touchHide;
@@ -50,6 +53,9 @@ static CGFloat const kMinSize = 102;
 @property (nonatomic, assign) SYUIHUDMode mode;
 
 @property (nonatomic, copy) void (^hideBlock)(void);
+
+/// 用于控制显示或隐藏（避免两次显示间隔短时第二次不显示）
+@property (nonatomic, assign) BOOL hasFinish;
 
 @end
 
@@ -79,6 +85,8 @@ static CGFloat const kMinSize = 102;
     
     _imageAnimation = NO;
     _imageDuration = 0.5;
+    
+    _minShowTimeInterval = 0.6;
     
     _mode = SYUIHUDModeDefault;
 }
@@ -266,6 +274,23 @@ static CGFloat const kMinSize = 102;
     [self.delayTimer invalidate];
 }
 
+- (void)timerStartMinShow:(NSTimeInterval)time
+{
+    if (time <= 0) {
+        return;
+    }
+    
+    // hide hideFinishAnmation
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(hideFinishAnmation) userInfo:nil repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    self.minShowTimer = timer;
+}
+
+- (void)timerStopMinShow
+{
+    [self.minShowTimer invalidate];
+}
+
 #pragma mark 动画
 
 - (void)animationStart
@@ -321,6 +346,9 @@ static CGFloat const kMinSize = 102;
 /// 显示
 - (void)show
 {
+    self.hasFinish = NO;
+    self.showDate = NSDate.date;
+    
     if (self.superview == nil) {
         return;
     }
@@ -355,34 +383,52 @@ static CGFloat const kMinSize = 102;
 /// 隐藏
 - (void)hide
 {
-    self.userInteractionEnabled = YES;
-    self.backgroundColor = UIColor.clearColor;
+    self.hasFinish = YES;
     
-    if (self.isAnimation) {
+    self.userInteractionEnabled = YES;
+    
+    if (self.minShowTimeInterval > 0.0 && self.showDate) {
+        NSTimeInterval time = [NSDate.date timeIntervalSinceDate:self.showDate];
+        if (time < self.minShowTimeInterval) {
+            [self timerStartMinShow:(self.minShowTimeInterval - time)];
+            return;
+        }
+    }
+    [self hideFinishAnmation];
+}
+- (void)hideFinishAnmation
+{
+    [self timerStopMinShow];
+    
+    if (self.isAnimation && self.showDate) {
+        self.showDate = nil;
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.alpha = 0.0;
         } completion:^(BOOL finished) {
             [self hideFinish];
         }];
     } else {
+        self.showDate = nil;
         self.alpha = 0.0;
         [self hideFinish];
     }
 }
 - (void)hideFinish
 {
-    [self timerStop];
-    [self animationStop];
-    [self.activityView stopAnimating];
-    //
-    if (self.superview) {
-        [self removeFromSuperview];
+    if (self.hasFinish) {
+        [self timerStop];
+        [self animationStop];
+        [self.activityView stopAnimating];
+        
+        if (self.superview) {
+            [self removeFromSuperview];
+        }
+        //
+        if (self.hideBlock) {
+            self.hideBlock();
+        }
+        [self notificationPostHide];
     }
-    //
-    if (self.hideBlock) {
-        self.hideBlock();
-    }
-    [self notificationPostHide];
 }
 /// 隐藏，延迟 + 回调
 - (void)hideDelay:(NSTimeInterval)time finishHandle:(void (^)(void))handle
@@ -535,12 +581,32 @@ static CGFloat const kMinSize = 102;
     self.hudView.originY = _offsetY;
 }
 
+- (void)setMinShowTime:(NSTimeInterval)minShowTime
+{
+    _minShowTime = minShowTime;
+    self.hudView.minShowTimeInterval = _minShowTime;
+}
+
 #pragma mark 显示隐藏
 
 /// 显示
 - (void)showInView:(UIView *)view enable:(BOOL)enable message:(NSString *)message autoHide:(NSTimeInterval)time finishHandle:(void (^)(void))handle
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        if (view && [view isKindOfClass:UIView.class] && [view respondsToSelector:@selector(addSubview:)]) {
+//            [view addSubview:self.hudView];
+//            self.hudView.userInteractionEnabled = !enable;
+//        }
+//
+//        self.hudView.label.text = message;
+//        if (time > 0) {
+//            [self.hudView showAutoHide:time finishHandle:handle];
+//        } else {
+//            [self.hudView show];
+//        }
+//    });
+    
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
         if (view && [view isKindOfClass:UIView.class] && [view respondsToSelector:@selector(addSubview:)]) {
             [view addSubview:self.hudView];
             self.hudView.userInteractionEnabled = !enable;
@@ -552,15 +618,19 @@ static CGFloat const kMinSize = 102;
         } else {
             [self.hudView show];
         }
-    });
+    }];
 }
 
 /// 隐藏
 - (void)hideDelay:(NSTimeInterval)time finishHandle:(void (^)(void))handle
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self.hudView hideDelay:time finishHandle:handle];
+//    });
+    
+    [NSOperationQueue.mainQueue addOperationWithBlock:^{
         [self.hudView hideDelay:time finishHandle:handle];
-    });
+    }];
 }
 
 @end
