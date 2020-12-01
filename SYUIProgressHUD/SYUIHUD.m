@@ -501,6 +501,11 @@ static CGFloat const kMinSize = 102;
     _imageName = imageName;
     self.hudView.imageView.image = [UIImage imageNamed:imageName];
 }
+- (void)setImage:(UIImage *)image
+{
+    _image = image;
+    self.hudView.imageView.image = _image;
+}
 - (void)setImageAnimation:(BOOL)imageAnimation
 {
     _imageAnimation = imageAnimation;

@@ -63,6 +63,8 @@ typedef NS_ENUM(NSInteger, SYUIHUDMode) {
 
 /// 图标（默认无）
 @property (nonatomic, strong) NSString *imageName;
+/// 图标（默认无）
+@property (nonatomic, strong) UIImage *image;
 /// 图标旋转动画（默认NO）
 @property (nonatomic, assign) BOOL imageAnimation;
 /// 图标旋转动画时间（默认0.5）
